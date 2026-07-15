@@ -13,213 +13,169 @@ namespace Assignment1.Services
     /// <summary>
     /// Service class is for manipulating on list.
     /// </summary>
-    public static class ServicesClass
+    public class ServicesClass
     {
         /// <summary>
-        /// Contact Management starts the program to run
+        /// instance of the repository class
         /// </summary>
-        public static void ContactManagement()
+        private RepositoryClass _repository = new RepositoryClass();
+
+        /// <summary>
+        /// this is the method service to Add a contact.
+        /// </summary>
+        /// <param name="name">the name of the contact </param>
+        /// <param name="email"> the email of the contact </param>
+        /// <param name="contact"> the phone number of the contact </param>
+        /// <param name="description"> the descripion of the contact</param>
+        /// <returns> return the boolean of has added or not</returns>
+        public bool AddContacts(string name, string email, string contact, string description)
         {
-            bool endApp = false;
-            DisplayClass.Display("Welcome to contact manager");
-            while (!endApp)
+            ContactInfo newContactInfo = new ContactInfo();
+            newContactInfo.Name = name;
+            if (Validation.IsValidEmail(email))
             {
-                PrintOperationsAvailable();
-                string? choice = InputClass.Input();
-                switch (choice.ToLower())
-                {
-                    case "a": AddContacts(); break;
-                    case "v": ViewContacts(); break;
-                    case "s": SearchContact(); break;
-                    case "e": EditContact(); break;
-                    case "d": DeleteContact(); break;
-                    //case "o": SortContact(); break;
-                    case "exit": endApp = true; break;
-                    default: DisplayClass.Display("Enter a valid choice"); break;
-                }
+                newContactInfo.Email = email;
+            }
+
+            if (Validation.ValidatingContact(contact))
+            {
+                newContactInfo.Contact = contact;
+            }
+            else
+            {
+                return false;
+            }
+
+            newContactInfo.Description = description;
+            Guid id = Guid.NewGuid();
+            newContactInfo.Id = id;
+            this._repository.AddContact(newContactInfo);
+            return true;
+        }
+
+        /// <summary>
+        /// this is the view contacts service method.
+        /// </summary>
+        /// <returns> the list of the contacts </returns>
+        public List<ContactInfo> ViewContacts()
+        {
+            List<ContactInfo> contacts = this._repository.ViewContact();
+            return contacts;
+        }
+
+        /// <summary>
+        /// This is the edit service
+        /// </summary>
+        /// <param name="choice"> which property is edited </param>
+        /// <param name="index"> which is index </param>
+        /// <param name="value"> what is the new value to be updated</param>
+        /// <returns> boolean of successful edit or not </returns>
+        public bool EditContact(string choice, int index, string value)
+        {
+            List<ContactInfo> contacts = this._repository.ViewContact();
+            switch (choice.ToLower())
+            {
+                case "n":
+                    contacts[index].Name = value; this._repository.UpdateContact(contacts[index], index); return true;
+                case "e":
+                    if (!Validation.IsValidEmail(value))
+                    {
+                        return false;
+                    }
+
+                    contacts[index].Email = value; this._repository.UpdateContact(contacts[index], index); return true;
+                case "c":
+                    if (!Validation.ValidatingContact(value))
+                    {
+                        return false;
+                    }
+
+                    contacts[index].Name = value; this._repository.UpdateContact(contacts[index], index); return true;
+                case "d":
+                    contacts[index].Description = value; this._repository.UpdateContact(contacts[index], index); return true;
+                default: return false;
             }
         }
 
         /// <summary>
-        /// funtion to print all the available operation.
+        /// Search contact service method is here
         /// </summary>
-        public static void PrintOperationsAvailable()
+        /// <param name="choice"> search by using name email or contact </param>
+        /// <param name="value"> the value of the choice </param>
+        /// <returns> return the entry found </returns>
+        public ContactInfo SearchContact(string choice, string value)
         {
-            DisplayClass.Display(
-                "1. [A]dd a contact.\n" +
-                "2. [V]iew all contacts.\n" +
-                "3. [S]earch a contact.\n" +
-                "4. [E]dit a contact.\n" +
-                "5. [D]elete a contact.\n" +
-                "6. [O]rder the contacts.\n" +
-                "7. type exit to exit the app.");
-        }
-
-        /// <summary>
-        /// method to add contact
-        /// </summary>
-        public static void AddContacts()
-        {
-            ContactInfo newContactInfo = new ContactInfo();
-            DisplayClass.Display("Enter Name: ");
-            newContactInfo.Name = InputClass.Input();
-            DisplayClass.Display("Enter Email: ");
-            newContactInfo.Email = InputClass.Input();
-            DisplayClass.Display("Enter Contact: ");
-            newContactInfo.Contact = InputClass.Input();
-            DisplayClass.Display("Enter Description: ");
-            newContactInfo.Description = InputClass.Input();
-            newContactInfo.Id = Guid.NewGuid();
-            RepositoryClass.AddContact(newContactInfo);
-            DisplayClass.Display("Added Successfully");
-        }
-
-        /// <summary>
-        /// created view Contacts function
-        /// </summary>
-        public static void ViewContacts()
-        {
-            List<ContactInfo> contacts = RepositoryClass.ViewContact();
-            DisplayClass.ShowList(contacts);
-        }
-
-        /// <summary>
-        /// SearchContact function is here 
-        /// </summary>
-        public static void SearchContact()
-        {
-            DisplayClass.Display("Searching Contact");
-            DisplayClass.Display("Search using\n [N]ame \n [C]ontact \n [E]mail");
-            string? choice = InputClass.Input();
-            List<ContactInfo> contacts = RepositoryClass.ViewContact();
+            List<ContactInfo> contact = this.ViewContacts();
             switch (choice.ToLower())
             {
                 case "n":
                     {
-                        bool found = false;
-                        DisplayClass.Display("Enter name : ");
-                        string? userchoice = InputClass.Input();
-                        foreach (var entry in contacts)
+                        foreach (var entry in contact)
                         {
-                            if (entry.Name == userchoice)
+                            if (entry.Name == value)
                             {
-                                found = true;
-                                DisplayClass.Display("Name : " + entry.Name + " Email : " + entry.Email + " Contact :" + entry.Contact + " Description :" + entry.Description + "\n");
+                                return entry;
                             }
                         }
-
-                        if (found == false)
-                        {
-                            DisplayClass.Display("Not found");
-                        }
-
-                        break;
                     }
 
-                case "c":
-                    {
-                        bool found = false;
-                        DisplayClass.Display("Enter Contact Number : ");
-                        string? userchoice = InputClass.Input();
-                        foreach (var entry in contacts)
-                        {
-                            if (entry.Contact == userchoice)
-                            {
-                                found = true;
-                                DisplayClass.Display("Name : " + entry.Name + " Email : " + entry.Email + " Contact :" + entry.Contact + " Description :" + entry.Description + "\n");
-                            }
-                        }
-
-                        if (found == false)
-                        {
-                            DisplayClass.Display("Not found");
-                        }
-
-                        break;
-                    }
-
+                    break;
                 case "e":
                     {
-                        bool found = false;
-                        DisplayClass.Display("Enter Email : ");
-                        string? userchoice = InputClass.Input();
-                        foreach (var entry in contacts)
+                        foreach (var entry in contact)
                         {
-                            if (entry.Email == userchoice)
+                            if (entry.Email == value)
                             {
-                                found = true;
-                                DisplayClass.Display("Name : " + entry.Name + " Email : " + entry.Email + " Contact :" + entry.Contact + " Description :" + entry.Description + "\n");
+                                return entry;
                             }
                         }
-
-                        if (found == false)
-                        {
-                            DisplayClass.Display("Not found");
-                        }
-
-                        break;
                     }
 
-                default: DisplayClass.Display("Enter a valid choice"); break;
+                    break;
+                case "c":
+                    {
+                        foreach (var entry in contact)
+                        {
+                            if (entry.Contact == value)
+                            {
+                                return entry;
+                            }
+                        }
+                    }
+
+                    break;
+                default: return new ContactInfo();
             }
+
+            return new ContactInfo();
         }
 
         /// <summary>
-        /// this is the edit contact function
+        /// this is the Sort Contact Method to sort the contacts.
         /// </summary>
-        public static void EditContact()
+        public void SortContacts()
         {
-            DisplayClass.Display("Editing contact");
-            ViewContacts();
-            DisplayClass.Display("Enter the Sno: ");
-            string editContactindex = InputClass.Input();
-            int index;
-            if (int.TryParse(editContactindex, out index) && index > 0 && index <= RepositoryClass.ViewContact().Count())
-            {
-                index = index - 1;
-                DisplayClass.Display("Enter name: ");
-                string? name = Console.ReadLine();
-                DisplayClass.Display("Enter Email: ");
-                string? email = Console.ReadLine();
-                DisplayClass.Display("Enter contact: ");
-                string? contact = Console.ReadLine();
-                DisplayClass.Display("Enter Other details");
-                string? otherDetails = Console.ReadLine();
-                ContactInfo update = new ContactInfo();
-                update.Name = name;
-                update.Email = email;
-                update.Contact = contact;
-                update.Description = otherDetails;
-                RepositoryClass.UpdateContact(update, index);
-                DisplayClass.Display("Edited Succesfully");
-            }
-            else
-            {
-                DisplayClass.Display("Enter a valid Sno");
-            }
+            this._repository.SortContact();
         }
 
         /// <summary>
-        /// funtion to Delete a contact.
+        /// this is the DeleteContact service which deletes the entry.
         /// </summary>
-        public static void DeleteContact()
+        /// <param name="id"> the Guid of the contact to be deleted</param>
+        public void DeleteContact(Guid id)
         {// Deleting a contact using the Sno of displayed list
-            DisplayClass.Display("Deleting a contact");
-            ViewContacts();
-            DisplayClass.Display("Enter the Sno:");
-            string? deleteContactindex = InputClass.Input();
-            int index;
-            int length = RepositoryClass.ViewContact().Count();
-            if (int.TryParse(deleteContactindex, out index) && index > 0 && index <= length)
+            List<ContactInfo> contacts = this.ViewContacts();
+            ContactInfo deleteContact = new ContactInfo();
+            foreach (ContactInfo entry in contacts)
             {
-               index = index - 1;
-               RepositoryClass.DeleteContact(index);
-               DisplayClass.Display("Deleted Succesfully");
+                if (entry.Id == id)
+                {
+                    deleteContact = entry;
+                    break;
+                }
             }
-            else
-            {
-                DisplayClass.Display("Invalid number entered.");
-            }
+
+            this._repository.DeleteContact(deleteContact);
         }
     }
 }

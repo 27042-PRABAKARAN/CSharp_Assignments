@@ -12,24 +12,24 @@ namespace Assignment1.Repository
     /// </summary>
     public class RepositoryClass
     {
-        private static List<ContactInfo> _contactList = new List<ContactInfo>();
+        private List<ContactInfo> _contactList = new List<ContactInfo>();
 
         /// <summary>
         /// This creates contact in the _contact list
         /// </summary>
         /// <param name="contact"> this is the contact that should bee added to the list</param>
-        public static void AddContact(ContactInfo contact)
+        public void AddContact(ContactInfo contact)
         {
-            _contactList.Add(contact);
+            this._contactList.Add(contact);
         }
 
         /// <summary>
         /// This updates the contact in the _contact list
         /// </summary>
-        /// <param name="index"> this is the contactName that should be updated to the list</param>
-        public static void DeleteContact(int index)
+        /// <param name="contact"> this is the contactName that should be updated to the list</param>
+        public void DeleteContact(ContactInfo contact)
         {
-                _contactList.RemoveAt(index);
+                this._contactList.Remove(contact);
         }
 
         /// <summary>
@@ -37,9 +37,17 @@ namespace Assignment1.Repository
         /// </summary>
         /// <param name="contactName"> this is the contactName that should be updated to the list</param>
         /// <returns>The contact list.</returns>
-        public static List<ContactInfo> ViewContact()
+        public List<ContactInfo> ViewContact()
         {
-            return new List<ContactInfo>(_contactList);
+            return this._contactList.Select(c => new ContactInfo
+         {
+             Name = c.Name,
+             Email = c.Email,
+             Contact = c.Contact,
+             Description = c.Description,
+             Id = c.Id,
+         })
+         .ToList();
         }
 
         /// <summary>
@@ -47,9 +55,17 @@ namespace Assignment1.Repository
         /// </summary>
         /// <param name="contact"> the updated entry </param>
         /// <param name="index"> the index to be updated </param>
-        public static void UpdateContact(ContactInfo contact, int index)
+        public void UpdateContact(ContactInfo contact, int index)
         {
-            _contactList[index] = contact;
+            this._contactList[index] = contact;
+        }
+
+        /// <summary>
+        /// this Sorts the contacts of the contact list
+        /// </summary>
+        public void SortContact()
+        {
+            this._contactList.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.OrdinalIgnoreCase));
         }
     }
 }

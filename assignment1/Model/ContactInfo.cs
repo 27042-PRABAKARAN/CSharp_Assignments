@@ -15,7 +15,7 @@ namespace Assignment1.Model
         /// Gets or sets the Name of the Contact.
         /// </summary>
         /// <value>The name of the Contact.</value>
-        public string? Name { get; set; }
+        public string Name { get; set; }
 
         /// <summary>
         /// Gets or sets the Email of the Contact.
@@ -33,7 +33,7 @@ namespace Assignment1.Model
         /// Gets or sets the Description of the Contact.
         /// </summary>
         /// <value>The Description of the Contact.</value>
-        public string? Description { get; set; }
+        public string Description { get; set; }
 
         /// <summary>
         /// Gets or sets the unique id of the Contact.
