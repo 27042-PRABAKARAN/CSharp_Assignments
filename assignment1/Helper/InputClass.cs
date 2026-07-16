@@ -18,11 +18,6 @@ namespace Assignment1.Helper
         public static string? Input()
         {
             string? userInput = Console.ReadLine();
-            if (string.IsNullOrWhiteSpace(userInput))
-            {
-                throw new EmptyInputException();
-            }
-
             return userInput;
         }
 
@@ -37,6 +32,7 @@ namespace Assignment1.Helper
             {
                 return false;
             }
+
             return true;
         }
     }
