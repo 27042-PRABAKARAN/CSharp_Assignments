@@ -67,34 +67,39 @@ namespace Assignment1.Services
         /// This is the edit service
         /// </summary>
         /// <param name="choice"> which property is edited </param>
-        /// <param name="index"> which is index </param>
+        /// <param name="id"> which is guid of the specific record </param>
         /// <param name="value"> what is the new value to be updated</param>
         /// <returns> boolean of successful edit or not </returns>
-        public bool EditContact(string? choice, int index, string? value)
+        public bool EditContact(string? choice, Guid id, string? value)
         {
-            List<ContactInfo> contacts = this._repository.ViewContact();
+            ContactInfo? record = this.GetContactById(id);
+            if (record == null)
+            {
+                return false;
+            }
+
             if (choice != null)
             {
                 switch (choice.ToLower())
                 {
                     case "n":
-                        contacts[index].Name = value; this._repository.UpdateContact(contacts[index], index); return true;
+                        record.Name = value; this._repository.UpdateContact(record, record.Id); return true;
                     case "e":
                         if (!Validation.IsValidEmail(value))
                         {
                             return false;
                         }
 
-                        contacts[index].Email = value; this._repository.UpdateContact(contacts[index], index); return true;
+                        record.Email = value; this._repository.UpdateContact(record, record.Id); return true;
                     case "c":
                         if (!Validation.ValidatingContact(value))
                         {
                             return false;
                         }
 
-                        contacts[index].Contact = value; this._repository.UpdateContact(contacts[index], index); return true;
+                        record.Contact = value; this._repository.UpdateContact(record, record.Id); return true;
                     case "d":
-                        contacts[index].Description = value; this._repository.UpdateContact(contacts[index], index); return true;
+                        record.Description = value; this._repository.UpdateContact(record, record.Id); return true;
                     default: return false;
                 }
             }
@@ -102,6 +107,24 @@ namespace Assignment1.Services
             {
                 return false;
             }
+        }
+
+        /// <summary>
+        /// to get the object matching the id
+        /// </summary>
+        /// <param name="id"> the guid of the object </param>
+        /// <returns> the object found </returns>
+        public ContactInfo? GetContactById(Guid id)
+        {
+            foreach (var entry in this._repository.ViewContact())
+            {
+                if (entry.Id == id)
+                {
+                    return entry;
+                }
+            }
+
+            return null;
         }
 
         /// <summary>
@@ -165,20 +188,12 @@ namespace Assignment1.Services
         }
 
         /// <summary>
-        /// this is the Sort Contact Method to sort the contacts.
-        /// </summary>
-        public void SortContacts()
-        {
-            this._repository.SortContact();
-        }
-
-        /// <summary>
         /// this is the DeleteContact service which deletes the entry.
         /// </summary>
-        /// <param name="index"> the index of the contact to be deleted</param>
-        public void DeleteContact(int index)
-        {// Deleting a contact using the Sno of displayed list
-            this._repository.DeleteContact(index);
+        /// <param name="id"> the guid of the contact to be deleted</param>
+        public void DeleteContact(Guid id)
+        {
+            this._repository.DeleteContact(id);
         }
     }
 }

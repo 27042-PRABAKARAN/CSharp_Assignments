@@ -24,12 +24,26 @@ namespace Assignment1.Repository
         }
 
         /// <summary>
-        /// This updates the contact in the _contact list
+        /// This deletes the contact in the _contact list
         /// </summary>
-        /// <param name="index"> this is the contactName that should be updated to the list</param>
-        public void DeleteContact(int index)
+        /// <param name="id"> this is the guid of the contactName that should be deleted to the list</param>
+        public void DeleteContact(Guid id)
         {
-                this._contactList.RemoveAt(index);
+            ContactInfo? record = null;
+            foreach (ContactInfo contact in this._contactList)
+            {
+                if (contact.Id == id)
+                {
+                    record = contact;
+                }
+            }
+
+            if (record == null)
+            {
+                return;
+            }
+
+            this._contactList.Remove(record);
         }
 
         /// <summary>
@@ -54,18 +68,35 @@ namespace Assignment1.Repository
         /// This is update contact function that updates the specific entry
         /// </summary>
         /// <param name="contact"> the updated entry </param>
-        /// <param name="index"> the index to be updated </param>
-        public void UpdateContact(ContactInfo contact, int index)
+        /// <param name="id"> the guid to be updated </param>
+        public void UpdateContact(ContactInfo contact, Guid id)
         {
-            this._contactList[index] = contact;
+            ContactInfo? record = null;
+            foreach (var entry in this._contactList)
+            {
+                if (entry.Id == id)
+                {
+                    record = entry;
+                }
+            }
+
+            if (record == null)
+            {
+                return;
+            }
+
+            record.Name = contact.Name;
+            record.Contact = contact.Contact;
+            record.Description = contact.Description;
+            record.Email = contact.Email;
         }
 
-        /// <summary>
-        /// this Sorts the contacts of the contact list
-        /// </summary>
-        public void SortContact()
-        {
-            this._contactList.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.OrdinalIgnoreCase));
-        }
+        ///// <summary>
+        ///// this Sorts the contacts of the contact list
+        ///// </summary>
+        // public void SortContact()
+        // {
+        //    this._contactList.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.OrdinalIgnoreCase));
+        // }
     }
 }

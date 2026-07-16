@@ -62,6 +62,7 @@ namespace Assignment1
         public static void ViewContacts()
         {
             List<ContactInfo> contacts = _service.ViewContacts();
+            contacts.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.OrdinalIgnoreCase));
             DisplayClass.Display("\nComplete contact list : ");
             DisplayClass.ShowList(contacts);
             DisplayClass.Display("end of list\n");
@@ -75,7 +76,6 @@ namespace Assignment1
             DisplayClass.Display("Searching Contact");
             DisplayClass.Display("Search using\n [N]ame \n [C]ontact \n [E]mail");
             string? choice = InputClass.Input();
-            List<ContactInfo> contacts = _service.ViewContacts();
             if (choice != null)
             {
                 switch (choice.ToLower())
@@ -154,19 +154,20 @@ namespace Assignment1
         /// funtion to Delete a contact.
         /// </summary>
         public static void DeleteContact()
-        {// Deleting a contact using the Sno of displayed list
+        {
             DisplayClass.Display("Deleting a contact");
             List<ContactInfo> contact = _service.ViewContacts();
+            contact.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.OrdinalIgnoreCase));
             ViewContacts();
             DisplayClass.Display("Enter the Sno:");
             string? deleteContactindex = InputClass.Input();
             int index;
-            int length = _service.ViewContacts().Count();
+            int length = contact.Count();
             if (int.TryParse(deleteContactindex, out index) && index > 0 && index <= length)
             {
                 index = index - 1;
 
-                _service.DeleteContact(index);
+                _service.DeleteContact(contact[index].Id);
                 DisplayClass.Display("Deleted Succesfully\n");
             }
             else
@@ -182,6 +183,8 @@ namespace Assignment1
         {
             DisplayClass.Display("Editing contact");
             ViewContacts();
+            List<ContactInfo> contacts = _service.ViewContacts();
+            contacts.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.OrdinalIgnoreCase));
             DisplayClass.Display("Enter the Sno: ");
             string? editContactindex = InputClass.Input();
             int index;
@@ -193,7 +196,7 @@ namespace Assignment1
                 string? choice = InputClass.Input();
                 DisplayClass.Display("Enter new Value: ");
                 string? value = InputClass.Input();
-                bool edited = _service.EditContact(choice, index, value);
+                bool edited = _service.EditContact(choice, contacts[index].Id, value);
                 if (edited)
                 {
                     DisplayClass.Display("Edited Succesfully\n");
@@ -207,15 +210,6 @@ namespace Assignment1
             {
                 DisplayClass.Display("Enter a valid Sno\n");
             }
-        }
-
-        /// <summary>
-        /// this is the Sort Contact Method to sort the contacts.
-        /// </summary>
-        public static void SortContacts()
-        {
-            _service.SortContacts();
-            ViewContacts();
         }
 
         private static void Main(string[] args)
@@ -239,7 +233,6 @@ namespace Assignment1
                         case "s": SearchContact(); break;
                         case "e": EditContact(); break;
                         case "d": DeleteContact(); break;
-                        case "o": SortContacts(); break;
                         case "exit": endApp = true; break;
                         default: DisplayClass.Display("Enter a valid choice"); break;
                     }
