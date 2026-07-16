@@ -133,58 +133,9 @@ namespace Assignment1.Services
         /// <param name="choice"> search by using name email or contact </param>
         /// <param name="value"> the value of the choice </param>
         /// <returns> return the entry found </returns>
-        public ContactInfo SearchContact(string? choice, string? value)
+        public List<ContactInfo>? SearchContact(string? choice, string? value)
         {
-            List<ContactInfo> contact = this.ViewContacts();
-            if (choice != null)
-            {
-                switch (choice.ToLower())
-                {
-                    case "n":
-                        {
-                            foreach (var entry in contact)
-                            {
-                                if (entry.Name == value)
-                                {
-                                    return entry;
-                                }
-                            }
-                        }
-
-                        break;
-                    case "e":
-                        {
-                            foreach (var entry in contact)
-                            {
-                                if (entry.Email == value)
-                                {
-                                    return entry;
-                                }
-                            }
-                        }
-
-                        break;
-                    case "c":
-                        {
-                            foreach (var entry in contact)
-                            {
-                                if (entry.Contact == value)
-                                {
-                                    return entry;
-                                }
-                            }
-                        }
-
-                        break;
-                    default: return new ContactInfo();
-                }
-            }
-            else
-            {
-                return new ContactInfo();
-            }
-
-            return new ContactInfo();
+            return this._repository.Search(choice, value);
         }
 
         /// <summary>

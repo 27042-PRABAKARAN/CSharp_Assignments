@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 using Assignment1.Model;
@@ -91,12 +92,63 @@ namespace Assignment1.Repository
             record.Email = contact.Email;
         }
 
-        ///// <summary>
-        ///// this Sorts the contacts of the contact list
-        ///// </summary>
-        // public void SortContact()
-        // {
-        //    this._contactList.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.OrdinalIgnoreCase));
-        // }
+        /// <summary>
+        /// method to search
+        /// </summary>
+        /// <param name="choice"> using which parameter the search happens</param>
+        /// <param name="value"> what is the value to be searched </param>
+        /// <returns>list of found records </returns>
+        public List<ContactInfo>? Search(string? choice, string? value)
+        {
+            List<ContactInfo> result = new List<ContactInfo>();
+            if (choice == null || value == null || this._contactList == null)
+            {
+                return null;
+            }
+
+            switch (choice.ToLower())
+                {
+                    case "n":
+                        {
+                            foreach (var entry in this._contactList)
+                            {
+                                if (entry.Name != null && entry.Name.ToLower().Contains(value.ToLower()))
+                                {
+                                    result.Add(entry);
+                                }
+                            }
+
+                            return result;
+                        }
+
+                    case "e":
+                        {
+                            foreach (var entry in this._contactList)
+                            {
+                                if (entry.Email != null && entry.Email.ToLower().Contains(value.ToLower()))
+                                {
+                                    result.Add(entry);
+                                }
+                            }
+
+                            return result;
+                        }
+
+                    case "c":
+                        {
+                            foreach (var entry in this._contactList)
+                            {
+                                if (entry.Contact != null && entry.Contact.ToLower().Contains(value.ToLower()))
+                                {
+                                    result.Add(entry);
+                                }
+                            }
+
+                            return result;
+                        }
+
+                    default: return null;
+                }
+        }
     }
 }

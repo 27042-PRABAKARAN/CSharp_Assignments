@@ -25,8 +25,13 @@ namespace Assignment1.Helper
         /// ShowList funtion is present here
         /// </summary>
         /// <param name="contact"> the Contact that has to be displayed in right manner</param>
-        public static void ShowList(List<ContactInfo> contact)
+        public static void ShowList(List<ContactInfo>? contact)
         {
+            if (contact == null)
+            {
+                return;
+            }
+
             int i = 0;
             foreach (var entry in contact)
             {

@@ -82,20 +82,22 @@ namespace Assignment1
                 {
                     case "n":
                         {
-                            bool found = false;
+                            bool found = true;
                             DisplayClass.Display("Enter name : ");
                             string? userchoice = InputClass.Input();
-                            ContactInfo entry = _service.SearchContact("n", userchoice);
-                            if (entry.Name != null)
+                            List<ContactInfo>? records = _service.SearchContact("n", userchoice);
+                            if (records == null)
                             {
-                                found = true;
+                                found = false;
                             }
-
-                            DisplayClass.Display("Name : " + entry.Name + " Email : " + entry.Email + " Contact :" + entry.Contact + " Description :" + entry.Description + "\n");
 
                             if (found == false)
                             {
                                 DisplayClass.Display("Not found");
+                            }
+                            else
+                            {
+                                DisplayClass.ShowList(records);
                             }
 
                             break;
@@ -103,19 +105,22 @@ namespace Assignment1
 
                     case "c":
                         {
-                            bool found = false;
+                            bool found = true;
                             DisplayClass.Display("Enter Contact Number : ");
                             string? userchoice = InputClass.Input();
-                            ContactInfo entry = _service.SearchContact("c", userchoice);
-                            if (entry.Name != null)
+                            List<ContactInfo>? records = _service.SearchContact("c", userchoice);
+                            if (records == null)
                             {
-                                found = true;
-                                DisplayClass.Display("Name : " + entry.Name + " Email : " + entry.Email + " Contact :" + entry.Contact + " Description :" + entry.Description + "\n");
+                                found = false;
                             }
 
                             if (found == false)
                             {
                                 DisplayClass.Display("Not found");
+                            }
+                            else
+                            {
+                                DisplayClass.ShowList(records);
                             }
 
                             break;
@@ -123,19 +128,22 @@ namespace Assignment1
 
                     case "e":
                         {
-                            bool found = false;
+                            bool found = true;
                             DisplayClass.Display("Enter Email : ");
                             string? userchoice = InputClass.Input();
-                            ContactInfo entry = _service.SearchContact("e", userchoice);
-                            if (entry.Name != null)
+                            List<ContactInfo>? records = _service.SearchContact("e", userchoice);
+                            if (records == null)
                             {
-                                found = true;
-                                DisplayClass.Display("Name : " + entry.Name + " Email : " + entry.Email + " Contact :" + entry.Contact + " Description :" + entry.Description + "\n");
+                                found = false;
                             }
 
                             if (found == false)
                             {
                                 DisplayClass.Display("Not found");
+                            }
+                            else
+                            {
+                                DisplayClass.ShowList(records);
                             }
 
                             break;
