@@ -38,13 +38,13 @@ namespace Assignment1
         public static void AddContacts()
         {
             DisplayClass.Display("Enter Name: ");
-            string name = InputClass.Input();
+            string? name = InputClass.Input();
             DisplayClass.Display("Enter Email: ");
-            string email = InputClass.Input();
+            string? email = InputClass.Input();
             DisplayClass.Display("Enter Contact: ");
-            string contact = InputClass.Input();
+            string? contact = InputClass.Input();
             DisplayClass.Display("Enter Description: ");
-            string description = InputClass.Input();
+            string? description = InputClass.Input();
             bool added = _service.AddContacts(name, email, contact, description);
             if (added)
             {
@@ -76,70 +76,77 @@ namespace Assignment1
             DisplayClass.Display("Search using\n [N]ame \n [C]ontact \n [E]mail");
             string? choice = InputClass.Input();
             List<ContactInfo> contacts = _service.ViewContacts();
-            switch (choice.ToLower())
+            if (choice != null)
             {
-                case "n":
-                    {
-                        bool found = false;
-                        DisplayClass.Display("Enter name : ");
-                        string? userchoice = InputClass.Input();
-                        ContactInfo entry = _service.SearchContact("n", userchoice);
-                        if (entry.Name != null)
+                switch (choice.ToLower())
+                {
+                    case "n":
                         {
-                            found = true;
-                        }
+                            bool found = false;
+                            DisplayClass.Display("Enter name : ");
+                            string? userchoice = InputClass.Input();
+                            ContactInfo entry = _service.SearchContact("n", userchoice);
+                            if (entry.Name != null)
+                            {
+                                found = true;
+                            }
 
-                        DisplayClass.Display("Name : " + entry.Name + " Email : " + entry.Email + " Contact :" + entry.Contact + " Description :" + entry.Description + "\n");
-
-                        if (found == false)
-                        {
-                            DisplayClass.Display("Not found");
-                        }
-
-                        break;
-                    }
-
-                case "c":
-                    {
-                        bool found = false;
-                        DisplayClass.Display("Enter Contact Number : ");
-                        string? userchoice = InputClass.Input();
-                        ContactInfo entry = _service.SearchContact("c", userchoice);
-                        if (entry.Name != null)
-                        {
-                            found = true;
                             DisplayClass.Display("Name : " + entry.Name + " Email : " + entry.Email + " Contact :" + entry.Contact + " Description :" + entry.Description + "\n");
+
+                            if (found == false)
+                            {
+                                DisplayClass.Display("Not found");
+                            }
+
+                            break;
                         }
 
-                        if (found == false)
+                    case "c":
                         {
-                            DisplayClass.Display("Not found");
+                            bool found = false;
+                            DisplayClass.Display("Enter Contact Number : ");
+                            string? userchoice = InputClass.Input();
+                            ContactInfo entry = _service.SearchContact("c", userchoice);
+                            if (entry.Name != null)
+                            {
+                                found = true;
+                                DisplayClass.Display("Name : " + entry.Name + " Email : " + entry.Email + " Contact :" + entry.Contact + " Description :" + entry.Description + "\n");
+                            }
+
+                            if (found == false)
+                            {
+                                DisplayClass.Display("Not found");
+                            }
+
+                            break;
                         }
 
-                        break;
-                    }
-
-                case "e":
-                    {
-                        bool found = false;
-                        DisplayClass.Display("Enter Email : ");
-                        string? userchoice = InputClass.Input();
-                        ContactInfo entry = _service.SearchContact("e", userchoice);
-                        if (entry.Name != null)
+                    case "e":
                         {
-                            found = true;
-                            DisplayClass.Display("Name : " + entry.Name + " Email : " + entry.Email + " Contact :" + entry.Contact + " Description :" + entry.Description + "\n");
+                            bool found = false;
+                            DisplayClass.Display("Enter Email : ");
+                            string? userchoice = InputClass.Input();
+                            ContactInfo entry = _service.SearchContact("e", userchoice);
+                            if (entry.Name != null)
+                            {
+                                found = true;
+                                DisplayClass.Display("Name : " + entry.Name + " Email : " + entry.Email + " Contact :" + entry.Contact + " Description :" + entry.Description + "\n");
+                            }
+
+                            if (found == false)
+                            {
+                                DisplayClass.Display("Not found");
+                            }
+
+                            break;
                         }
 
-                        if (found == false)
-                        {
-                            DisplayClass.Display("Not found");
-                        }
-
-                        break;
-                    }
-
-                default: DisplayClass.Display("Enter a valid choice\n"); break;
+                    default: DisplayClass.Display("Enter a valid choice\n"); break;
+                }
+            }
+            else
+            {
+                DisplayClass.Display("Enter a valid choice\n");
             }
         }
 
@@ -176,7 +183,7 @@ namespace Assignment1
             DisplayClass.Display("Editing contact");
             ViewContacts();
             DisplayClass.Display("Enter the Sno: ");
-            string editContactindex = InputClass.Input();
+            string? editContactindex = InputClass.Input();
             int index;
             if (int.TryParse(editContactindex, out index) && index > 0 && index <= _service.ViewContacts().Count())
             {
@@ -213,24 +220,30 @@ namespace Assignment1
 
         private static void Main(string[] args)
         {
-            bool endApp = false;
-            DisplayClass.Display("Welcome to contact manager");
-            while (!endApp)
-            {
-                PrintOperationsAvailable();
-                string? choice = InputClass.Input();
-                switch (choice.ToLower())
+                bool endApp = false;
+                DisplayClass.Display("Welcome to contact manager");
+                while (!endApp)
                 {
-                    case "a": AddContacts(); break;
-                    case "v": ViewContacts(); break;
-                    case "s": SearchContact(); break;
-                    case "e": EditContact(); break;
-                    case "d": DeleteContact(); break;
-                    case "o": SortContacts(); break;
-                    case "exit": endApp = true; break;
-                    default: DisplayClass.Display("Enter a valid choice"); break;
+                    PrintOperationsAvailable();
+                    string? choice = InputClass.Input();
+                    if (choice == null)
+                    {
+                        DisplayClass.Display("Enter a valid choice");
+                        continue;
+                    }
+
+                    switch (choice.ToLower())
+                    {
+                        case "a": AddContacts(); break;
+                        case "v": ViewContacts(); break;
+                        case "s": SearchContact(); break;
+                        case "e": EditContact(); break;
+                        case "d": DeleteContact(); break;
+                        case "o": SortContacts(); break;
+                        case "exit": endApp = true; break;
+                        default: DisplayClass.Display("Enter a valid choice"); break;
+                    }
                 }
-            }
         }
     }
 }

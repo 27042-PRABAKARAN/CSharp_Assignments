@@ -17,8 +17,13 @@ namespace Assignment1.Helper
         /// </summary>
         /// <param name="number"> the string of the phone number</param>
         /// <returns> validation result </returns>
-        public static bool ValidatingContact(string number)
+        public static bool ValidatingContact(string? number)
         {
+            if (number == null)
+            {
+                return false;
+            }
+
             foreach (char c in number)
             {
                 if (!char.IsDigit(c))
@@ -40,7 +45,7 @@ namespace Assignment1.Helper
         /// </summary>
         /// <param name="mail"> the mail which has to be validated </param>
         /// <returns> the result as bool of validation result </returns>
-        public static bool IsValidEmail(string mail)
+        public static bool IsValidEmail(string? mail)
         {
             return !string.IsNullOrWhiteSpace(mail) && Regex.IsMatch(mail, @"^.+@.+\..+$");
         }

@@ -28,7 +28,7 @@ namespace Assignment1.Services
         /// <param name="contact"> the phone number of the contact </param>
         /// <param name="description"> the descripion of the contact</param>
         /// <returns> return the boolean of has added or not</returns>
-        public bool AddContacts(string name, string email, string contact, string description)
+        public bool AddContacts(string? name, string? email, string? contact, string? description)
         {
             ContactInfo newContactInfo = new ContactInfo();
             newContactInfo.Name = name;
@@ -70,30 +70,37 @@ namespace Assignment1.Services
         /// <param name="index"> which is index </param>
         /// <param name="value"> what is the new value to be updated</param>
         /// <returns> boolean of successful edit or not </returns>
-        public bool EditContact(string choice, int index, string value)
+        public bool EditContact(string? choice, int index, string? value)
         {
             List<ContactInfo> contacts = this._repository.ViewContact();
-            switch (choice.ToLower())
+            if (choice != null)
             {
-                case "n":
-                    contacts[index].Name = value; this._repository.UpdateContact(contacts[index], index); return true;
-                case "e":
-                    if (!Validation.IsValidEmail(value))
-                    {
-                        return false;
-                    }
+                switch (choice.ToLower())
+                {
+                    case "n":
+                        contacts[index].Name = value; this._repository.UpdateContact(contacts[index], index); return true;
+                    case "e":
+                        if (!Validation.IsValidEmail(value))
+                        {
+                            return false;
+                        }
 
-                    contacts[index].Email = value; this._repository.UpdateContact(contacts[index], index); return true;
-                case "c":
-                    if (!Validation.ValidatingContact(value))
-                    {
-                        return false;
-                    }
+                        contacts[index].Email = value; this._repository.UpdateContact(contacts[index], index); return true;
+                    case "c":
+                        if (!Validation.ValidatingContact(value))
+                        {
+                            return false;
+                        }
 
-                    contacts[index].Name = value; this._repository.UpdateContact(contacts[index], index); return true;
-                case "d":
-                    contacts[index].Description = value; this._repository.UpdateContact(contacts[index], index); return true;
-                default: return false;
+                        contacts[index].Name = value; this._repository.UpdateContact(contacts[index], index); return true;
+                    case "d":
+                        contacts[index].Description = value; this._repository.UpdateContact(contacts[index], index); return true;
+                    default: return false;
+                }
+            }
+            else
+            {
+                return false;
             }
         }
 
@@ -103,48 +110,55 @@ namespace Assignment1.Services
         /// <param name="choice"> search by using name email or contact </param>
         /// <param name="value"> the value of the choice </param>
         /// <returns> return the entry found </returns>
-        public ContactInfo SearchContact(string choice, string value)
+        public ContactInfo SearchContact(string? choice, string? value)
         {
             List<ContactInfo> contact = this.ViewContacts();
-            switch (choice.ToLower())
+            if (choice != null)
             {
-                case "n":
-                    {
-                        foreach (var entry in contact)
+                switch (choice.ToLower())
+                {
+                    case "n":
                         {
-                            if (entry.Name == value)
+                            foreach (var entry in contact)
                             {
-                                return entry;
+                                if (entry.Name == value)
+                                {
+                                    return entry;
+                                }
                             }
                         }
-                    }
 
-                    break;
-                case "e":
-                    {
-                        foreach (var entry in contact)
+                        break;
+                    case "e":
                         {
-                            if (entry.Email == value)
+                            foreach (var entry in contact)
                             {
-                                return entry;
+                                if (entry.Email == value)
+                                {
+                                    return entry;
+                                }
                             }
                         }
-                    }
 
-                    break;
-                case "c":
-                    {
-                        foreach (var entry in contact)
+                        break;
+                    case "c":
                         {
-                            if (entry.Contact == value)
+                            foreach (var entry in contact)
                             {
-                                return entry;
+                                if (entry.Contact == value)
+                                {
+                                    return entry;
+                                }
                             }
                         }
-                    }
 
-                    break;
-                default: return new ContactInfo();
+                        break;
+                    default: return new ContactInfo();
+                }
+            }
+            else
+            {
+                return new ContactInfo();
             }
 
             return new ContactInfo();

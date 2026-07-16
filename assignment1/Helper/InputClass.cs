@@ -18,7 +18,26 @@ namespace Assignment1.Helper
         public static string? Input()
         {
             string? userInput = Console.ReadLine();
+            if (string.IsNullOrWhiteSpace(userInput))
+            {
+                throw new EmptyInputException();
+            }
+
             return userInput;
+        }
+
+        /// <summary>
+        /// to check the input is null or not
+        /// </summary>
+        /// <param name="input"> the string to be checked </param>
+        /// <returns> boolean </returns>
+        public static bool CheckInput(string input)
+        {
+            if (string.IsNullOrWhiteSpace(input))
+            {
+                return false;
+            }
+            return true;
         }
     }
 }
