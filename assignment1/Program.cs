@@ -166,7 +166,7 @@ namespace Assignment1
             {
                 index = index - 1;
 
-                _service.DeleteContact(contact[index].Id);
+                _service.DeleteContact(index);
                 DisplayClass.Display("Deleted Succesfully\n");
             }
             else

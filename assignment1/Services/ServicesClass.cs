@@ -92,7 +92,7 @@ namespace Assignment1.Services
                             return false;
                         }
 
-                        contacts[index].Name = value; this._repository.UpdateContact(contacts[index], index); return true;
+                        contacts[index].Contact = value; this._repository.UpdateContact(contacts[index], index); return true;
                     case "d":
                         contacts[index].Description = value; this._repository.UpdateContact(contacts[index], index); return true;
                     default: return false;
@@ -175,21 +175,10 @@ namespace Assignment1.Services
         /// <summary>
         /// this is the DeleteContact service which deletes the entry.
         /// </summary>
-        /// <param name="id"> the Guid of the contact to be deleted</param>
-        public void DeleteContact(Guid id)
+        /// <param name="index"> the index of the contact to be deleted</param>
+        public void DeleteContact(int index)
         {// Deleting a contact using the Sno of displayed list
-            List<ContactInfo> contacts = this.ViewContacts();
-            ContactInfo deleteContact = new ContactInfo();
-            foreach (ContactInfo entry in contacts)
-            {
-                if (entry.Id == id)
-                {
-                    deleteContact = entry;
-                    break;
-                }
-            }
-
-            this._repository.DeleteContact(deleteContact);
+            this._repository.DeleteContact(index);
         }
     }
 }

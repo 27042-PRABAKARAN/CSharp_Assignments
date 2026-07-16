@@ -26,10 +26,10 @@ namespace Assignment1.Repository
         /// <summary>
         /// This updates the contact in the _contact list
         /// </summary>
-        /// <param name="contact"> this is the contactName that should be updated to the list</param>
-        public void DeleteContact(ContactInfo contact)
+        /// <param name="index"> this is the contactName that should be updated to the list</param>
+        public void DeleteContact(int index)
         {
-                this._contactList.Remove(contact);
+                this._contactList.RemoveAt(index);
         }
 
         /// <summary>
