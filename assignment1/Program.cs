@@ -28,8 +28,7 @@ namespace Assignment1
                 "3. [S]earch a contact.\n" +
                 "4. [E]dit a contact.\n" +
                 "5. [D]elete a contact.\n" +
-                "6. [O]rder the contacts.\n" +
-                "7. type exit to exit the app.\n");
+                "6. type exit to exit the app.\n");
         }
 
         /// <summary>
@@ -227,6 +226,7 @@ namespace Assignment1
                 while (!endApp)
                 {
                     PrintOperationsAvailable();
+                    DisplayClass.Display("Enter a choice : ");
                     string? choice = InputClass.Input();
                     if (choice == null)
                     {
