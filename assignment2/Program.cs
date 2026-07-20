@@ -1,4 +1,6 @@
-﻿namespace Assignments
+﻿using Assignment2.View;
+
+namespace Assignments
 {
     /// <summary>
     /// Program class
@@ -11,7 +13,8 @@
         /// <param name="args"> if there are any terminal arguents</param>
         private static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            Shapes shape = new Shapes();
+            shape.ShapeOperations();
         }
     }
 }
