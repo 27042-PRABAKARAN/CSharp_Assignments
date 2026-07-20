@@ -54,7 +54,7 @@
         }
 
         /// <summary>
-        /// this is the view contacts service method.
+        /// this is the view contacts service
         /// </summary>
         /// <returns> the list of the contacts </returns>
         public List<ContactInfo> ViewContact()
@@ -118,24 +118,6 @@
         }
 
         /// <summary>
-        /// to get the object matching the id
-        /// </summary>
-        /// <param name="id"> the guid of the object </param>
-        /// <returns> the object found </returns>
-        public ContactInfo? GetContactById(Guid id)
-        {
-            foreach (var entry in this._repository.ViewContact())
-            {
-                if (entry.Id == id)
-                {
-                    return entry;
-                }
-            }
-
-            return null;
-        }
-
-        /// <summary>
         /// Search contact service method is here
         /// </summary>
         /// <param name="choice"> search by using name email or contact </param>
@@ -153,6 +135,24 @@
         public void DeleteContact(Guid id)
         {
             this._repository.DeleteContact(id);
+        }
+
+        /// <summary>
+        /// to get the object matching the id
+        /// </summary>
+        /// <param name="id"> the guid of the object </param>
+        /// <returns> the object found </returns>
+        private ContactInfo? GetContactById(Guid id)
+        {
+            foreach (var entry in this._repository.ViewContact())
+            {
+                if (entry.Id == id)
+                {
+                    return entry;
+                }
+            }
+
+            return null;
         }
     }
 }

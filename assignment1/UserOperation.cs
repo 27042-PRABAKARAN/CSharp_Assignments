@@ -15,7 +15,7 @@ namespace Assignment1
         private readonly Service _service = new Service();
 
         /// <summary>
-        /// method to add contact
+        /// add contact
         /// </summary>
         public void AddContacts()
         {
@@ -121,7 +121,7 @@ namespace Assignment1
         }
 
         /// <summary>
-        /// this is the edit contact function
+        /// edit contact
         /// </summary>
         public void EditContact()
         {
@@ -129,7 +129,7 @@ namespace Assignment1
             this.ViewContacts();
             List<ContactInfo> contacts = this._service.ViewContact();
             contacts.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.OrdinalIgnoreCase));
-            Output.Display("Enter the Sno: ");
+            Output.Display("Enter the S.No: ");
             string? editContactindex = UserInput.ReadInput();
             int index;
             if (int.TryParse(editContactindex, out index) && index > 0 && index <= contacts.Count())
@@ -157,7 +157,7 @@ namespace Assignment1
         }
 
         /// <summary>
-        /// funtion to Delete a contact.
+        /// Delete a contact.
         /// </summary>
         public void DeleteContact()
         {
@@ -183,7 +183,7 @@ namespace Assignment1
         }
 
         /// <summary>
-        /// funtion to print all the available operation.
+        /// print all the available operation.
         /// </summary>
         public void PrintOperationsAvailable()
         {
