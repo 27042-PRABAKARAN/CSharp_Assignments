@@ -9,7 +9,7 @@ namespace Assignment1.Helper
     /// <summary>
     /// Input class for taking inputs
     /// </summary>
-    public static class InputClass
+    public static class UserInput
     {
         /// <summary>
         /// function to take user input in console

@@ -6,12 +6,12 @@ using System.Text;
 using System.Threading.Tasks;
 using Assignment1.Model;
 
-namespace Assignment1.Repository
+namespace Assignment1.Persistence
 {
     /// <summary>
     /// this is a repository class
     /// </summary>
-    public class RepositoryClass
+    public class Repository
     {
         private List<ContactInfo> _contactList = new List<ContactInfo>();
 

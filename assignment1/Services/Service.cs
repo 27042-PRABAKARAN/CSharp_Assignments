@@ -1,24 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using Assignment1.Helper;
-using Assignment1.Model;
-using Assignment1.Repository;
-
-namespace Assignment1.Services
+﻿namespace Assignment1.Services
 {
+    using System;
+    using System.Collections.Generic;
+    using Assignment1.Helper;
+    using Assignment1.Model;
+    using Assignment1.Persistence;
+
     /// <summary>
     /// Service class is for manipulating on list.
     /// </summary>
-    public class ServicesClass
+    public class Service
     {
         /// <summary>
         /// instance of the repository class
         /// </summary>
-        private RepositoryClass _repository = new RepositoryClass();
+        private Persistence.Repository _repository = new Persistence.Repository();
 
         /// <summary>
         /// this is the method service to Add a contact.
@@ -28,7 +24,7 @@ namespace Assignment1.Services
         /// <param name="contact"> the phone number of the contact </param>
         /// <param name="description"> the descripion of the contact</param>
         /// <returns> return the boolean of has added or not</returns>
-        public bool AddContacts(string? name, string? email, string? contact, string? description)
+        public bool Create(string? name, string? email, string? contact, string? description)
         {
             ContactInfo newContactInfo = new ContactInfo();
             newContactInfo.Name = name;
@@ -57,7 +53,7 @@ namespace Assignment1.Services
         /// this is the view contacts service method.
         /// </summary>
         /// <returns> the list of the contacts </returns>
-        public List<ContactInfo> ViewContacts()
+        public List<ContactInfo> View()
         {
             List<ContactInfo> contacts = this._repository.ViewContact();
             return contacts;
@@ -70,7 +66,7 @@ namespace Assignment1.Services
         /// <param name="id"> which is guid of the specific record </param>
         /// <param name="value"> what is the new value to be updated</param>
         /// <returns> boolean of successful edit or not </returns>
-        public bool EditContact(string? choice, Guid id, string? value)
+        public bool Edit(string? choice, Guid id, string? value)
         {
             ContactInfo? record = this.GetContactById(id);
             if (record == null)
@@ -133,7 +129,7 @@ namespace Assignment1.Services
         /// <param name="choice"> search by using name email or contact </param>
         /// <param name="value"> the value of the choice </param>
         /// <returns> return the entry found </returns>
-        public List<ContactInfo>? SearchContact(string? choice, string? value)
+        public List<ContactInfo>? Search(string? choice, string? value)
         {
             return this._repository.Search(choice, value);
         }
@@ -142,7 +138,7 @@ namespace Assignment1.Services
         /// this is the DeleteContact service which deletes the entry.
         /// </summary>
         /// <param name="id"> the guid of the contact to be deleted</param>
-        public void DeleteContact(Guid id)
+        public void Delete(Guid id)
         {
             this._repository.DeleteContact(id);
         }

@@ -10,7 +10,7 @@ namespace Assignment1.Helper
     /// <summary>
     /// Display class is used for displaying output
     /// </summary>
-    public static class DisplayClass
+    public static class Output
     {
         /// <summary>
         /// Display funtion is present here
