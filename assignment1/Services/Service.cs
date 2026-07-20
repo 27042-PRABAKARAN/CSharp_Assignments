@@ -32,6 +32,10 @@
             {
                 newContactInfo.Email = email;
             }
+            else
+            {
+                return false;
+            }
 
             if (Validation.ValidatingContact(contact))
             {
