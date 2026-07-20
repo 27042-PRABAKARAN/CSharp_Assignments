@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Assignment1.Model;
+﻿using Assignment1.Model;
 
 namespace Assignment1.Helper
 {
@@ -12,6 +7,28 @@ namespace Assignment1.Helper
     /// </summary>
     public static class Output
     {
+        /// <summary>
+        /// to print the message in red
+        /// </summary>
+        /// <param name="message">the message that has to be printed in red</param>
+        public static void PrintRed(string? message)
+        {
+            Console.ForegroundColor = ConsoleColor.Red;
+            Console.WriteLine(message);
+            Console.ResetColor();
+        }
+
+        /// <summary>
+        /// to print the message in Green
+        /// </summary>
+        /// <param name="message">the message that has to be printed in Green</param>
+        public static void PrintGreen(string? message)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine(message);
+            Console.ResetColor();
+        }
+
         /// <summary>
         /// Display funtion is present here
         /// </summary>
@@ -35,11 +52,7 @@ namespace Assignment1.Helper
             int i = 0;
             foreach (var entry in contact)
             {
-                Console.Write(++i + ". ");
-                Console.Write(entry.Name + " ");
-                Console.Write(entry.Email + " ");
-                Console.Write(entry.Contact + " ");
-                Console.Write(entry.Description + "\n");
+                Console.WriteLine($"{++i}. {entry.Name} {entry.Email} {entry.Contact} {entry.Description}");
             }
         }
     }

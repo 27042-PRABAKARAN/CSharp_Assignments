@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata.Ecma335;
-using System.Text;
-using System.Threading.Tasks;
-using Assignment1.Model;
+﻿using Assignment1.Model;
 
 namespace Assignment1.Persistence
 {
@@ -13,7 +7,7 @@ namespace Assignment1.Persistence
     /// </summary>
     public class Repository
     {
-        private List<ContactInfo> _contactList = new List<ContactInfo>();
+        private readonly List<ContactInfo> _contactList = new List<ContactInfo>();
 
         /// <summary>
         /// This creates contact in the _contact list
@@ -36,6 +30,7 @@ namespace Assignment1.Persistence
                 if (contact.Id == id)
                 {
                     record = contact;
+                    break;
                 }
             }
 
@@ -112,7 +107,7 @@ namespace Assignment1.Persistence
                         {
                             foreach (var entry in this._contactList)
                             {
-                                if (entry.Name != null && entry.Name.ToLower().Contains(value.ToLower()))
+                                if (entry.Name != null && entry.Name.Contains(value, StringComparison.OrdinalIgnoreCase))
                                 {
                                     result.Add(entry);
                                 }
@@ -125,8 +120,8 @@ namespace Assignment1.Persistence
                         {
                             foreach (var entry in this._contactList)
                             {
-                                if (entry.Email != null && entry.Email.ToLower().Contains(value.ToLower()))
-                                {
+                                if (entry.Email != null && entry.Email.Contains(value, StringComparison.OrdinalIgnoreCase))
+                            {
                                     result.Add(entry);
                                 }
                             }
@@ -138,8 +133,8 @@ namespace Assignment1.Persistence
                         {
                             foreach (var entry in this._contactList)
                             {
-                                if (entry.Contact != null && entry.Contact.ToLower().Contains(value.ToLower()))
-                                {
+                                if (entry.Contact != null && entry.Contact.Contains(value, StringComparison.OrdinalIgnoreCase))
+                            {
                                     result.Add(entry);
                                 }
                             }

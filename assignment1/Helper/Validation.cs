@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+﻿using System.Text.RegularExpressions;
 
 namespace Assignment1.Helper
 {
@@ -24,20 +19,12 @@ namespace Assignment1.Helper
                 return false;
             }
 
-            foreach (char c in number)
-            {
-                if (!char.IsDigit(c))
-                {
-                    return false;
-                }
-            }
-
             if (number.Length != 10)
             {
                 return false;
             }
 
-            return true;
+            return number.All(char.IsDigit);
         }
 
         /// <summary>
@@ -47,7 +34,13 @@ namespace Assignment1.Helper
         /// <returns> the result as bool of validation result </returns>
         public static bool IsValidEmail(string? mail)
         {
-            return !string.IsNullOrWhiteSpace(mail) && Regex.IsMatch(mail, @"^.+@.+\..+$");
+            if (mail == null)
+            {
+                return false;
+            }
+
+            string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z.-]+\.[a-zA-Z]{2,}$";
+            return Regex.IsMatch(mail, pattern, RegexOptions.IgnoreCase);
         }
     }
 }

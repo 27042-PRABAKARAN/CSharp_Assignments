@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Assignment1.Helper
+﻿namespace Assignment1.Helper
 {
     /// <summary>
     /// Input class for taking inputs
@@ -15,7 +9,7 @@ namespace Assignment1.Helper
         /// function to take user input in console
         /// </summary>
         /// <returns> user input </returns>
-        public static string? Input()
+        public static string? ReadInput()
         {
             string? userInput = Console.ReadLine();
             return userInput;
@@ -28,12 +22,7 @@ namespace Assignment1.Helper
         /// <returns> boolean </returns>
         public static bool CheckInput(string input)
         {
-            if (string.IsNullOrWhiteSpace(input))
-            {
-                return false;
-            }
-
-            return true;
+            return !string.IsNullOrWhiteSpace(input);
         }
     }
 }

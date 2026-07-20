@@ -14,7 +14,7 @@
         /// <summary>
         /// instance of the repository class
         /// </summary>
-        private Persistence.Repository _repository = new Persistence.Repository();
+        private readonly Repository _repository = new Repository();
 
         /// <summary>
         /// this is the method service to Add a contact.
@@ -24,7 +24,7 @@
         /// <param name="contact"> the phone number of the contact </param>
         /// <param name="description"> the descripion of the contact</param>
         /// <returns> return the boolean of has added or not</returns>
-        public bool Create(string? name, string? email, string? contact, string? description)
+        public bool CreateContact(string? name, string? email, string? contact, string? description)
         {
             ContactInfo newContactInfo = new ContactInfo();
             newContactInfo.Name = name;
@@ -53,7 +53,7 @@
         /// this is the view contacts service method.
         /// </summary>
         /// <returns> the list of the contacts </returns>
-        public List<ContactInfo> View()
+        public List<ContactInfo> ViewContact()
         {
             List<ContactInfo> contacts = this._repository.ViewContact();
             return contacts;
@@ -66,7 +66,7 @@
         /// <param name="id"> which is guid of the specific record </param>
         /// <param name="value"> what is the new value to be updated</param>
         /// <returns> boolean of successful edit or not </returns>
-        public bool Edit(string? choice, Guid id, string? value)
+        public bool EditContact(string? choice, Guid id, string? value)
         {
             ContactInfo? record = this.GetContactById(id);
             if (record == null)
@@ -79,23 +79,31 @@
                 switch (choice.ToLower())
                 {
                     case "n":
-                        record.Name = value; this._repository.UpdateContact(record, record.Id); return true;
+                        record.Name = value;
+                        this._repository.UpdateContact(record, record.Id);
+                        return true;
                     case "e":
                         if (!Validation.IsValidEmail(value))
                         {
                             return false;
                         }
 
-                        record.Email = value; this._repository.UpdateContact(record, record.Id); return true;
+                        record.Email = value;
+                        this._repository.UpdateContact(record, record.Id);
+                        return true;
                     case "c":
                         if (!Validation.ValidatingContact(value))
                         {
                             return false;
                         }
 
-                        record.Contact = value; this._repository.UpdateContact(record, record.Id); return true;
+                        record.Contact = value;
+                        this._repository.UpdateContact(record, record.Id);
+                        return true;
                     case "d":
-                        record.Description = value; this._repository.UpdateContact(record, record.Id); return true;
+                        record.Description = value;
+                        this._repository.UpdateContact(record, record.Id);
+                        return true;
                     default: return false;
                 }
             }
@@ -129,7 +137,7 @@
         /// <param name="choice"> search by using name email or contact </param>
         /// <param name="value"> the value of the choice </param>
         /// <returns> return the entry found </returns>
-        public List<ContactInfo>? Search(string? choice, string? value)
+        public List<ContactInfo>? SearchContact(string? choice, string? value)
         {
             return this._repository.Search(choice, value);
         }
@@ -138,7 +146,7 @@
         /// this is the DeleteContact service which deletes the entry.
         /// </summary>
         /// <param name="id"> the guid of the contact to be deleted</param>
-        public void Delete(Guid id)
+        public void DeleteContact(Guid id)
         {
             this._repository.DeleteContact(id);
         }
