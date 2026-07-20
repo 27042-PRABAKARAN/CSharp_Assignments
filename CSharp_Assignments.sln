@@ -14,6 +14,7 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment1", "assignment1\Assignment1.csproj", "{5E0A8F8E-10BB-458B-921E-A6C8B8F51166}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "assignment2", "assignment2\assignment2.csproj", "{3AB01404-C7C1-4337-AF88-913A0A2608F6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment2", "assignment2\Assignment2.csproj", "{3AB01404-C7C1-4337-AF88-913A0A2608F6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
