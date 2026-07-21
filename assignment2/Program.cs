@@ -13,8 +13,11 @@ namespace Assignments
         /// <param name="args"> if there are any terminal arguents</param>
         private static void Main(string[] args)
         {
-            Shapes shape = new Shapes();
+            ShapesSystem shape = new ShapesSystem();
             shape.ShapeOperations();
+
+            EmployeeSystem operations = new EmployeeSystem();
+            operations.EmployeeOperations();
         }
     }
 }
