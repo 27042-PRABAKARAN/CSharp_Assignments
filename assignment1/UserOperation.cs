@@ -12,29 +12,35 @@ namespace Assignment1
         /// <summary>
         /// Service object for service class
         /// </summary>
-        private readonly Service _service = new Service();
+        private readonly ContactService _contact = new ContactService();
 
         /// <summary>
         /// add contact
         /// </summary>
         public void AddContacts()
         {
-            Output.Display("Enter Name: ");
-            string? name = UserInput.ReadInput();
-            Output.Display("Enter Email: ");
-            string? email = UserInput.ReadInput();
-            Output.Display("Enter Contact: ");
-            string? contact = UserInput.ReadInput();
-            Output.Display("Enter Description: ");
-            string? description = UserInput.ReadInput();
-            bool added = this._service.CreateContact(name, email, contact, description);
-            if (added)
+            int tries = 3;
+            while (tries-- > 0)
             {
-                Output.PrintGreen("Added Successfully\n");
-            }
-            else
-            {
-                Output.PrintRed("Enter proper Name ,Contact and Email\n");
+                Output.Display("Enter Name: ");
+                string? name = UserInput.ReadInput();
+                Output.Display("Enter Email: ");
+                string? email = UserInput.ReadInput();
+                Output.Display("Enter Contact: ");
+                string? contact = UserInput.ReadInput();
+                Output.Display("Enter Description: ");
+                string? description = UserInput.ReadInput();
+                bool added = this._contact.Create(name, email, contact, description);
+                if (added)
+                {
+                    Output.Success("Added Successfully\n");
+                    return;
+                }
+                else
+                {
+                    Output.Error("Enter proper Name ,Contact and Email\n");
+                    Output.Error($"{tries} attempts remaining\n");
+                }
             }
         }
 
@@ -43,8 +49,14 @@ namespace Assignment1
         /// </summary>
         public void ViewContacts()
         {
-            List<ContactInfo> contacts = this._service.ViewContact();
+            List<ContactInfo> contacts = this._contact.Fetch();
             contacts.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.OrdinalIgnoreCase));
+            if (contacts.Count() <= 0)
+            {
+                Output.Error("Empty List Nothing to Display");
+                return;
+            }
+
             Output.Display("\nComplete contact list : ");
             Output.ShowList(contacts);
             Output.Display("end of list\n");
@@ -55,44 +67,59 @@ namespace Assignment1
         /// </summary>
         public void SearchContact()
         {
-            Output.Display("Searching Contact : (Enter the letter) ");
-            Output.Display("Search using\n [N]ame \n [C]ontact \n [E]mail");
-            string? choice = UserInput.ReadInput();
-            if (choice != null)
+            List<ContactInfo> contacts = this._contact.Fetch();
+            if (contacts.Count() <= 0)
             {
-                switch (choice.ToLower())
-                {
-                    case "n":
-                        {
-                            Output.Display("Enter name : ");
-                            this.SearchByChoice("n");
-                            break;
-                        }
-
-                    case "c":
-                        {
-                            Output.Display("Enter Contact Number : ");
-                            this.SearchByChoice("c");
-                            break;
-                        }
-
-                    case "e":
-                        {
-                            Output.Display("Enter Email : ");
-                            this.SearchByChoice("e");
-                            break;
-                        }
-
-                    default:
-                        {
-                            Output.PrintRed("Enter a valid choice\n");
-                            break;
-                        }
-                }
+                Output.Error("Empty List Nothing to Search");
+                return;
             }
-            else
+
+            int tries = 3;
+            while (tries-- > 0)
             {
-                Output.PrintRed("Enter a valid choice\n");
+                Output.Display("Searching Contact : ");
+                Output.Display("Search using\n 1.Name \n 2.Contact \n 3.Email");
+                string? choice = UserInput.ReadInput();
+                int.TryParse(choice, out int index);
+                Choice searchChoice = (Choice)index;
+                if (choice != null)
+                {
+                    switch (searchChoice)
+                    {
+                        case Choice.Name:
+                            {
+                                Output.Display("Enter name : ");
+                                this.SearchByChoice(Choice.Name);
+                                return;
+                            }
+
+                        case Choice.Contact:
+                            {
+                                Output.Display("Enter Contact Number : ");
+                                this.SearchByChoice(Choice.Contact);
+                                return;
+                            }
+
+                        case Choice.Email:
+                            {
+                                Output.Display("Enter Email : ");
+                                this.SearchByChoice(Choice.Email);
+                                return;
+                            }
+
+                        default:
+                            {
+                                Output.Error("Enter a valid choice\n");
+                                Output.Error($"{tries} attempts remaining\n");
+                                break;
+                            }
+                    }
+                }
+                else
+                {
+                    Output.Error("Enter a valid choice\n");
+                    Output.Error($"{tries} attempts remaining\n");
+                }
             }
         }
 
@@ -100,19 +127,19 @@ namespace Assignment1
         /// function to search;
         /// </summary>
         /// <param name="type">Type of Search</param>
-        public void SearchByChoice(string? type)
+        public void SearchByChoice(Choice type)
         {
             bool found = true;
             string? userchoice = UserInput.ReadInput();
-            List<ContactInfo>? records = this._service.SearchContact(type, userchoice);
-            if (records == null)
+            List<ContactInfo>? records = this._contact.Search(type, userchoice);
+            if (records == null || records.Count() <= 0)
             {
                 found = false;
             }
 
             if (found == false)
             {
-                Output.PrintRed("Not found");
+                Output.Error("Not found");
             }
             else
             {
@@ -125,34 +152,51 @@ namespace Assignment1
         /// </summary>
         public void EditContact()
         {
-            Output.Display("Editing contact");
-            this.ViewContacts();
-            List<ContactInfo> contacts = this._service.ViewContact();
-            contacts.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.OrdinalIgnoreCase));
-            Output.Display("Enter the S.No: ");
-            string? editContactindex = UserInput.ReadInput();
-            int index;
-            if (int.TryParse(editContactindex, out index) && index > 0 && index <= contacts.Count())
+            List<ContactInfo> contacts = this._contact.Fetch();
+            if (contacts.Count() <= 0)
             {
-                index--;
-                Output.Display("Edit the (Enter the letter)");
-                Output.Display("[N]ame\n[E]mail\n[C]ontact\n[D]escription\n");
-                string? choice = UserInput.ReadInput();
-                Output.Display("Enter new Value: ");
-                string? value = UserInput.ReadInput();
-                bool edited = this._service.EditContact(choice, contacts[index].Id, value);
-                if (edited)
+                Output.Error("Empty List Nothing to Edit");
+                return;
+            }
+
+            Output.Display("Editing contact");
+            contacts.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.OrdinalIgnoreCase));
+            int tries = 3;
+            while (tries-- > 0)
+            {
+                this.ViewContacts();
+                Output.Display("Enter the S.No: ");
+                string? editContactindex = UserInput.ReadInput();
+                int index;
+                if (int.TryParse(editContactindex, out index) && index > 0 && index <= contacts.Count())
                 {
-                    Output.PrintGreen("Edited Succesfully\n");
+                    index--;
+                    int j = 3;
+                    while (j-- > 0)
+                    {
+                        Output.Display("Edit the (Enter the letter)");
+                        Output.Display("1.Name\n2.Email\n3.Contact\n4.Description\n");
+                        string? choice = UserInput.ReadInput();
+                        Output.Display("Enter new Value: ");
+                        string? value = UserInput.ReadInput();
+                        bool edited = this._contact.Edit(choice, contacts[index].Id, value);
+                        if (edited)
+                        {
+                            Output.Success("Edited Succesfully\n");
+                            return;
+                        }
+                        else
+                        {
+                            Output.Error($"{j} attempts remaining\n");
+                            Output.Error("Enter proper choice/value");
+                        }
+                    }
                 }
                 else
                 {
-                    Output.PrintRed("Enter proper choice/value");
+                    Output.Error($"{tries} attempts remaining\n");
+                    Output.Error("Enter a valid S.no\n");
                 }
-            }
-            else
-            {
-                Output.PrintRed("Enter a valid Sno\n");
             }
         }
 
@@ -161,24 +205,36 @@ namespace Assignment1
         /// </summary>
         public void DeleteContact()
         {
-            Output.Display("Deleting a contact");
-            List<ContactInfo> contact = this._service.ViewContact();
-            contact.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.OrdinalIgnoreCase));
-            this.ViewContacts();
-            Output.Display("Enter the Sno:");
-            string? deleteContactindex = UserInput.ReadInput();
-            int index;
-            int length = contact.Count();
-            if (int.TryParse(deleteContactindex, out index) && index > 0 && index <= length)
+            List<ContactInfo> contacts = this._contact.Fetch();
+            if (contacts.Count() <= 0)
             {
-                index--;
-
-                this._service.DeleteContact(contact[index].Id);
-                Output.PrintGreen("Deleted Succesfully\n");
+                Output.Error("Empty List Nothing to Delete");
+                return;
             }
-            else
+
+            Output.Display("Deleting a contact");
+            contacts.Sort((a, b) => string.Compare(a.Name, b.Name, StringComparison.OrdinalIgnoreCase));
+            this.ViewContacts();
+            int tries = 3;
+            while (tries-- > 0)
             {
-                Output.PrintRed("Invalid number entered.\n");
+                Output.Display("Enter the S.no:");
+                string? deleteContactindex = UserInput.ReadInput();
+                int index;
+                int length = contacts.Count();
+                if (int.TryParse(deleteContactindex, out index) && index > 0 && index <= length)
+                {
+                    index--;
+
+                    this._contact.Delete(contacts[index].Id);
+                    Output.Success("Deleted Succesfully\n");
+                    return;
+                }
+                else
+                {
+                    Output.Error($"{tries} attempts remaining\n");
+                    Output.Error("Invalid number entered.\n");
+                }
             }
         }
 

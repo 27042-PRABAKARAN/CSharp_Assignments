@@ -3,45 +3,6 @@
 namespace Assignment1
 {
     /// <summary>
-    /// Enum Operations created
-    /// </summary>
-    /// <value>
-    /// Converts user choice to meaningful operations
-    /// </value>
-    internal enum Operation
-    {
-        /// <summary>
-        /// Add operation
-        /// </summary>
-        Add = 1,
-
-        /// <summary>
-        /// View Operation
-        /// </summary>
-        View,
-
-        /// <summary>
-        /// Search Operation
-        /// </summary>
-        Search,
-
-        /// <summary>
-        /// Edit operation
-        /// </summary>
-        Edit,
-
-        /// <summary>
-        /// Delete operation
-        /// </summary>
-        Delete,
-
-        /// <summary>
-        /// Exiting
-        /// </summary>
-        Exit,
-    }
-
-    /// <summary>
     /// Program class.
     /// </summary>
     internal class Program
@@ -62,7 +23,7 @@ namespace Assignment1
                 string? choice = UserInput.ReadInput();
                 if (choice == null)
                 {
-                    Output.PrintRed("Enter a valid choice");
+                    Output.Error("Enter a valid choice");
                     continue;
                 }
 
@@ -78,7 +39,7 @@ namespace Assignment1
                     case Operation.Exit: endApp = true; break;
                     default:
                     {
-                        Output.PrintRed("Enter a valid choice");
+                        Output.Error("Enter a valid choice");
                         break;
                     }
                 }

@@ -11,7 +11,7 @@ namespace Assignment1.Helper
         /// to print the message in red
         /// </summary>
         /// <param name="message">the message that has to be printed in red</param>
-        public static void PrintRed(string? message)
+        public static void Error(string? message)
         {
             Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine(message);
@@ -22,7 +22,7 @@ namespace Assignment1.Helper
         /// to print the message in Green
         /// </summary>
         /// <param name="message">the message that has to be printed in Green</param>
-        public static void PrintGreen(string? message)
+        public static void Success(string? message)
         {
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine(message);

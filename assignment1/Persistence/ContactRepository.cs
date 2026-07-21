@@ -1,11 +1,12 @@
-﻿using Assignment1.Model;
+﻿using Assignment1.Helper;
+using Assignment1.Model;
 
 namespace Assignment1.Persistence
 {
     /// <summary>
     /// this is a repository class
     /// </summary>
-    public class Repository
+    public class ContactRepository
     {
         private readonly List<ContactInfo> _contactList = new List<ContactInfo>();
 
@@ -13,7 +14,7 @@ namespace Assignment1.Persistence
         /// This creates contact in the _contact list
         /// </summary>
         /// <param name="contact"> this is the contact that should bee added to the list</param>
-        public void AddContact(ContactInfo contact)
+        public void Add(ContactInfo contact)
         {
             this._contactList.Add(contact);
         }
@@ -22,7 +23,7 @@ namespace Assignment1.Persistence
         /// This deletes the contact in the _contact list
         /// </summary>
         /// <param name="id"> this is the guid of the contactName that should be deleted to the list</param>
-        public void DeleteContact(Guid id)
+        public void Delete(Guid id)
         {
             ContactInfo? record = null;
             foreach (ContactInfo contact in this._contactList)
@@ -47,7 +48,7 @@ namespace Assignment1.Persistence
         /// </summary>
         /// <param name="contactName"> this is the contactName that should be updated to the list</param>
         /// <returns>The contact list.</returns>
-        public List<ContactInfo> ViewContact()
+        public List<ContactInfo> Fetch()
         {
             return this._contactList.Select(c => new ContactInfo
          {
@@ -65,7 +66,7 @@ namespace Assignment1.Persistence
         /// </summary>
         /// <param name="contact"> the updated entry </param>
         /// <param name="id"> the guid to be updated </param>
-        public void UpdateContact(ContactInfo contact, Guid id)
+        public void Update(ContactInfo contact, Guid id)
         {
             ContactInfo? record = null;
             foreach (var entry in this._contactList)
@@ -93,17 +94,17 @@ namespace Assignment1.Persistence
         /// <param name="choice"> using which parameter the search happens</param>
         /// <param name="value"> what is the value to be searched </param>
         /// <returns>list of found records </returns>
-        public List<ContactInfo>? Search(string? choice, string? value)
+        public List<ContactInfo>? Search(Choice choice, string? value)
         {
             List<ContactInfo> result = new List<ContactInfo>();
-            if (choice == null || value == null || this._contactList == null)
+            if (value == null || this._contactList == null)
             {
                 return null;
             }
 
-            switch (choice.ToLower())
+            switch (choice)
                 {
-                    case "n":
+                    case Choice.Name:
                         {
                             foreach (var entry in this._contactList)
                             {
@@ -116,7 +117,7 @@ namespace Assignment1.Persistence
                             return result;
                         }
 
-                    case "e":
+                    case Choice.Email:
                         {
                             foreach (var entry in this._contactList)
                             {
@@ -129,7 +130,7 @@ namespace Assignment1.Persistence
                             return result;
                         }
 
-                    case "c":
+                    case Choice.Contact:
                         {
                             foreach (var entry in this._contactList)
                             {

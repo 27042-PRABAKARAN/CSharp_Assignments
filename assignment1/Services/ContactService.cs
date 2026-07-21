@@ -9,12 +9,12 @@
     /// <summary>
     /// Service class is for manipulating on list.
     /// </summary>
-    public class Service
+    public class ContactService
     {
         /// <summary>
         /// instance of the repository class
         /// </summary>
-        private readonly Repository _repository = new Repository();
+        private readonly ContactRepository _contactRepository = new ContactRepository();
 
         /// <summary>
         /// this is the method service to Add a contact.
@@ -24,7 +24,7 @@
         /// <param name="contact"> the phone number of the contact </param>
         /// <param name="description"> the descripion of the contact</param>
         /// <returns> return the boolean of has added or not</returns>
-        public bool CreateContact(string? name, string? email, string? contact, string? description)
+        public bool Create(string? name, string? email, string? contact, string? description)
         {
             ContactInfo newContactInfo = new ContactInfo();
             newContactInfo.Name = name;
@@ -49,7 +49,7 @@
             newContactInfo.Description = description;
             Guid id = Guid.NewGuid();
             newContactInfo.Id = id;
-            this._repository.AddContact(newContactInfo);
+            this._contactRepository.Add(newContactInfo);
             return true;
         }
 
@@ -57,9 +57,9 @@
         /// this is the view contacts service
         /// </summary>
         /// <returns> the list of the contacts </returns>
-        public List<ContactInfo> ViewContact()
+        public List<ContactInfo> Fetch()
         {
-            List<ContactInfo> contacts = this._repository.ViewContact();
+            List<ContactInfo> contacts = this._contactRepository.Fetch();
             return contacts;
         }
 
@@ -70,7 +70,7 @@
         /// <param name="id"> which is guid of the specific record </param>
         /// <param name="value"> what is the new value to be updated</param>
         /// <returns> boolean of successful edit or not </returns>
-        public bool EditContact(string? choice, Guid id, string? value)
+        public bool Edit(string? choice, Guid id, string? value)
         {
             ContactInfo? record = this.GetContactById(id);
             if (record == null)
@@ -80,33 +80,35 @@
 
             if (choice != null)
             {
-                switch (choice.ToLower())
+                int.TryParse(choice, out int index);
+                Choice editChoice = (Choice)index;
+                switch (editChoice)
                 {
-                    case "n":
+                    case Choice.Name:
                         record.Name = value;
-                        this._repository.UpdateContact(record, record.Id);
+                        this._contactRepository.Update(record, record.Id);
                         return true;
-                    case "e":
+                    case Choice.Email:
                         if (!Validation.IsValidEmail(value))
                         {
                             return false;
                         }
 
                         record.Email = value;
-                        this._repository.UpdateContact(record, record.Id);
+                        this._contactRepository.Update(record, record.Id);
                         return true;
-                    case "c":
+                    case Choice.Contact:
                         if (!Validation.ValidatingContact(value))
                         {
                             return false;
                         }
 
                         record.Contact = value;
-                        this._repository.UpdateContact(record, record.Id);
+                        this._contactRepository.Update(record, record.Id);
                         return true;
-                    case "d":
+                    case Choice.Description:
                         record.Description = value;
-                        this._repository.UpdateContact(record, record.Id);
+                        this._contactRepository.Update(record, record.Id);
                         return true;
                     default: return false;
                 }
@@ -123,18 +125,18 @@
         /// <param name="choice"> search by using name email or contact </param>
         /// <param name="value"> the value of the choice </param>
         /// <returns> return the entry found </returns>
-        public List<ContactInfo>? SearchContact(string? choice, string? value)
+        public List<ContactInfo>? Search(Choice choice, string? value)
         {
-            return this._repository.Search(choice, value);
+            return this._contactRepository.Search(choice, value);
         }
 
         /// <summary>
         /// this is the DeleteContact service which deletes the entry.
         /// </summary>
         /// <param name="id"> the guid of the contact to be deleted</param>
-        public void DeleteContact(Guid id)
+        public void Delete(Guid id)
         {
-            this._repository.DeleteContact(id);
+            this._contactRepository.Delete(id);
         }
 
         /// <summary>
@@ -144,7 +146,7 @@
         /// <returns> the object found </returns>
         private ContactInfo? GetContactById(Guid id)
         {
-            foreach (var entry in this._repository.ViewContact())
+            foreach (var entry in this._contactRepository.Fetch())
             {
                 if (entry.Id == id)
                 {
