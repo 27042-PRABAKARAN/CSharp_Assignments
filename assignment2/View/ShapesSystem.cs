@@ -7,7 +7,7 @@ namespace Assignment2.View
     /// <summary>
     /// the view class of task -1 shapes
     /// </summary>
-    internal class Shapes
+    internal class ShapesSystem
     {
         /// <summary>
         /// instance of the _shapeService
