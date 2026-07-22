@@ -4,24 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assignment2.Model
+namespace Assignment2.Model.Bank
 {
     /// <summary>
-    /// Savings
+    /// Checking account inherited from BankAccount
     /// </summary>
-    internal class SavingsAccount : BankAccount
+    internal class CheckingAccount : BankAccount
     {
         /// <summary>
-        /// MinBalance stores the minimum balance to be maintained .
-        /// </summary>
-        public const double MinBalance = 5000;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SavingsAccount"/> class.
+        /// Initializes a new instance of the <see cref="CheckingAccount"/> class.
         /// </summary>
         /// <param name="accountNumber"> the account number of the account</param>
         /// <param name="balance"> the balance </param>
-        public SavingsAccount(string? accountNumber, double balance)
+        public CheckingAccount(string? accountNumber, double balance)
         {
             this.AccountNumber = accountNumber;
             this.Balance = balance;
@@ -33,10 +28,7 @@ namespace Assignment2.Model
         /// <param name="amount"> the amount to be withdrawed </param>
         public override void Withdraw(double amount)
         {
-            if (this.Balance - amount >= MinBalance)
-            {
-                this.Balance -= amount;
-            }
+         this.Balance -= amount;
         }
     }
 }

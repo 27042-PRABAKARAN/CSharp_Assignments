@@ -1,4 +1,4 @@
-﻿using Assignment2.Model;
+﻿using Assignment2.Model.Employee;
 
 namespace Assignment2.Service
 {
@@ -12,11 +12,12 @@ namespace Assignment2.Service
         /// </summary>
         /// <param name="name"> the name of the developer </param>
         /// <param name="salary"> the salary of the developer </param>
-        public void CreateDeveloper(string? name, double salary)
+        /// <returns> returns details after creating </returns>
+        public string? CreateDeveloper(string? name, double salary)
         {
             Developer newDeveloper = new Developer(name, salary);
             newDeveloper.CalculateBonus();
-            newDeveloper.PrintDetails();
+            return newDeveloper.PrintDetails();
         }
 
         /// <summary>
@@ -24,11 +25,12 @@ namespace Assignment2.Service
         /// </summary>
         /// <param name="name"> the name of the Manager </param>
         /// <param name="salary"> the salary of the Manager </param>
-        public void CreateManager(string? name, double salary)
+        /// <returns> returns details after creating </returns>
+        public string? CreateManager(string? name, double salary)
         {
             Manager newManager = new Manager(name, salary);
             newManager.CalculateBonus();
-            newManager.PrintDetails();
+            return newManager.PrintDetails();
         }
     }
 }

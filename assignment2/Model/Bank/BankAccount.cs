@@ -1,4 +1,4 @@
-﻿namespace Assignment2.Model
+﻿namespace Assignment2.Model.Bank
 {
     /// <summary>
     /// the Bank Account Class
