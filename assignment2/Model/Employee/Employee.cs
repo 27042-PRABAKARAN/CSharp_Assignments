@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assignment2.Model
+namespace Assignment2.Model.Employee
 {
     /// <summary>
     /// Employee class
@@ -43,9 +43,10 @@ namespace Assignment2.Model
         /// <summary>
         /// this function prints the details of the Employee
         /// </summary>
-        public virtual void PrintDetails()
+        /// <returns> returns the details of class</returns>
+        public virtual string? PrintDetails()
         {
-            Console.WriteLine($"Name : {this.Name} , Salary : {this.Salary} , Bonus {this.Bonus} .");
+            return $"Name : {this.Name} , Salary : {this.Salary} , Bonus {this.Bonus} .";
         }
     }
 }

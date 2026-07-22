@@ -1,4 +1,4 @@
-﻿using Assignment2.Model;
+﻿using Assignment2.Model.Shape;
 
 namespace Assignment2.Service
 {
@@ -13,11 +13,12 @@ namespace Assignment2.Service
         /// <param name="colour"> the clour of the rectangle </param>
         /// <param name="width"> the widht of the rectangle </param>
         /// <param name="length"> the length of the rectangle </param>
-        public void CreateCircle(string? colour, double width, double length)
+        /// <returns> returns the details</returns>
+        public string? CreateRectangle(string? colour, double width, double length)
         {
             Rectangle newRectangle = new Rectangle(colour, length, width);
             newRectangle.CalculateArea();
-            newRectangle.PrintDetails();
+            return newRectangle.PrintDetails();
         }
 
         /// <summary>
@@ -25,11 +26,12 @@ namespace Assignment2.Service
         /// </summary>
         /// <param name="colour"> The colour of the circle  </param>
         /// <param name="radius"> the radius of the circle </param>
-        public void CreateCircle(string? colour, double radius)
+        /// <returns> returns the details if created </returns>
+        public string? CreateCircle(string? colour, double radius)
         {
             Circle newCircle = new Circle(radius, colour);
             newCircle.CalculateArea();
-            newCircle.PrintDetails();
+            return newCircle.PrintDetails();
         }
     }
 }

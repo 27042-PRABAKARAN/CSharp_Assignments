@@ -1,4 +1,4 @@
-﻿namespace Assignment2.Model
+﻿namespace Assignment2.Model.Shape
 {
     /// <summary>
     /// The Circle class
@@ -36,9 +36,10 @@
         /// <summary>
         /// Printing the details
         /// </summary>
-        public override void PrintDetails()
+        /// <returns> returns the details</returns>
+        public override string? PrintDetails()
         {
-            Console.Write($"The Shape is : {this.Name} , Area is : {this.Area}, Colour is {this.Colour}\n");
+            return $"The Shape is : {this.Name} , Area is : {this.Area}, Colour is {this.Colour}\n";
         }
     }
 }
