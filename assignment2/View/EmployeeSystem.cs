@@ -39,72 +39,52 @@ namespace Assignment2.View
         /// </summary>
         public void EmployeeOperations()
         {
-            Console.WriteLine("Welcome to Employee Management System :  ");
+            Output.Display("Welcome to Employee Management System :  ");
             while (true)
             {
-                Console.WriteLine("1. Create A Developer.\n2. Create a Manager.\n3. Exit the app");
-                Console.Write("Enter the number: ");
-                string? userInput = Console.ReadLine();
-                if (!Input.IsNull(userInput))
+                Output.Display("1. Create A Developer.\n2. Create a Manager.\n3. Exit the app");
+                string? userInput = UserInput.ReadInput("Enter the number: ");
+                int index;
+                int.TryParse(userInput, out index);
+                Operation operation = (Operation)index;
+                switch (operation)
                 {
-                    Console.WriteLine("Enter a valid inpu : ");
-                    return;
-                }
-                else
-                {
-                    int index;
-                    int.TryParse(userInput, out index);
-                    Operation operation = (Operation)index;
-                    switch (operation)
-                    {
-                        case Operation.CreateDeveloper:
-                            {
-                                Console.Write("Enter Name of the Developer: ");
-                                string? name = Console.ReadLine();
-                                if (!Input.IsNull(name))
-                                {
-                                    Console.WriteLine("Enter a valid input");
-                                    break;
-                                }
+                    case Operation.CreateDeveloper: this.CreateDeveloper(); break;
+                    case Operation.CreateManager: this.CreateManager(); break;
 
-                                Console.Write("Enter Salary of the Developer: ");
-                                if (!double.TryParse(Console.ReadLine(), out double salaryDouble) || salaryDouble <= 0)
-                                {
-                                    Console.WriteLine("Invalid Salary. Please enter a positive number.");
-                                    break;
-                                }
+                    case Operation.Exit: return;
 
-                                this._employeeServices.CreateDeveloper(name, salaryDouble);
-                                break;
-                            }
-
-                        case Operation.CreateManager:
-                            {
-                                Console.Write("Enter Name of the Manager: ");
-                                string? name = Console.ReadLine();
-                                if (!Input.IsNull(name))
-                                {
-                                    Console.WriteLine("Enter a valid input");
-                                    break;
-                                }
-
-                                Console.Write("Enter Salary of the Manager: ");
-                                if (!double.TryParse(Console.ReadLine(), out double salaryDouble) || salaryDouble <= 0)
-                                {
-                                    Console.WriteLine("Invalid Salary. Please enter a positive number.");
-                                    break;
-                                }
-
-                                this._employeeServices.CreateManager(name, salaryDouble);
-                                break;
-                            }
-
-                        case Operation.Exit: return;
-
-                        default: Console.WriteLine("enter valid choice"); break;
-                    }
+                    default: Output.Error("enter valid choice"); break;
                 }
             }
+        }
+
+        /// <summary>
+        /// creates manager
+        /// </summary>
+        public void CreateManager()
+        {
+            string? name = UserInput.ReadInput("Enter Name of the Manager: ");
+            if (!double.TryParse(UserInput.ReadInput("Enter Name of the Manager: "), out double salaryDouble) || salaryDouble <= 0)
+            {
+                Output.Error("Invalid Salary. Please enter a positive number.");
+            }
+
+            Output.Display(this._employeeServices.CreateManager(name, salaryDouble));
+        }
+
+        /// <summary>
+        /// creates Developer
+        /// </summary>
+        public void CreateDeveloper()
+        {
+            string? name = UserInput.ReadInput("Enter Name of the Developer: ");
+            if (!double.TryParse(UserInput.ReadInput("Enter Salary of the Developer: "), out double salaryDouble) || salaryDouble <= 0)
+            {
+                Output.Display("Invalid Salary. Please enter a positive number.");
+            }
+
+            Output.Display(this._employeeServices.CreateDeveloper(name, salaryDouble));
         }
     }
 }

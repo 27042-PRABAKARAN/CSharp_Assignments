@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Assignment2.Model
+namespace Assignment2.Model.Shape
 {
     /// <summary>
     /// Shape class
@@ -36,9 +36,10 @@ namespace Assignment2.Model
         /// <summary>
         /// this prints the details
         /// </summary>
-        public virtual void PrintDetails()
+        /// <returns> returns the details </returns>
+        public virtual string? PrintDetails()
         {
-            Console.Write($"Area is : {this.Area}, Colour is {this.Colour}\n");
+            return $"Area is : {this.Area}, Colour is {this.Colour}\n";
         }
     }
 }

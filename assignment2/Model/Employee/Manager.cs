@@ -1,4 +1,4 @@
-﻿namespace Assignment2.Model
+﻿namespace Assignment2.Model.Employee
 {
     /// <summary>
     /// Developer class inherited from Employee
@@ -27,9 +27,10 @@
         /// <summary>
         /// This prints the details of the manager
         /// </summary>
-        public override void PrintDetails()
+        /// <returns> return the details </returns>
+        public override string? PrintDetails()
         {
-            Console.WriteLine($"Name : {this.Name} , Position : Manager , Salary : {this.Salary} , Bonus {this.Bonus} .");
+            return $"Name : {this.Name} , Position : Manager , Salary : {this.Salary} , Bonus {this.Bonus} .";
         }
     }
 }
