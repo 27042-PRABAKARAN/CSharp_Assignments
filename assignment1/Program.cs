@@ -1,4 +1,5 @@
 ﻿using Assignment1.Helper;
+using Assignment1.Model;
 
 namespace Assignment1
 {
@@ -38,10 +39,10 @@ namespace Assignment1
                     case Operation.Delete: _userOperation.DeleteContact(); break;
                     case Operation.Exit: endApp = true; break;
                     default:
-                    {
-                        Output.Error("Enter a valid choice");
-                        break;
-                    }
+                        {
+                            Output.Error("Enter a valid choice");
+                            break;
+                        }
                 }
             }
         }

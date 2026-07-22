@@ -68,8 +68,7 @@
                 {
                     case Choice.Name:
                         record.Name = value;
-                        this._contactRepository.Update(record, record.Id);
-                        return true;
+                        return this._contactRepository.Update(record, record.Id);
                     case Choice.Email:
                         if (!Validation.IsValidEmail(value))
                         {
@@ -78,7 +77,7 @@
 
                         record.Email = value;
                         this._contactRepository.Update(record, record.Id);
-                        return true;
+                        return this._contactRepository.Update(record, record.Id);
                     case Choice.Contact:
                         if (!Validation.IsValidContact(value))
                         {
@@ -86,12 +85,10 @@
                         }
 
                         record.Contact = value;
-                        this._contactRepository.Update(record, record.Id);
-                        return true;
+                        return this._contactRepository.Update(record, record.Id);
                     case Choice.Description:
                         record.Description = value;
-                        this._contactRepository.Update(record, record.Id);
-                        return true;
+                        return this._contactRepository.Update(record, record.Id);
                     default: return false;
                 }
             }
@@ -116,9 +113,10 @@
         /// this is the DeleteContact service which deletes the entry.
         /// </summary>
         /// <param name="id"> the guid of the contact to be deleted</param>
-        public void Delete(Guid id)
+        /// <returns> returns boolean value</returns>
+        public bool Delete(Guid id)
         {
-            this._contactRepository.Delete(id);
+            return this._contactRepository.Delete(id);
         }
 
         /// <summary>

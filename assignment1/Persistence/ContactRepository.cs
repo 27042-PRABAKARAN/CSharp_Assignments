@@ -1,5 +1,4 @@
-﻿using Assignment1.Helper;
-using Assignment1.Model;
+﻿using Assignment1.Model;
 
 namespace Assignment1.Persistence
 {
@@ -23,7 +22,8 @@ namespace Assignment1.Persistence
         /// This deletes the contact in the _contact list
         /// </summary>
         /// <param name="id"> this is the guid of the contactName that should be deleted to the list</param>
-        public void Delete(Guid id)
+        /// <returns> returns boolean value </returns>
+        public bool Delete(Guid id)
         {
             ContactInfo? record = null;
             foreach (ContactInfo contact in this._contactList)
@@ -37,10 +37,11 @@ namespace Assignment1.Persistence
 
             if (record == null)
             {
-                return;
+                return false;
             }
 
             this._contactList.Remove(record);
+            return true;
         }
 
         /// <summary>
@@ -51,13 +52,13 @@ namespace Assignment1.Persistence
         public List<ContactInfo> Fetch()
         {
             return this._contactList.Select(c => new ContactInfo
-         {
-             Name = c.Name,
-             Email = c.Email,
-             Contact = c.Contact,
-             Description = c.Description,
-             Id = c.Id,
-         })
+            {
+                Name = c.Name,
+                Email = c.Email,
+                Contact = c.Contact,
+                Description = c.Description,
+                Id = c.Id,
+            })
          .ToList();
         }
 
@@ -66,7 +67,8 @@ namespace Assignment1.Persistence
         /// </summary>
         /// <param name="contact"> the updated entry </param>
         /// <param name="id"> the guid to be updated </param>
-        public void Update(ContactInfo contact, Guid id)
+        /// <returns> returns a boolean value </returns>
+        public bool Update(ContactInfo contact, Guid id)
         {
             ContactInfo? record = null;
             foreach (var entry in this._contactList)
@@ -74,18 +76,20 @@ namespace Assignment1.Persistence
                 if (entry.Id == id)
                 {
                     record = entry;
+                    break;
                 }
             }
 
             if (record == null)
             {
-                return;
+                return false;
             }
 
             record.Name = contact.Name;
             record.Contact = contact.Contact;
             record.Description = contact.Description;
             record.Email = contact.Email;
+            return true;
         }
 
         /// <summary>
@@ -103,48 +107,48 @@ namespace Assignment1.Persistence
             }
 
             switch (choice)
-                {
-                    case Choice.Name:
+            {
+                case Choice.Name:
+                    {
+                        foreach (var entry in this._contactList)
                         {
-                            foreach (var entry in this._contactList)
+                            if (entry.Name != null && entry.Name.Contains(value, StringComparison.OrdinalIgnoreCase))
                             {
-                                if (entry.Name != null && entry.Name.Contains(value, StringComparison.OrdinalIgnoreCase))
-                                {
-                                    result.Add(entry);
-                                }
+                                result.Add(entry);
                             }
-
-                            return result;
                         }
 
-                    case Choice.Email:
-                        {
-                            foreach (var entry in this._contactList)
-                            {
-                                if (entry.Email != null && entry.Email.Contains(value, StringComparison.OrdinalIgnoreCase))
-                            {
-                                    result.Add(entry);
-                                }
-                            }
+                        return result;
+                    }
 
-                            return result;
+                case Choice.Email:
+                    {
+                        foreach (var entry in this._contactList)
+                        {
+                            if (entry.Email != null && entry.Email.Contains(value, StringComparison.OrdinalIgnoreCase))
+                            {
+                                result.Add(entry);
+                            }
                         }
 
-                    case Choice.Contact:
-                        {
-                            foreach (var entry in this._contactList)
-                            {
-                                if (entry.Contact != null && entry.Contact.Contains(value, StringComparison.OrdinalIgnoreCase))
-                            {
-                                    result.Add(entry);
-                                }
-                            }
+                        return result;
+                    }
 
-                            return result;
+                case Choice.Contact:
+                    {
+                        foreach (var entry in this._contactList)
+                        {
+                            if (entry.Contact != null && entry.Contact.Contains(value, StringComparison.OrdinalIgnoreCase))
+                            {
+                                result.Add(entry);
+                            }
                         }
 
-                    default: return null;
-                }
+                        return result;
+                    }
+
+                default: return null;
+            }
         }
     }
 }

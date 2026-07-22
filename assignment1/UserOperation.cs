@@ -1,7 +1,4 @@
-﻿using System.Diagnostics.Metrics;
-using System.Runtime.InteropServices;
-using System.Xml.Linq;
-using Assignment1.Helper;
+﻿using Assignment1.Helper;
 using Assignment1.Model;
 using Assignment1.Services;
 
@@ -204,8 +201,8 @@ namespace Assignment1
                         }
                         else
                         {
+                            Output.Error("Invalid - Element not edited.");
                             Output.Error($"{j} attempts remaining\n");
-                            Output.Error("Enter proper choice/value");
                         }
                     }
                 }
@@ -243,9 +240,16 @@ namespace Assignment1
                 {
                     index--;
 
-                    this._contact.Delete(contacts[index].Id);
-                    Output.Success("Deleted Succesfully\n");
-                    return;
+                    if (this._contact.Delete(contacts[index].Id))
+                    {
+                        Output.Success("Deleted Succesfully\n");
+                        return;
+                    }
+                    else
+                    {
+                        Output.Error("Invalid Element not deleted\n");
+                        Output.Error($"{tries} attempts remaining\n");
+                    }
                 }
                 else
                 {
