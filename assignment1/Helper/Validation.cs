@@ -12,7 +12,7 @@ namespace Assignment1.Helper
         /// </summary>
         /// <param name="number"> the string of the phone number</param>
         /// <returns> validation result </returns>
-        public static bool ValidatingContact(string? number)
+        public static bool IsValidContact(string? number)
         {
             if (number == null)
             {
@@ -41,6 +41,47 @@ namespace Assignment1.Helper
 
             string pattern = @"^[a-zA-Z0-9._%+-]+@[a-zA-Z.-]+\.[a-zA-Z]{2,}$";
             return Regex.IsMatch(mail, pattern, RegexOptions.IgnoreCase);
+        }
+
+        /// <summary>
+        /// to check the input is null or not
+        /// </summary>
+        /// <param name="input"> the string to be checked </param>
+        /// <returns> validation </returns>
+        public static bool CheckInput(string? input)
+        {
+            return !string.IsNullOrWhiteSpace(input);
+        }
+
+        /// <summary>
+        /// TO check if user is enterring a valid input or not
+        /// </summary>
+        /// <param name="prompt"> to print before user enters value </param>
+        /// <param name="validation">  the validating function </param>
+        /// <param name="errorMessage"> the error message </param>
+        /// <returns> returns string </returns>
+        public static string? GetValidInput(string? prompt, Func<string, bool> validation, string? errorMessage)
+        {
+            for (int tried = 1; tried <= 3; tried++)
+            {
+                Output.Display(prompt);
+                string? input = UserInput.ReadInput();
+                if (input == null)
+                {
+                    Output.Error(errorMessage);
+                    continue;
+                }
+
+                if (validation(input))
+                {
+                    return input;
+                }
+
+                Output.Error(errorMessage);
+                Output.Error($"{3 - tried} attempts remaining\n");
+            }
+
+            return null;
         }
     }
 }

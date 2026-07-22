@@ -23,34 +23,16 @@
         /// <param name="email"> the email of the contact </param>
         /// <param name="contact"> the phone number of the contact </param>
         /// <param name="description"> the descripion of the contact</param>
-        /// <returns> return the boolean of has added or not</returns>
-        public bool Create(string? name, string? email, string? contact, string? description)
+        public void Create(string? name, string? email, string? contact, string? description)
         {
             ContactInfo newContactInfo = new ContactInfo();
             newContactInfo.Name = name;
-            if (Validation.IsValidEmail(email))
-            {
-                newContactInfo.Email = email;
-            }
-            else
-            {
-                return false;
-            }
-
-            if (Validation.ValidatingContact(contact))
-            {
-                newContactInfo.Contact = contact;
-            }
-            else
-            {
-                return false;
-            }
-
+            newContactInfo.Contact = contact;
+            newContactInfo.Email = email;
             newContactInfo.Description = description;
             Guid id = Guid.NewGuid();
             newContactInfo.Id = id;
             this._contactRepository.Add(newContactInfo);
-            return true;
         }
 
         /// <summary>
@@ -98,7 +80,7 @@
                         this._contactRepository.Update(record, record.Id);
                         return true;
                     case Choice.Contact:
-                        if (!Validation.ValidatingContact(value))
+                        if (!Validation.IsValidContact(value))
                         {
                             return false;
                         }

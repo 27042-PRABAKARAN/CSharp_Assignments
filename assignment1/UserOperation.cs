@@ -1,4 +1,7 @@
-﻿using Assignment1.Helper;
+﻿using System.Diagnostics.Metrics;
+using System.Runtime.InteropServices;
+using System.Xml.Linq;
+using Assignment1.Helper;
 using Assignment1.Model;
 using Assignment1.Services;
 
@@ -19,29 +22,46 @@ namespace Assignment1
         /// </summary>
         public void AddContacts()
         {
-            int tries = 3;
-            while (tries-- > 0)
+            string? name = null;
+            string? description = null;
+            string? contact = null;
+            string? email = null;
+            name = Validation.GetValidInput("Enter Name: ", Validation.CheckInput, "Entered null value or white space.");
+
+            if (name == null)
             {
-                Output.Display("Enter Name: ");
-                string? name = UserInput.ReadInput();
-                Output.Display("Enter Email: ");
-                string? email = UserInput.ReadInput();
-                Output.Display("Enter Contact: ");
-                string? contact = UserInput.ReadInput();
-                Output.Display("Enter Description: ");
-                string? description = UserInput.ReadInput();
-                bool added = this._contact.Create(name, email, contact, description);
-                if (added)
-                {
-                    Output.Success("Added Successfully\n");
-                    return;
-                }
-                else
-                {
-                    Output.Error("Enter proper Name ,Contact and Email\n");
-                    Output.Error($"{tries} attempts remaining\n");
-                }
+                return;
             }
+
+            email = Validation.GetValidInput("Enter Email: ", Validation.IsValidEmail, "Entered invalid email. Example: name@mail.com");
+
+            if (email == null)
+            {
+                return;
+            }
+
+            contact = Validation.GetValidInput("Enter Contact: ", Validation.IsValidContact, "All characters should be digits and exactly 10 digits should be entered.");
+
+            if (contact == null)
+            {
+                return;
+            }
+
+            description = Validation.GetValidInput("Enter Description: ", Validation.CheckInput, "Entered null value or white space.");
+
+            if (description == null)
+            {
+                return;
+            }
+
+            if (name == null || email == null || contact == null || description == null)
+            {
+                return;
+            }
+
+            this._contact.Create(name, email, contact, description);
+            Output.Success("Added Successfully\n");
+            return;
         }
 
         /// <summary>
@@ -78,7 +98,7 @@ namespace Assignment1
             while (tries-- > 0)
             {
                 Output.Display("Searching Contact : ");
-                Output.Display("Search using\n 1.Name \n 2.Contact \n 3.Email");
+                Output.Display("Search using\n 1.Name \n 2.Email \n 3.Contact");
                 string? choice = UserInput.ReadInput();
                 int.TryParse(choice, out int index);
                 Choice searchChoice = (Choice)index;
@@ -88,22 +108,19 @@ namespace Assignment1
                     {
                         case Choice.Name:
                             {
-                                Output.Display("Enter name : ");
-                                this.SearchByChoice(Choice.Name);
-                                return;
-                            }
-
-                        case Choice.Contact:
-                            {
-                                Output.Display("Enter Contact Number : ");
-                                this.SearchByChoice(Choice.Contact);
+                                this.SearchByChoice("Enter Name: ", Choice.Name);
                                 return;
                             }
 
                         case Choice.Email:
                             {
-                                Output.Display("Enter Email : ");
-                                this.SearchByChoice(Choice.Email);
+                                this.SearchByChoice("Enter Email:", Choice.Email);
+                                return;
+                            }
+
+                        case Choice.Contact:
+                            {
+                                this.SearchByChoice("Enter Contact: ", Choice.Contact);
                                 return;
                             }
 
@@ -126,11 +143,12 @@ namespace Assignment1
         /// <summary>
         /// function to search;
         /// </summary>
+        /// /// <param name="prompt">Type name</param>
         /// <param name="type">Type of Search</param>
-        public void SearchByChoice(Choice type)
+        public void SearchByChoice(string? prompt, Choice type)
         {
             bool found = true;
-            string? userchoice = UserInput.ReadInput();
+            string? userchoice = Validation.GetValidInput(prompt, Validation.CheckInput, "Entered null value or white space.");
             List<ContactInfo>? records = this._contact.Search(type, userchoice);
             if (records == null || records.Count() <= 0)
             {
@@ -177,8 +195,7 @@ namespace Assignment1
                         Output.Display("Edit the (Enter the letter)");
                         Output.Display("1.Name\n2.Email\n3.Contact\n4.Description\n");
                         string? choice = UserInput.ReadInput();
-                        Output.Display("Enter new Value: ");
-                        string? value = UserInput.ReadInput();
+                        string? value = Validation.GetValidInput("Enter new Value: ", Validation.CheckInput, "Entered null value or white space.");
                         bool edited = this._contact.Edit(choice, contacts[index].Id, value);
                         if (edited)
                         {
