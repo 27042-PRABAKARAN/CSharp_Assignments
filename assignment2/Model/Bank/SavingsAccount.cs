@@ -31,12 +31,16 @@ namespace Assignment2.Model.Bank
         /// withdraws the amount from account.
         /// </summary>
         /// <param name="amount"> the amount to be withdrawed </param>
-        public override void Withdraw(decimal? amount)
+        /// <returns> returns boolean of the withdraw </returns>
+        public override bool Withdraw(decimal? amount)
         {
             if (this.Balance - amount >= MinBalance)
             {
                 this.Balance -= amount;
+                return true;
             }
+
+            return false;
         }
     }
 }
