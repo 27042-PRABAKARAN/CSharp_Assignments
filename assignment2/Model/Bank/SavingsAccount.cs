@@ -14,14 +14,14 @@ namespace Assignment2.Model.Bank
         /// <summary>
         /// MinBalance stores the minimum balance to be maintained .
         /// </summary>
-        public const double MinBalance = 5000;
+        public const decimal MinBalance = 5000;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SavingsAccount"/> class.
         /// </summary>
         /// <param name="accountNumber"> the account number of the account</param>
         /// <param name="balance"> the balance </param>
-        public SavingsAccount(string? accountNumber, double balance)
+        public SavingsAccount(string? accountNumber, decimal? balance)
         {
             this.AccountNumber = accountNumber;
             this.Balance = balance;
@@ -31,7 +31,7 @@ namespace Assignment2.Model.Bank
         /// withdraws the amount from account.
         /// </summary>
         /// <param name="amount"> the amount to be withdrawed </param>
-        public override void Withdraw(double amount)
+        public override void Withdraw(decimal? amount)
         {
             if (this.Balance - amount >= MinBalance)
             {
