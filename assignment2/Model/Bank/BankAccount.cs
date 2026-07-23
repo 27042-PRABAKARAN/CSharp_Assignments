@@ -34,9 +34,11 @@
         /// this method
         /// </summary>
         /// <param name="amount"> the amount to be withdrawn </param>
-        public virtual void Withdraw(decimal? amount)
+        /// <returns> returns the boolean</returns>
+        public virtual bool Withdraw(decimal? amount)
         {
             this.Balance -= amount;
+            return true;
         }
     }
 }

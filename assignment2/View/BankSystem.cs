@@ -30,9 +30,19 @@ namespace Assignment2.View
             CreateChecking,
 
             /// <summary>
-            /// to withdraw amount
+            /// to withdraw amount.
             /// </summary>
             WithDraw,
+
+            /// <summary>
+            /// to deposit the amount.
+            /// </summary>
+            Deposit,
+
+            /// <summary>
+            /// to fetch balance.
+            /// </summary>
+            FetchBalance,
 
             /// <summary>
             /// to exit the app
@@ -45,20 +55,22 @@ namespace Assignment2.View
         /// </summary>
         public void BankOperations()
         {
-            Output.Display("Welcome to Account Management System :  ");
+            Output.Display("Hey User,\nWelcome to Account Management System :  ");
+            BankAccount? account = null;
             while (true)
             {
-                Output.Display("1. Create A Saving Account.\n2. Create A Checking Account.\n3. Exit the app");
+                Output.Display("\n======Menu========\n1. Create A Saving Account.\n2. Create A Checking Account.\n3. Withdraw Money.\n4. Deposit Money.\n5. Get Balance.\n6. Exit the app.\n==================\n");
                 string? userInput = UserInput.ReadInput("Enter the choice: ");
                 int index;
                 int.TryParse(userInput, out index);
                 Operation operation = (Operation)index;
-                BankAccount? account = null;
                 switch (operation)
                 {
                     case Operation.CreateSavings: account = this.CreateSavingAccount(); break;
                     case Operation.CreateChecking: account = this.CreateCheckingAccount(); break;
                     case Operation.WithDraw: this.Withdraw(account); break;
+                    case Operation.Deposit: this.Deposit(account); break;
+                    case Operation.FetchBalance: this.FetchBalance(account); break;
                     case Operation.Exit: return;
 
                     default: Output.Error("enter valid choice"); break;
@@ -72,12 +84,18 @@ namespace Assignment2.View
         /// <returns> returns the bank Account</returns>
         public BankAccount? CreateSavingAccount()
         {
-            decimal? amount = UserInput.ReadAmount("Enter the capital of the account: ");
+            decimal? amount = UserInput.ReadAmount("Enter the capital of the account(Minimum balance should be 5000): ");
             if (amount == null)
             {
                 return null;
             }
 
+            if (amount < 5000)
+            {
+                Output.Error("for a Savings account the minimum balance should be 5000.");
+                return null;
+            }
+            Output.Success("Created Savings account successfully");
             return this._bankServices.CreateSavingAccount(amount);
         }
 
@@ -93,6 +111,7 @@ namespace Assignment2.View
                 return null;
             }
 
+            Output.Success("Created Checking account successfully");
             return this._bankServices.CreateCheckingAccount(amount);
         }
 
@@ -108,13 +127,67 @@ namespace Assignment2.View
                 return;
             }
 
+            decimal? amount = UserInput.ReadAmount("Enter the amount to be Withdrawn: ");
+            if (amount == null)
+            {
+                return;
+            }
+
+            if (!this._bankServices.WithDraw(account, amount))
+            {
+                if (account is SavingsAccount)
+                {
+                    Output.Error("invalid - violates minimum balance requirement.");
+                }
+                else
+                {
+                    Output.Error("Amount entered is more than balance ");
+                }
+            }
+            else
+            {
+                Output.Success("withdraw successful");
+                this.FetchBalance(account);
+            }
+        }
+
+        /// <summary>
+        /// to deposit amount
+        /// </summary>
+        /// <param name="account"> the account in which deposit takes place</param>
+        public void Deposit(BankAccount? account)
+        {
+            if (account == null)
+            {
+                Output.Error("No account to Deposit amount. create one first.");
+                return;
+            }
+
             decimal? amount = UserInput.ReadAmount("Enter the amount to be deposited: ");
             if (amount == null)
             {
                 return;
             }
 
-            this._bankServices.WithDraw(account, amount);
+            this._bankServices.Deposit(account, amount);
+            Output.Success("Deposit Successfull");
+        }
+
+        /// <summary>
+        /// this fetches balance of the account.
+        /// </summary>
+        /// <param name="account"> account to fetch balance</param>
+        public void FetchBalance(BankAccount? account)
+        {
+            if (account == null)
+            {
+                Output.Error("No account to fetch amount. create one first.");
+                return;
+            }
+            else
+            {
+                Output.Display($"Available balance : {this._bankServices.FetchBalance(account).ToString()}");
+            }
         }
     }
 }
