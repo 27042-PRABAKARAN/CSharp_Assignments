@@ -16,7 +16,7 @@ namespace Assignment2.Model.Bank
         /// </summary>
         /// <param name="accountNumber"> the account number of the account</param>
         /// <param name="balance"> the balance </param>
-        public CheckingAccount(string? accountNumber, double balance)
+        public CheckingAccount(string? accountNumber, decimal? balance)
         {
             this.AccountNumber = accountNumber;
             this.Balance = balance;
@@ -26,7 +26,7 @@ namespace Assignment2.Model.Bank
         /// withdraws the amount from account.
         /// </summary>
         /// <param name="amount"> the amount to be withdrawed </param>
-        public override void Withdraw(double amount)
+        public override void Withdraw(decimal? amount)
         {
          this.Balance -= amount;
         }

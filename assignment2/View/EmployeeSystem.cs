@@ -65,7 +65,7 @@ namespace Assignment2.View
         public void CreateManager()
         {
             string? name = UserInput.ReadInput("Enter Name of the Manager: ");
-            if (!double.TryParse(UserInput.ReadInput("Enter Name of the Manager: "), out double salaryDouble) || salaryDouble <= 0)
+            if (!double.TryParse(UserInput.ReadInput("Enter Salary of the Manager: "), out double salaryDouble) || salaryDouble <= 0)
             {
                 Output.Error("Invalid Salary. Please enter a positive number.");
             }

@@ -19,13 +19,13 @@
         /// <value>
         /// the account number of the bank account
         /// </value>
-        public double Balance { get; set; }
+        public decimal? Balance { get; set; }
 
         /// <summary>
         /// the amount to be deposited will be added in the balance
         /// </summary>
         /// <param name="amount"> the amount to be deposited </param>
-        public void DepositAmount(double amount)
+        public void DepositAmount(decimal? amount)
         {
             this.Balance += amount;
         }
@@ -34,7 +34,7 @@
         /// this method
         /// </summary>
         /// <param name="amount"> the amount to be withdrawn </param>
-        public virtual void Withdraw(double amount)
+        public virtual void Withdraw(decimal? amount)
         {
             this.Balance -= amount;
         }
