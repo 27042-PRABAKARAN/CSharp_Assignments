@@ -64,7 +64,8 @@ namespace Assignment2.Helper
         {
             for (int tried = 1; tried <= 3; tried++)
             {
-                string? input = UserInput.ReadInput(prompt);
+                Console.Write(prompt);
+                string? input = Console.ReadLine();
                 if (input == null)
                 {
                     Output.Error(errorMessage);

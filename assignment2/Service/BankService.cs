@@ -19,7 +19,7 @@ namespace Assignment2.Service
         /// <returns> returns the message </returns>
         public BankAccount CreateSavingAccount(decimal? capital)
         {
-            SavingsAccount newAccount = new SavingsAccount(_accounts++.ToString(), capital);
+            SavingsAccount newAccount = new SavingsAccount((++_accounts).ToString(), capital);
             return newAccount;
         }
 
@@ -52,13 +52,17 @@ namespace Assignment2.Service
         /// <returns> returns the status </returns>
         public bool WithDraw(BankAccount account, decimal? amount)
         {
-            if (account.Balance < amount)
-            {
-                return false;
-            }
+            return account.Withdraw(amount);
+        }
 
-            account.Withdraw(amount);
-            return true;
+        /// <summary>
+        /// this fetches balance
+        /// </summary>
+        /// <param name="account"> from which account the balance to be fetched </param>
+        /// <returns> returns balance </returns>
+        public decimal? FetchBalance(BankAccount account)
+        {
+            return account.Balance;
         }
     }
 }
