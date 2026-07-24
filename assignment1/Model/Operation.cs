@@ -1,31 +1,11 @@
-﻿namespace Assignment1.Model
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace Assignment1.Model
 {
-    /// <summary>
-    /// Enum for searching choices
-    /// </summary>
-    public enum Choice
-    {
-        /// <summary>
-        /// Name
-        /// </summary>
-        Name = 1,
-
-        /// <summary>
-        /// Email
-        /// </summary>
-        Email = 2,
-
-        /// <summary>
-        /// Contact
-        /// </summary>
-        Contact = 3,
-
-        /// <summary>
-        /// Description
-        /// </summary>
-        Description = 4,
-    }
-
     /// <summary>
     /// Enum Operations created
     /// </summary>
