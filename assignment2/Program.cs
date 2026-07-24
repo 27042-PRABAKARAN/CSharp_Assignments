@@ -1,6 +1,9 @@
-﻿using Assignment2.View;
+﻿using Assignment2;
+using Assignment2.Helper;
+using Assignment2.Model.Employee;
+using Assignment2.View;
 
-namespace Assignments
+namespace Assignment2
 {
     /// <summary>
     /// Program class
@@ -13,14 +16,27 @@ namespace Assignments
         /// <param name="args"> if there are any terminal arguents</param>
         private static void Main(string[] args)
         {
-            //ShapesSystem shape = new ShapesSystem();
-            //shape.ShapeOperations();
+            Output.Display("Hey User,");
+            while (true)
+            {
+                Output.Display("========================\n1. Shape Hirearchy.\n2. Employee Hirearchy.\n3. BankSystem.\n4. Exit.\n========================");
+                int? choice = UserInput.ReadInt("Enter the choice : ", 1, 4);
+                if (choice == null)
+                {
+                    Output.Display("Exiting App");
+                    break;
+                }
 
-            //EmployeeSystem operations = new EmployeeSystem();
-            //operations.EmployeeOperations();
-
-            BankSystem bank = new BankSystem();
-            bank.BankOperations();
+                Applications app = (Applications)choice;
+                switch (app)
+                {
+                    case Applications.ShapeHirearchy: ShapesSystem shape = new ShapesSystem(); shape.ShapeOperations(); break;
+                    case Applications.EmployeeHirearchy: EmployeeSystem employee = new EmployeeSystem(); employee.EmployeeOperations(); break;
+                    case Applications.BankSystem: BankSystem bankSystem = new BankSystem(); bankSystem.BankOperations(); break;
+                    case Applications.Exit: Output.Display("Exiting"); return;
+                    default: Output.Error("Enter a valid number"); break;
+                }
+            }
         }
     }
 }

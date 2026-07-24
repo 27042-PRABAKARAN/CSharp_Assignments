@@ -11,7 +11,7 @@
         /// </summary>
         /// <param name="radius"> the radius of the circle </param>
         /// <param name="colour"> the colour of the circle </param>
-        public Circle(double radius, string? colour)
+        public Circle(double? radius, string? colour)
         {
             this.Radius = radius;
             this.Colour = colour;
@@ -20,17 +20,15 @@
         /// <summary>
         /// Gets or sets and sets radius of the circle.
         /// </summary>
-        private double Radius { get; set; }
-
-        private string? Name { get; set; }
+        private double? Radius { get; set; }
 
         /// <summary>
         /// calculates the area of the circle
         /// </summary>
         /// <returns> the area of the circle </returns>
-        public override double CalculateArea()
+        public override double? CalculateArea()
         {
-            return Math.PI * this.Radius * this.Radius;
+            return this.Area = Math.PI * this.Radius * this.Radius;
         }
 
         /// <summary>
@@ -39,7 +37,7 @@
         /// <returns> returns the details</returns>
         public override string? PrintDetails()
         {
-            return $"The Shape is : {this.Name} , Area is : {this.Area}, Colour is {this.Colour}\n";
+            return $"\nThe Shape is : Rectangle\nArea is : {this.Area} meter square.\nColour is {this.Colour}\n";
         }
     }
 }

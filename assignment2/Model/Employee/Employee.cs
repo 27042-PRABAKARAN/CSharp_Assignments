@@ -25,7 +25,7 @@ namespace Assignment2.Model.Employee
         /// <value>
         /// holds the amount of salary the employee gets
         /// </value>
-        public double Salary { get; set; }
+        public double? Salary { get; set; }
 
         /// <summary>
         /// Gets or sets the bonus of the employee
@@ -33,7 +33,7 @@ namespace Assignment2.Model.Employee
         /// /// <value>
         /// holds the amount of bonus the employee gets
         /// </value>
-        public double Bonus { get; set; }
+        public double? Bonus { get; set; }
 
         /// <summary>
         /// This calculates the bonus
@@ -46,7 +46,7 @@ namespace Assignment2.Model.Employee
         /// <returns> returns the details of class</returns>
         public virtual string? PrintDetails()
         {
-            return $"Name : {this.Name} , Salary : {this.Salary} , Bonus {this.Bonus} .";
+            return $"Name : {this.Name} , Salary : {this.Salary} Rupees, Bonus : {this.Bonus} Rupees.";
         }
     }
 }

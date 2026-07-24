@@ -43,18 +43,20 @@ namespace Assignment2.View
             Output.Display("Welcome to Shapes ");
             while (true)
             {
-                Output.Display("1. Create A Rectangle.\n2. Create A Circle.\n3. Exit the app");
-                string? userInput = UserInput.ReadInput("Enter the number: ");
-
-                int index;
-                int.TryParse(userInput, out index);
+                Output.Display("========================\n1. Create A Rectangle.\n2. Create A Circle.\n3. Exit the app\n========================");
+                int? index = UserInput.ReadInt("Enter the choice: ", 1, 3);
+                if (index == null)
+                {
+                    Output.Display("reteurning to mainmenu");
+                    return;
+                }
                 Operation operation = (Operation)index;
                 switch (operation)
                 {
                     case Operation.CreateRectangle: this.CreateRectangle(); break;
                     case Operation.CreateCircle: this.CreateCircle(); break;
                     case Operation.Exit: return;
-                    default: Output.Display("enter valid choice"); break;
+                    default: Output.Error("enter valid choice"); break;
                 }
             }
         }
@@ -64,17 +66,25 @@ namespace Assignment2.View
         /// </summary>
         public void CreateRectangle()
         {
-            if (!double.TryParse(UserInput.ReadInput("Enter length in meters: "), out double length) || length <= 0)
+            double? length = UserInput.ReadMetres("Enter length in meters : ");
+
+            if (length == null)
             {
-                Output.Display("Invalid length. Please enter a positive number.");
+                return;
             }
 
-            if (!double.TryParse(UserInput.ReadInput("Enter width in meters: "), NumberStyles.Float, CultureInfo.InvariantCulture, out double width) || width <= 0)
+            double? width = UserInput.ReadMetres("Enter width in meters : ");
+
+            if (width == null)
             {
-                Output.Display("Invalid width. Please enter a positive number.");
+                return;
             }
 
-            string? colour = UserInput.ReadInput("Enter Colour of the Rectangle");
+            string? colour = UserInput.GetColour("Enter Colour of the Rectangle: ");
+            if (colour == null)
+            {
+                return;
+            }
 
             Output.Display(this._shapeService.CreateRectangle(colour, width, length));
         }
@@ -84,14 +94,14 @@ namespace Assignment2.View
         /// </summary>
         public void CreateCircle()
         {
-            Output.Display("Enter radius in meters: ");
-            if (!double.TryParse(Console.ReadLine(), out double radius) || radius <= 0)
+            double? radius = UserInput.ReadMetres("Enter radius in meters : ");
+
+            if (radius == null)
             {
-                Output.Display("Invalid length. Please enter a positive number.");
+                return;
             }
 
-            Output.Display("Enter Colour of the Circle : ");
-            string? colour = Console.ReadLine();
+            string? colour = UserInput.GetColour("Enter Colour of the Circle : ");
 
             Output.Display(this._shapeService.CreateCircle(colour, radius));
         }
