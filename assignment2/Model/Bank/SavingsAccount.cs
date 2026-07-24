@@ -14,7 +14,7 @@ namespace Assignment2.Model.Bank
         /// <summary>
         /// MinBalance stores the minimum balance to be maintained .
         /// </summary>
-        public const decimal MinBalance = 5000;
+        private static decimal _minBalance = 5000;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SavingsAccount"/> class.

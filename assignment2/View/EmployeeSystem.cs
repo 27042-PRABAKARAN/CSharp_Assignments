@@ -42,10 +42,14 @@ namespace Assignment2.View
             Output.Display("Welcome to Employee Management System :  ");
             while (true)
             {
-                Output.Display("1. Create A Developer.\n2. Create a Manager.\n3. Exit the app");
-                string? userInput = UserInput.ReadInput("Enter the number: ");
-                int index;
-                int.TryParse(userInput, out index);
+                Output.Display("========================\n1. Create A Developer.\n2. Create a Manager.\n3. Exit the app.\n========================\n");
+                int? index = UserInput.ReadInt("Enter the choice: ", 1, 3);
+                if (index == null)
+                {
+                    Output.Display("reteurning to mainmenu");
+                    return;
+                }
+
                 Operation operation = (Operation)index;
                 switch (operation)
                 {
@@ -65,26 +69,28 @@ namespace Assignment2.View
         public void CreateManager()
         {
             string? name = UserInput.ReadInput("Enter Name of the Manager: ");
-            if (!double.TryParse(UserInput.ReadInput("Enter Salary of the Manager: "), out double salaryDouble) || salaryDouble <= 0)
+            double? salary = UserInput.ReadSalary("Enter the Salary of the Manager in Rupees : ");
+            if (salary == null)
             {
-                Output.Error("Invalid Salary. Please enter a positive number.");
+                return;
             }
 
-            Output.Display(this._employeeServices.CreateManager(name, salaryDouble));
+            Output.Display(this._employeeServices.CreateManager(name, salary));
         }
 
         /// <summary>
-        /// creates Developer
+        /// creates Developer.
         /// </summary>
         public void CreateDeveloper()
         {
             string? name = UserInput.ReadInput("Enter Name of the Developer: ");
-            if (!double.TryParse(UserInput.ReadInput("Enter Salary of the Developer: "), out double salaryDouble) || salaryDouble <= 0)
+            double? salary = UserInput.ReadSalary("Enter the Salary of the Developer in Rupees : ");
+            if (salary == null)
             {
-                Output.Display("Invalid Salary. Please enter a positive number.");
+                return;
             }
 
-            Output.Display(this._employeeServices.CreateDeveloper(name, salaryDouble));
+            Output.Display(this._employeeServices.CreateDeveloper(name, salary));
         }
     }
 }

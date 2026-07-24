@@ -14,7 +14,7 @@ namespace Assignment2.Service
         /// <param name="width"> the widht of the rectangle </param>
         /// <param name="length"> the length of the rectangle </param>
         /// <returns> returns the details</returns>
-        public string? CreateRectangle(string? colour, double width, double length)
+        public string? CreateRectangle(string? colour, double? width, double? length)
         {
             Rectangle newRectangle = new Rectangle(colour, length, width);
             newRectangle.CalculateArea();
@@ -27,7 +27,7 @@ namespace Assignment2.Service
         /// <param name="colour"> The colour of the circle  </param>
         /// <param name="radius"> the radius of the circle </param>
         /// <returns> returns the details if created </returns>
-        public string? CreateCircle(string? colour, double radius)
+        public string? CreateCircle(string? colour, double? radius)
         {
             Circle newCircle = new Circle(radius, colour);
             newCircle.CalculateArea();

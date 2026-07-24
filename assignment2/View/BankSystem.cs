@@ -40,9 +40,9 @@ namespace Assignment2.View
             Deposit,
 
             /// <summary>
-            /// to fetch balance.
+            /// to fetch details.
             /// </summary>
-            FetchBalance,
+            FetchDetails,
 
             /// <summary>
             /// to exit the app
@@ -59,10 +59,14 @@ namespace Assignment2.View
             BankAccount? account = null;
             while (true)
             {
-                Output.Display("\n======Menu========\n1. Create A Saving Account.\n2. Create A Checking Account.\n3. Withdraw Money.\n4. Deposit Money.\n5. Get Balance.\n6. Exit the app.\n==================\n");
-                string? userInput = UserInput.ReadInput("Enter the choice: ");
-                int index;
-                int.TryParse(userInput, out index);
+                Output.Display("\n==========Menu==========\n1. Create A Saving Account.\n2. Create A Checking Account.\n3. Withdraw Money.\n4. Deposit Money.\n5. Get Balance.\n6. Exit the app.\n========================\n");
+                int? index = UserInput.ReadInt("Enter the choice: ", 1, 6);
+                if (index == null)
+                {
+                    Output.Display("reteurning to mainmenu");
+                    return;
+                }
+
                 Operation operation = (Operation)index;
                 switch (operation)
                 {
@@ -70,7 +74,7 @@ namespace Assignment2.View
                     case Operation.CreateChecking: account = this.CreateCheckingAccount(); break;
                     case Operation.WithDraw: this.Withdraw(account); break;
                     case Operation.Deposit: this.Deposit(account); break;
-                    case Operation.FetchBalance: this.FetchBalance(account); break;
+                    case Operation.FetchDetails:  this.FetchDetails(account); break;
                     case Operation.Exit: return;
 
                     default: Output.Error("enter valid choice"); break;
@@ -84,7 +88,7 @@ namespace Assignment2.View
         /// <returns> returns the bank Account</returns>
         public BankAccount? CreateSavingAccount()
         {
-            decimal? amount = UserInput.ReadAmount("Enter the capital of the account(Minimum balance should be 5000): ");
+            decimal? amount = UserInput.ReadAmount($"Enter the capital of the account(Minimum balance should be {SavingsAccount.}.) in Rupees: ");
             if (amount == null)
             {
                 return null;
@@ -105,7 +109,7 @@ namespace Assignment2.View
         /// <returns> returns the created bank account </returns>
         public BankAccount? CreateCheckingAccount()
         {
-            decimal? amount = UserInput.ReadAmount("Enter the capital of the account: ");
+            decimal? amount = UserInput.ReadAmount("Enter the capital of the account in Rupees: ");
             if (amount == null)
             {
                 return null;
@@ -127,7 +131,7 @@ namespace Assignment2.View
                 return;
             }
 
-            decimal? amount = UserInput.ReadAmount("Enter the amount to be Withdrawn: ");
+            decimal? amount = UserInput.ReadAmount("Enter the amount to be Withdrawn in Rupees: ");
             if (amount == null)
             {
                 return;
@@ -138,16 +142,18 @@ namespace Assignment2.View
                 if (account is SavingsAccount)
                 {
                     Output.Error("invalid - violates minimum balance requirement.");
+                    Output.Display("Back to Menu");
                 }
                 else
                 {
                     Output.Error("Amount entered is more than balance ");
+                    Output.Display("Back to Menu");
                 }
             }
             else
             {
                 Output.Success("withdraw successful");
-                this.FetchBalance(account);
+                this.FetchDetails(account);
             }
         }
 
@@ -163,7 +169,7 @@ namespace Assignment2.View
                 return;
             }
 
-            decimal? amount = UserInput.ReadAmount("Enter the amount to be deposited: ");
+            decimal? amount = UserInput.ReadAmount("Enter the amount to be deposited in Rupees: ");
             if (amount == null)
             {
                 return;
@@ -174,10 +180,10 @@ namespace Assignment2.View
         }
 
         /// <summary>
-        /// this fetches balance of the account.
+        /// this fetches details of the account.
         /// </summary>
         /// <param name="account"> account to fetch balance</param>
-        public void FetchBalance(BankAccount? account)
+        public void FetchDetails(BankAccount? account)
         {
             if (account == null)
             {
@@ -186,7 +192,7 @@ namespace Assignment2.View
             }
             else
             {
-                Output.Display($"Available balance : {this._bankServices.FetchBalance(account).ToString()}");
+                Output.Display($"Account Number : {this._bankServices.FetchAccount(account).ToString()}\nAvailable balance : {this._bankServices.FetchBalance(account).ToString()} Rupees");
             }
         }
     }
