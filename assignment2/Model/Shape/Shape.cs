@@ -25,13 +25,13 @@ namespace Assignment2.Model.Shape
         /// <value>
         /// Area of the shape
         /// </value>
-        protected double Area { get; set; }
+        protected double? Area { get; set; }
 
         /// <summary>
         /// Calculating area
         /// </summary>
         /// <returns> return the calculated area </returns>
-        public abstract double CalculateArea();
+        public abstract double? CalculateArea();
 
         /// <summary>
         /// this prints the details

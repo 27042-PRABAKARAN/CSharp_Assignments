@@ -10,7 +10,7 @@
         /// </summary>
         /// <param name="name"> the name of the employee </param>
         /// <param name="salary"> the salary of the employee</param>
-        public Manager(string? name, double salary)
+        public Manager(string? name, double? salary)
         {
             this.Name = name;
             this.Salary = salary;
@@ -30,7 +30,7 @@
         /// <returns> return the details </returns>
         public override string? PrintDetails()
         {
-            return $"Name : {this.Name} , Position : Manager , Salary : {this.Salary} , Bonus {this.Bonus} .";
+            return $"\nName : {this.Name}\nPosition : Manager\nSalary : {this.Salary}\nBonus : {this.Bonus}.\n";
         }
     }
 }
