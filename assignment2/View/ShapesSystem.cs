@@ -50,6 +50,7 @@ namespace Assignment2.View
                     Output.Display("reteurning to mainmenu");
                     return;
                 }
+
                 Operation operation = (Operation)index;
                 switch (operation)
                 {
@@ -102,6 +103,10 @@ namespace Assignment2.View
             }
 
             string? colour = UserInput.GetColour("Enter Colour of the Circle : ");
+            if (colour == null)
+            {
+                return;
+            }
 
             Output.Display(this._shapeService.CreateCircle(colour, radius));
         }
