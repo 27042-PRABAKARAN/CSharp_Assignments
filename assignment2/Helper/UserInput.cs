@@ -53,6 +53,31 @@
         /// </summary>
         /// <param name="prompt"> the prompt for the input </param>
         /// <returns> returns string </returns>
+        public static decimal? ReadCapital(string? prompt)
+        {
+            for (int tried = 1; tried <= 3; tried++)
+            {
+                Console.Write(prompt);
+                if (!decimal.TryParse(Console.ReadLine(), out decimal amount) || amount < 5000)
+                {
+                    Output.Error("Invalid Amount. Minimum balance is 5000 Rupees.");
+                }
+                else
+                {
+                    return amount;
+                }
+
+                Output.Error($"{3 - tried} attempts remaining\n");
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// this reads the input
+        /// </summary>
+        /// <param name="prompt"> the prompt for the input </param>
+        /// <returns> returns string </returns>
         public static decimal? ReadAmount(string? prompt)
         {
             for (int tried = 1; tried <= 3; tried++)
