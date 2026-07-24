@@ -40,5 +40,14 @@
             this.Balance -= amount;
             return true;
         }
+
+        /// <summary>
+        /// overriding to string to print details
+        /// </summary>r
+        /// <returns> returns details</returns>
+        public override string ToString()
+        {
+            return $"Account Number is {this.AccountNumber}.\nThe Balance is {this.Balance} Rupees.";
+        }
     }
 }

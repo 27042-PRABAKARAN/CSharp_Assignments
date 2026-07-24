@@ -15,9 +15,9 @@ namespace Assignment2.View
         private readonly BankService _bankServices = new BankService();
 
         /// <summary>
-        /// Operation enumerator
+        /// AccountType enumerator
         /// </summary>
-        internal enum Operation
+        internal enum AccountType
         {
             /// <summary>
             /// to create a Savings account
@@ -30,9 +30,20 @@ namespace Assignment2.View
             CreateChecking,
 
             /// <summary>
+            /// to exit the app
+            /// </summary>
+            Exit,
+        }
+
+        /// <summary>
+        /// Operation enumerator
+        /// </summary>
+        internal enum Operation
+        {
+            /// <summary>
             /// to withdraw amount.
             /// </summary>
-            WithDraw,
+            WithDraw = 1,
 
             /// <summary>
             /// to deposit the amount.
@@ -55,29 +66,54 @@ namespace Assignment2.View
         /// </summary>
         public void BankOperations()
         {
-            Output.Display("Hey User,\nWelcome to Account Management System :  ");
+            Output.Display("\nWelcome to Account Management System :  ");
             BankAccount? account = null;
             while (true)
             {
-                Output.Display("\n==========Menu==========\n1. Create A Saving Account.\n2. Create A Checking Account.\n3. Withdraw Money.\n4. Deposit Money.\n5. Get Balance.\n6. Exit the app.\n========================\n");
+                Output.Display("\n==========Menu==========\n1. Create A Saving Account.\n2. Create A Checking Account.\n3. Exit the app.\n========================\n");
                 int? index = UserInput.ReadInt("Enter the choice: ", 1, 6);
                 if (index == null)
                 {
-                    Output.Display("reteurning to mainmenu");
+                    Output.Display("reteurning to main menu");
                     return;
                 }
 
-                Operation operation = (Operation)index;
-                switch (operation)
+                AccountType accountType = (AccountType)index;
+                switch (accountType)
                 {
-                    case Operation.CreateSavings: account = this.CreateSavingAccount(); break;
-                    case Operation.CreateChecking: account = this.CreateCheckingAccount(); break;
-                    case Operation.WithDraw: this.Withdraw(account); break;
-                    case Operation.Deposit: this.Deposit(account); break;
-                    case Operation.FetchDetails:  this.FetchDetails(account); break;
-                    case Operation.Exit: return;
+                    case AccountType.CreateSavings: account = this.CreateSavingAccount(); break;
+                    case AccountType.CreateChecking: account = this.CreateCheckingAccount(); break;
+                    case AccountType.Exit: return;
 
                     default: Output.Error("enter valid choice"); break;
+                }
+
+                if (account == null)
+                {
+                    continue;
+                }
+
+                bool loop = true;
+                while (loop)
+                {
+                    Output.Display("\n==========Menu==========\n1. Withdraw Money.\n2. Deposit Money.\n3. Get details.\n4. Exit the app.\n========================\n");
+                    int? choice = UserInput.ReadInt("Enter the choice: ", 1, 6);
+                    if (choice == null)
+                    {
+                        Output.Display("reteurning to main menu");
+                        return;
+                    }
+
+                    Operation operation = (Operation)choice;
+                    switch (operation)
+                    {
+                        case Operation.WithDraw: this.Withdraw(account); break;
+                        case Operation.Deposit: this.Deposit(account); break;
+                        case Operation.FetchDetails: this.FetchDetails(account); break;
+                        case Operation.Exit: loop = false; break;
+
+                        default: Output.Error("enter valid choice"); break;
+                    }
                 }
             }
         }
@@ -88,19 +124,14 @@ namespace Assignment2.View
         /// <returns> returns the bank Account</returns>
         public BankAccount? CreateSavingAccount()
         {
-            decimal? amount = UserInput.ReadAmount($"Enter the capital of the account(Minimum balance should be {SavingsAccount.}.) in Rupees: ");
-            if (amount == null)
+            decimal? capital = UserInput.ReadCapital("Enter the capital amount in Rupees: ");
+            if (capital == null)
             {
                 return null;
             }
 
-            if (amount < 5000)
-            {
-                Output.Error("for a Savings account the minimum balance should be 5000.");
-                return null;
-            }
             Output.Success("Created Savings account successfully");
-            return this._bankServices.CreateSavingAccount(amount);
+            return this._bankServices.CreateSavingAccount(capital);
         }
 
         /// <summary>
@@ -187,12 +218,12 @@ namespace Assignment2.View
         {
             if (account == null)
             {
-                Output.Error("No account to fetch amount. create one first.");
+                Output.Error("No account to fetch details. create one first.");
                 return;
             }
             else
             {
-                Output.Display($"Account Number : {this._bankServices.FetchAccount(account).ToString()}\nAvailable balance : {this._bankServices.FetchBalance(account).ToString()} Rupees");
+                Output.Display(this._bankServices.FetchDetails(account));
             }
         }
     }

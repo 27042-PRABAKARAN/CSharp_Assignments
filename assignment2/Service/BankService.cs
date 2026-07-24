@@ -56,13 +56,13 @@ namespace Assignment2.Service
         }
 
         /// <summary>
-        /// this fetches balance
+        /// this fetches Details
         /// </summary>
         /// <param name="account"> from which account the balance to be fetched </param>
-        /// <returns> returns balance </returns>
-        public decimal? FetchBalance(BankAccount account)
+        /// <returns> returnsdetails </returns>
+        public string? FetchDetails(BankAccount account)
         {
-            return account.Balance;
+            return account.ToString();
         }
     }
 }
