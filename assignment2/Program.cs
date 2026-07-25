@@ -1,6 +1,5 @@
-﻿using Assignment2;
-using Assignment2.Helper;
-using Assignment2.Model.Employee;
+﻿using Assignment2.Helper;
+using Assignment2.Model;
 using Assignment2.View;
 
 namespace Assignment2

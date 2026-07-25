@@ -1,6 +1,4 @@
-﻿using Assignment2.Model;
-
-namespace Assignment2.Helper
+﻿namespace Assignment2.Helper
 {
     /// <summary>
     /// Display class is used for displaying output
