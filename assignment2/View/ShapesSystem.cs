@@ -1,5 +1,4 @@
-﻿using System.Globalization;
-using Assignment2.Helper;
+﻿using Assignment2.Helper;
 using Assignment2.Service;
 
 namespace Assignment2.View
@@ -13,27 +12,6 @@ namespace Assignment2.View
         /// instance of the _shapeService
         /// </summary>
         private readonly ShapeService _shapeService = new ShapeService();
-
-        /// <summary>
-        /// Operation enumerator
-        /// </summary>
-        internal enum Operation
-        {
-            /// <summary>
-            /// to create a rectangle
-            /// </summary>
-            CreateRectangle = 1,
-
-            /// <summary>
-            /// to create a circle
-            /// </summary>
-            CreateCircle,
-
-            /// <summary>
-            /// to exit the app
-            /// </summary>
-            Exit,
-        }
 
         /// <summary>
         /// Function that starts the app
