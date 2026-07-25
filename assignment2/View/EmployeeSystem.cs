@@ -14,27 +14,6 @@ namespace Assignment2.View
         private readonly EmployeeServices _employeeServices = new EmployeeServices();
 
         /// <summary>
-        /// Operation enumerator
-        /// </summary>
-        internal enum Operation
-        {
-            /// <summary>
-            /// to create a developer
-            /// </summary>
-            CreateDeveloper = 1,
-
-            /// <summary>
-            /// to create a Manager
-            /// </summary>
-            CreateManager,
-
-            /// <summary>
-            /// to exit the app
-            /// </summary>
-            Exit,
-        }
-
-        /// <summary>
         /// Function that starts the app
         /// </summary>
         public void EmployeeOperations()

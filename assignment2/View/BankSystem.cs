@@ -15,53 +15,6 @@ namespace Assignment2.View
         private readonly BankService _bankServices = new BankService();
 
         /// <summary>
-        /// AccountType enumerator
-        /// </summary>
-        internal enum AccountType
-        {
-            /// <summary>
-            /// to create a Savings account
-            /// </summary>
-            CreateSavings = 1,
-
-            /// <summary>
-            /// to create a Checking account
-            /// </summary>
-            CreateChecking,
-
-            /// <summary>
-            /// to exit the app
-            /// </summary>
-            Exit,
-        }
-
-        /// <summary>
-        /// Operation enumerator
-        /// </summary>
-        internal enum Operation
-        {
-            /// <summary>
-            /// to withdraw amount.
-            /// </summary>
-            WithDraw = 1,
-
-            /// <summary>
-            /// to deposit the amount.
-            /// </summary>
-            Deposit,
-
-            /// <summary>
-            /// to fetch details.
-            /// </summary>
-            FetchDetails,
-
-            /// <summary>
-            /// to exit the app
-            /// </summary>
-            Exit,
-        }
-
-        /// <summary>
         /// Function that starts the app
         /// </summary>
         public void BankOperations()
