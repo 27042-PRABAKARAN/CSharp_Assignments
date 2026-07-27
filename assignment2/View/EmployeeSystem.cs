@@ -1,4 +1,5 @@
 ﻿using Assignment2.Helper;
+using Assignment2.Model.Employee;
 using Assignment2.Service;
 
 namespace Assignment2.View

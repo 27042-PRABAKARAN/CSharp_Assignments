@@ -18,6 +18,6 @@
         /// <summary>
         /// to exit the app
         /// </summary>
-        Exit,q
+        Exit,
     }
 }

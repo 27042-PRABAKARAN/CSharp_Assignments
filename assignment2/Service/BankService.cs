@@ -30,7 +30,7 @@ namespace Assignment2.Service
         /// <returns> returns the message </returns>
         public BankAccount CreateCheckingAccount(decimal? capital)
         {
-            CheckingAccount newAccount = new CheckingAccount(_accounts++.ToString(), capital);
+            CheckingAccount newAccount = new CheckingAccount((++_accounts).ToString(), capital);
             return newAccount;
         }
 
