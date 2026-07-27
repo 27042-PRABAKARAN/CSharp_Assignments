@@ -53,7 +53,7 @@ namespace Assignment2.View
                     int? choice = UserInput.ReadInt("Enter the choice: ", 1, 6);
                     if (choice == null)
                     {
-                        Output.Display("reteurning to main menu");
+                        Output.Display("returning to main menu");
                         return;
                     }
 

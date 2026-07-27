@@ -5,6 +5,8 @@
     /// </summary>
     internal class Rectangle : Shape
     {
+        private const string? Name = "Rectangle";
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Rectangle"/> class.
         /// constructor for the Rectangle class
@@ -39,7 +41,7 @@
         /// <returns> returns the details</returns>
         public override string? PrintDetails()
         {
-            return $"\nThe Shape is : Rectangle\nArea is : {this.Area} meter Square.\nColour is : {this.Colour}\n";
+            return $"\nThe Shape is : {Name}\nArea is : {this.Area} meter Square.\nColour is : {this.Colour}\n";
         }
     }
 }

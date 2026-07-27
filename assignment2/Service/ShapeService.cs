@@ -10,8 +10,8 @@ namespace Assignment2.Service
         /// <summary>
         /// Creating the rectangle
         /// </summary>
-        /// <param name="colour"> the clour of the rectangle </param>
-        /// <param name="width"> the widht of the rectangle </param>
+        /// <param name="colour"> the colour of the rectangle </param>
+        /// <param name="width"> the width of the rectangle </param>
         /// <param name="length"> the length of the rectangle </param>
         /// <returns> returns the details</returns>
         public string? CreateRectangle(string? colour, double? width, double? length)
