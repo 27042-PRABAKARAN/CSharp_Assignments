@@ -26,7 +26,7 @@ namespace Assignment2.View
                 int? index = UserInput.ReadInt("Enter the choice: ", 1, 3);
                 if (index == null)
                 {
-                    Output.Display("reteurning to mainmenu");
+                    Output.Display("returning to main menu");
                     return;
                 }
 

@@ -5,6 +5,8 @@
     /// </summary>
     internal class Developer : Employee
     {
+        private double _bonusPercentage = 0.2;
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Developer"/> class.
         /// </summary>
@@ -21,7 +23,7 @@
         /// </summary>
         public override void CalculateBonus()
         {
-            this.Bonus = this.Salary * 0.2;
+            this.Bonus = this.Salary * this._bonusPercentage;
         }
 
         /// <summary>

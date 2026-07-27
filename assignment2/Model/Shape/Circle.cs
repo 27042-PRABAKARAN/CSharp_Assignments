@@ -5,6 +5,8 @@
     /// </summary>
     internal class Circle : Shape
     {
+        private const string? Name = "Circle";
+
         /// <summary>
         /// Initializes a new instance of the <see cref="Circle"/> class.
         /// constructor for the circle class
@@ -37,7 +39,7 @@
         /// <returns> returns the details</returns>
         public override string? PrintDetails()
         {
-            return $"\nThe Shape is : Rectangle\nArea is : {this.Area} meter square.\nColour is {this.Colour}\n";
+            return $"\nThe Shape is : {Name}\nArea is : {this.Area} meter square.\nColour is {this.Colour}\n";
         }
     }
 }
