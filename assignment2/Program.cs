@@ -12,7 +12,7 @@ namespace Assignment2
         /// <summary>
         /// Main function
         /// </summary>
-        /// <param name="args"> if there are any terminal arguents</param>
+        /// <param name="args"> if there are any terminal arguments</param>
         private static void Main(string[] args)
         {
             Output.Display("Hey User,");
