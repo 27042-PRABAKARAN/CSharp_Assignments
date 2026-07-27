@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Linq;
-using InventoryManager.Models;
+﻿using InventoryManager.Models;
 using InventoryManager.Persistence;
 
 namespace InventoryManager.Service
@@ -24,7 +17,7 @@ namespace InventoryManager.Service
         /// <param name="price"> the price of the product </param>
         /// <param name="quantity"> the quantity of the product</param>
         /// <returns> returns status</returns>
-        public bool Create(string? name, decimal price, decimal quantity)
+        public bool CreateProduct(string? name, decimal? price, decimal? quantity)
         {
             Guid id = Guid.NewGuid();
             Product newProduct = new Product(id, name, price, quantity);
@@ -37,7 +30,7 @@ namespace InventoryManager.Service
         /// </summary>
         /// <param name="id"> the GUID of the Product</param>
         /// <returns> returns the status of the deletion process</returns>
-        public bool Delete(Guid id)
+        public bool DeleteProduct(Guid id)
         {
             return this._repository.Remove(id);
         }
@@ -46,7 +39,7 @@ namespace InventoryManager.Service
         /// to get all the items.
         /// </summary>
         /// <returns> the list of products </returns>
-        public List<Product> GetAll()
+        public List<Product> GetAllProducts()
         {
             return this._repository.GetAll();
         }
@@ -56,7 +49,7 @@ namespace InventoryManager.Service
         /// </summary>
         /// <param name="name"> the name to be searched </param>
         /// <returns> the list of searched product</returns>
-        public List<Product> Search(string? name)
+        public List<Product> SearchProducts(string? name)
         {
             return this._repository.Search(name);
         }
@@ -68,7 +61,7 @@ namespace InventoryManager.Service
         /// <param name="id"> on which product the upadte takes place</param>
         /// <param name="value"> new value to be updated</param>
         /// <returns> status of the updation</returns>
-        public bool Update(string? choice, Guid id, decimal? value)
+        public bool Update(UpdateChoice choice, Guid id, decimal? value)
         {
             Product? product = this.GetProduct(id);
             if (product == null)
@@ -76,12 +69,45 @@ namespace InventoryManager.Service
                 return false;
             }
 
-            switch (choice)
+            switch ((UpdateChoice)choice)
             {
-                case "p": product.Price = value; return this._repository.Update(product);
-                case "q": product.Quantity = value; return this._repository.Update(product);
+                case UpdateChoice.Price: product.Price = value; return this._repository.Update(product);
+                case UpdateChoice.Quantity: product.Quantity = value; return this._repository.Update(product);
                 default: return false;
             }
+        }
+
+        /// <summary>
+        /// to update
+        /// </summary>
+        /// <param name="id"> on which product the upadte takes place</param>
+        /// <param name="value"> new value to be updated</param>
+        /// <returns> status of the updation</returns>
+        public bool Update(Guid id, string? value)
+        {
+            Product? product = this.GetProduct(id);
+            if (product == null)
+            {
+                return false;
+            }
+
+            product.Name = value;
+            return this._repository.Update(product);
+        }
+
+        /// <summary>
+        /// to check if the database is enmpty or not
+        /// </summary>
+        /// <returns> the status of the repo</returns>
+        public bool IsEmptyDatabase()
+        {
+            List<Product> list = this.GetAllProducts();
+            if (list.Count == 0)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         private Product? GetProduct(Guid id)

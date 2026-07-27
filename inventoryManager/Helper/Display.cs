@@ -1,0 +1,32 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using ConsoleTables;
+using InventoryManager.Models;
+
+namespace InventoryManager.Helper
+{
+    /// <summary>
+    /// to display as table.
+    /// </summary>
+    internal class Display
+    {
+        /// <summary>
+        /// to display as tables.
+        /// </summary>
+        /// <param name="products"> the list to be printed as tables </param>
+        public static void PrintTable(List<Product> products)
+        {
+            var table = new ConsoleTable("S.no", "ProductName", "Price", "Quantity");
+            int i = 0;
+            foreach (Product product in products)
+            {
+                table.AddRow(++i, product.Name, product.Price, product.Quantity);
+            }
+
+            table.Write(Format.Alternative);
+        }
+    }
+}
