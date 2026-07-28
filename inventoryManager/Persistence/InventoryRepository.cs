@@ -20,6 +20,11 @@ namespace InventoryManager.Persistence
         /// <param name="product"> the product to be added</param>
         public void Add(Product product)
         {
+            if (product == null)
+            {
+                throw new NullReferenceException("Exception : The product is null here");
+            }
+
             this._products.Add(product);
         }
 
@@ -47,7 +52,16 @@ namespace InventoryManager.Persistence
         /// <returns> list of found elements </returns>
         public List<Product> Search(string? name)
         {
-            return this._products.Where(e => e.Name == name).ToList();
+            if (name == null)
+            {
+                throw new ArgumentNullException("Exception : The name entered to search is null here");
+            }
+
+            return this._products.Where(e => e.Name != null && e.Name.Contains(name)).Select(p => new Product(
+                p.Id,
+                p.Name,
+                p.Price,
+                p.Quantity)).ToList();
         }
 
         /// <summary>
@@ -59,8 +73,8 @@ namespace InventoryManager.Persistence
             return this._products.Select(p => new Product(
                 p.Id,
                 p.Name,
-                p.Quantity,
-                p.Price)).ToList();
+                p.Price,
+                p.Quantity)).ToList();
         }
 
         /// <summary>
@@ -70,6 +84,11 @@ namespace InventoryManager.Persistence
         /// <returns> the status of the product updation </returns>
         public bool Update(Product updateProduct)
         {
+            if (updateProduct == null)
+            {
+                throw new NullReferenceException("Exception : The product is null here");
+            }
+
             Product? product = this.GetProduct(updateProduct.Id);
             if (product != null)
             {

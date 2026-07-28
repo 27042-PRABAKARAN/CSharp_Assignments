@@ -1,4 +1,5 @@
 ﻿using InventoryManager.Helper;
+using InventoryManager.Models;
 using InventoryManager.View;
 
 namespace InventoryManager
@@ -11,72 +12,38 @@ namespace InventoryManager
         private static readonly InventoryOperations _inventoryOperation = new InventoryOperations();
 
         /// <summary>
-        /// Choice enum
-        /// </summary>
-        public enum Choice
-        {
-            /// <summary>
-            /// CreateProduct
-            /// </summary>
-            CreateProduct = 1,
-
-            /// <summary>
-            /// RemoveProduct
-            /// </summary>
-            RemoveProduct = 2,
-
-            /// <summary>
-            /// SearchProduct
-            /// </summary>
-            SearchProduct = 3,
-
-            /// <summary>
-            /// UpdateProduct
-            /// </summary>
-            UpdateProduct,
-
-            /// <summary>
-            /// Sort Product
-            /// </summary>
-            SortProduct,
-
-            /// <summary>
-            /// to display products
-            /// </summary>
-            DisplayProduct,
-
-            /// <summary>
-            /// Exit
-            /// </summary>
-            Exit,
-        }
-
-        /// <summary>
         /// main function.
         /// </summary>
         /// <param name="args"> terminal arguments </param>
         public static void Main(string[] args)
         {
             bool app = true;
+            Console.WriteLine("Hey User,");
+            Console.WriteLine("Welcome to Inventory Manager");
             while (app)
             {
-                Console.WriteLine("\n1.Create product\n2.Remove Product\n3.Search Product\n4.Update product\n5.Sort Product\n6.Display\n8.Exit");
-                int? choice = UserInput.ReadInt("Enter your choice : ", 1, 7);
-                if (choice == null)
+                try
                 {
-                    return;
-                }
+                    Console.WriteLine("\n====================\n1.Create product\n2.Search, Update and Delete Product.\n3.Sort Product\n4.Display\n5.Exit\n====================\n");
+                    int? choice = UserInput.ReadInt("Enter your choice : ", 1, 5);
+                    if (choice == null)
+                    {
+                        throw new NullReferenceException("The choice is null here");
+                    }
 
-                switch ((Choice)choice)
+                    switch ((Choice)choice)
+                    {
+                        case Choice.CreateProduct: _inventoryOperation.CreateProduct(); break;
+                        case Choice.ManipulateProduct: _inventoryOperation.ManipulateProduct(); break;
+                        case Choice.SortProduct: _inventoryOperation.SortProduct(); break;
+                        case Choice.DisplayProduct: _inventoryOperation.DisplayProducts(); break;
+                        case Choice.Exit: Output.Success("Exiting..."); app = false; break;
+                        default: Output.Error("Enter Valid Input"); break;
+                    }
+                }
+                catch (Exception e)
                 {
-                    case Choice.CreateProduct: _inventoryOperation.CreateProduct(); break;
-                    case Choice.RemoveProduct: _inventoryOperation.ManipulateProduct(); break;
-                    case Choice.SearchProduct: _inventoryOperation.ManipulateProduct(); break;
-                    case Choice.UpdateProduct: _inventoryOperation.ManipulateProduct(); break;
-                    case Choice.SortProduct: _inventoryOperation.ManipulateProduct(); break;
-                    case Choice.DisplayProduct: _inventoryOperation.DisplayProducts(); break;
-                    case Choice.Exit: Output.Success("Exiting..."); app = false; break;
-                    default: Output.Error("Enter Valid Input");break;
+                    Output.Error(e.Message);
                 }
             }
         }

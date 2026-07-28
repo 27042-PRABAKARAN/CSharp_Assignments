@@ -21,8 +21,15 @@ namespace InventoryManager.Service
         {
             Guid id = Guid.NewGuid();
             Product newProduct = new Product(id, name, price, quantity);
-            this._repository.Add(newProduct);
-            return true;
+            try
+            {
+                this._repository.Add(newProduct);
+                return true;
+            }
+            catch (Exception)
+            {
+                throw new NullReferenceException("Exception : The product is null here");
+            }
         }
 
         /// <summary>
@@ -49,7 +56,7 @@ namespace InventoryManager.Service
         /// </summary>
         /// <param name="name"> the name to be searched </param>
         /// <returns> the list of searched product</returns>
-        public List<Product> SearchProducts(string? name)
+        public List<Product> SearchProducts(string name)
         {
             return this._repository.Search(name);
         }
@@ -69,11 +76,18 @@ namespace InventoryManager.Service
                 return false;
             }
 
-            switch ((UpdateChoice)choice)
+            try
             {
-                case UpdateChoice.Price: product.Price = value; return this._repository.Update(product);
-                case UpdateChoice.Quantity: product.Quantity = value; return this._repository.Update(product);
-                default: return false;
+                switch (choice)
+                {
+                    case UpdateChoice.Price: product.Price = value; return this._repository.Update(product);
+                    case UpdateChoice.Quantity: product.Quantity = value; return this._repository.Update(product);
+                    default: return false;
+                }
+            }
+            catch (Exception)
+            {
+                throw new NullReferenceException("Exception : The product is null here");
             }
         }
 
@@ -92,7 +106,14 @@ namespace InventoryManager.Service
             }
 
             product.Name = value;
-            return this._repository.Update(product);
+            try
+            {
+                return this._repository.Update(product);
+            }
+            catch (Exception)
+            {
+                throw new NullReferenceException("Exception : The product is null here");
+            }
         }
 
         /// <summary>
