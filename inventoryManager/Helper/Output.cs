@@ -26,14 +26,5 @@
             Console.WriteLine(message);
             Console.ResetColor();
         }
-
-        /// <summary>
-        /// Display funtion is present here
-        /// </summary>
-        /// <param name="text"> the content that has to be displayed </param>
-        public static void Display(string? text)
-        {
-            Console.WriteLine(text);
-        }
     }
 }

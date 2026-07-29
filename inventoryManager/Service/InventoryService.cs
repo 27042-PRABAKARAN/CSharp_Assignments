@@ -23,8 +23,7 @@ namespace InventoryManager.Service
             Product newProduct = new Product(id, name, price, quantity);
             try
             {
-                this._repository.Add(newProduct);
-                return true;
+                return this._repository.Add(newProduct);
             }
             catch (Exception)
             {
@@ -46,7 +45,7 @@ namespace InventoryManager.Service
         /// to get all the items.
         /// </summary>
         /// <returns> the list of products </returns>
-        public List<Product> GetAllProducts()
+        public IEnumerable<Product> GetAllProducts()
         {
             return this._repository.GetAll();
         }
@@ -122,8 +121,8 @@ namespace InventoryManager.Service
         /// <returns> the status of the repo</returns>
         public bool IsEmptyDatabase()
         {
-            List<Product> list = this.GetAllProducts();
-            if (list.Count == 0)
+            IEnumerable<Product> list = this.GetAllProducts();
+            if (list.Count() == 0)
             {
                 return true;
             }

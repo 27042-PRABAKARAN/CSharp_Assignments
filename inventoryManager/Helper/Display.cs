@@ -17,7 +17,7 @@ namespace InventoryManager.Helper
         /// to display as tables.
         /// </summary>
         /// <param name="products"> the list to be printed as tables </param>
-        public static void PrintTable(List<Product> products)
+        public static void PrintTable(IEnumerable<Product> products)
         {
             var table = new ConsoleTable("S.no", "ProductName", "Price", "Quantity");
             int i = 0;

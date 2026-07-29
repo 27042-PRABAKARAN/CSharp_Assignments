@@ -1,4 +1,6 @@
-﻿namespace InventoryManager.Helper
+﻿using System.Runtime.CompilerServices;
+
+namespace InventoryManager.Helper
 {
     /// <summary>
     /// Input class for taking inputs
@@ -12,7 +14,7 @@
         /// <returns> returns string </returns>
         public static string? ReadInput(string? prompt)
         {
-            string? userInput = Validation.GetValidInput(prompt, Validation.IsValidInput, "Nothing Entered !!");
+            string? userInput = GetValidInput(prompt, Validation.IsValidInput, "Nothing Entered !!");
             return userInput;
         }
 
@@ -62,6 +64,37 @@
                     return number;
                 }
 
+                Output.Error($"{3 - tried} attempts remaining\n");
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// TO check if user is enterring a valid input or not
+        /// </summary>
+        /// <param name="prompt"> to print before user enters value </param>
+        /// <param name="validation">  the validating function </param>
+        /// <param name="errorMessage"> the error message </param>
+        /// <returns> returns string </returns>
+        public static string? GetValidInput(string? prompt, Func<string, bool> validation, string? errorMessage)
+        {
+            for (int tried = 1; tried <= 3; tried++)
+            {
+                Console.Write(prompt);
+                string? input = Console.ReadLine();
+                if (input == null)
+                {
+                    Output.Error(errorMessage);
+                    continue;
+                }
+
+                if (validation(input))
+                {
+                    return input;
+                }
+
+                Output.Error(errorMessage);
                 Output.Error($"{3 - tried} attempts remaining\n");
             }
 

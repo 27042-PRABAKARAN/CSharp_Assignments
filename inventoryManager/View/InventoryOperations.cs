@@ -198,7 +198,7 @@ namespace InventoryManager.View
         /// </summary>
         public void DisplayProducts()
         {
-            List<Product> products = this._inventoryServices.GetAllProducts();
+            IEnumerable<Product> products = this._inventoryServices.GetAllProducts();
             if (products.Count() == 0)
             {
                 Output.Error("Nothing to display");
@@ -219,7 +219,7 @@ namespace InventoryManager.View
                 return;
             }
 
-            List<Product> products = this._inventoryServices.GetAllProducts();
+            IEnumerable<Product> products = this._inventoryServices.GetAllProducts();
             Console.WriteLine("\n1.Sort by Name\n2.Sort by Price\n3.Sort by Quantity\n4.Exit");
             int? choice = UserInput.ReadInt("Enter the choice : ", 1, 4);
             if (choice == null)

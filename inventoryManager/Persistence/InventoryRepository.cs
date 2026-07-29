@@ -18,7 +18,8 @@ namespace InventoryManager.Persistence
         /// to add a product
         /// </summary>
         /// <param name="product"> the product to be added</param>
-        public void Add(Product product)
+        /// <returns> status of addition </returns>
+        public bool Add(Product product)
         {
             if (product == null)
             {
@@ -26,6 +27,7 @@ namespace InventoryManager.Persistence
             }
 
             this._products.Add(product);
+            return true;
         }
 
         /// <summary>
@@ -49,7 +51,7 @@ namespace InventoryManager.Persistence
         /// to search by name
         /// </summary>
         /// <param name="name"> the name of the product to be searched </param>
-        /// <returns> list of found elements </returns>
+        /// <returns> enumberable list of found elements </returns>
         public List<Product> Search(string? name)
         {
             if (name == null)
@@ -67,8 +69,8 @@ namespace InventoryManager.Persistence
         /// <summary>
         /// to get all the details in repository
         /// </summary>
-        /// <returns> returns list of products available </returns>
-        public List<Product> GetAll()
+        /// <returns> returns enumarable list of products available </returns>
+        public IEnumerable<Product> GetAll()
         {
             return this._products.Select(p => new Product(
                 p.Id,
