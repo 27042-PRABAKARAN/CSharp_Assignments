@@ -1,5 +1,7 @@
 ﻿using InventoryManager.Helper;
 using InventoryManager.Models;
+using InventoryManager.Persistence;
+using InventoryManager.Service;
 using InventoryManager.View;
 
 namespace InventoryManager
@@ -9,14 +11,15 @@ namespace InventoryManager
     /// </summary>
     internal class Program
     {
-        private static readonly InventoryOperations _inventoryOperation = new InventoryOperations();
-
         /// <summary>
         /// main function.
         /// </summary>
         /// <param name="args"> terminal arguments </param>
         public static void Main(string[] args)
         {
+            InventoryRepository repository = new InventoryRepository();
+            InventoryService service = new InventoryService(repository);
+            InventoryOperations inventoryOperations = new InventoryOperations(service);
             bool app = true;
             Console.WriteLine("Hey User,");
             Console.WriteLine("Welcome to Inventory Manager");
@@ -33,10 +36,10 @@ namespace InventoryManager
 
                     switch ((Choice)choice)
                     {
-                        case Choice.CreateProduct: _inventoryOperation.CreateProduct(); break;
-                        case Choice.ManipulateProduct: _inventoryOperation.ManipulateProduct(); break;
-                        case Choice.SortProduct: _inventoryOperation.SortProduct(); break;
-                        case Choice.DisplayProduct: _inventoryOperation.DisplayProducts(); break;
+                        case Choice.CreateProduct: inventoryOperations.CreateProduct(); break;
+                        case Choice.ManipulateProduct: inventoryOperations.ManipulateProduct(); break;
+                        case Choice.SortProduct: inventoryOperations.SortProduct(); break;
+                        case Choice.DisplayProduct: inventoryOperations.DisplayProducts(); break;
                         case Choice.Exit: Output.Success("Exiting..."); app = false; break;
                         default: Output.Error("Enter Valid Input"); break;
                     }

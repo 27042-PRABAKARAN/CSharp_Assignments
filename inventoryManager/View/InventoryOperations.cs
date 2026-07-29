@@ -12,7 +12,17 @@ namespace InventoryManager.View
     /// </summary>
     internal class InventoryOperations
     {
-        private readonly InventoryService _inventoryServices = new InventoryService();
+        private readonly InventoryService _inventoryServices;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InventoryOperations"/> class.
+        /// Constructor injection
+        /// </summary>
+        /// <param name="inventoryServices"> the object of inventory Service </param>
+        public InventoryOperations(InventoryService inventoryServices)
+        {
+            this._inventoryServices = inventoryServices;
+        }
 
         /// <summary>
         /// to create a product

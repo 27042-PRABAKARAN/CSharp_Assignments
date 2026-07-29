@@ -8,7 +8,17 @@ namespace InventoryManager.Service
     /// </summary>
     internal class InventoryService
     {
-        private readonly InventoryRepository _repository = new InventoryRepository();
+        private readonly InventoryRepository _repository;
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="InventoryService"/> class.
+        /// constructor injection
+        /// </summary>
+        /// <param name="repository"> repository </param>
+        public InventoryService(InventoryRepository repository)
+        {
+            this._repository = repository;
+        }
 
         /// <summary>
         /// to create a new product.
