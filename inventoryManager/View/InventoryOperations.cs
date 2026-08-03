@@ -1,9 +1,6 @@
-﻿using System.Diagnostics;
-using System.Xml.Linq;
-using InventoryManager.Helper;
+﻿using InventoryManager.Helper;
 using InventoryManager.Models;
 using InventoryManager.Service;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace InventoryManager.View
 {

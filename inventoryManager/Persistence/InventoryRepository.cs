@@ -51,10 +51,10 @@ namespace InventoryManager.Persistence
         /// to search by name
         /// </summary>
         /// <param name="name"> the name of the product to be searched </param>
-        /// <returns> enumberable list of found elements </returns>
+        /// <returns> enumerable list of found elements </returns>
         public List<Product> SearchProducts(string name)
         {
-            return this._products.Where(e => e.Name != null && (e.Name.Contains(name) || e.Id.Equals(name))).Select(p => new Product(
+            return this._products.Where(e => e.Name != null && (e.Name.Contains(name, StringComparison.OrdinalIgnoreCase) || e.Id.Equals(name))).Select(p => new Product(
                 p.Id,
                 p.Name,
                 p.Price,
@@ -64,7 +64,7 @@ namespace InventoryManager.Persistence
         /// <summary>
         /// to get all the details in repository
         /// </summary>
-        /// <returns> returns enumarable list of products available </returns>
+        /// <returns> returns enumerable list of products available </returns>
         public IEnumerable<Product> GetAll()
         {
             return this._products.Select(p => new Product(
