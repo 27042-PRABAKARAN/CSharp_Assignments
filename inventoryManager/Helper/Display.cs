@@ -19,11 +19,11 @@ namespace InventoryManager.Helper
         /// <param name="products"> the list to be printed as tables </param>
         public static void PrintTable(IEnumerable<Product> products)
         {
-            var table = new ConsoleTable("S.no", "ProductName", "Price", "Quantity");
+            var table = new ConsoleTable("S.no", "ProductId", "ProductName", "Price", "Quantity");
             int i = 0;
             foreach (Product product in products)
             {
-                table.AddRow(++i, product.Name, product.Price, product.Quantity);
+                table.AddRow(++i, product.Id, product.Name, product.Price, product.Quantity);
             }
 
             table.Write(Format.Alternative);

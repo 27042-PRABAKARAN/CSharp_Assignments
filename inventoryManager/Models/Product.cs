@@ -18,7 +18,7 @@ namespace InventoryManager.Models
         /// <param name="name"> name </param>
         /// <param name="price"> price </param>
         /// <param name="quantity"> quantity </param>
-        public Product(Guid id, string? name, decimal? price, decimal? quantity)
+        public Product(string id, string name, decimal price, decimal quantity)
         {
             this.Id = id;
             this.Name = name;
@@ -30,24 +30,24 @@ namespace InventoryManager.Models
         /// Gets unique identifier
         /// </summary>
         /// <value> id of the product </value>
-        public Guid Id { get; init; }
+        public string Id { get; init; }
 
         /// <summary>
         /// gets or sets the name of the product.
         /// </summary>
         /// <value> name of the product </value>
-        public string? Name { get; set; } = string.Empty;
+        public string Name { get; set; } = string.Empty;
 
         /// <summary>
         /// gets or sets the price of the product
         /// </summary>
         /// <value> stores the price </value>
-        public decimal? Price { get; set; }
+        public decimal Price { get; set; } = decimal.Zero;
 
         /// <summary>
         /// gets or sets the quantity of the product
         /// </summary>
         /// <value> stores the quantity </value>
-        public decimal? Quantity { get; set; }
+        public decimal Quantity { get; set; } = decimal.Zero;
     }
 }

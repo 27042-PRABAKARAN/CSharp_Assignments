@@ -35,6 +35,12 @@ namespace InventoryManager.View
                 throw new ArgumentNullException("Invalid entry entered more than 3 times");
             }
 
+            string? id = UserInput.ReadId("Enter Id of the product ( ABCD-0001 ): ");
+            if (id == null)
+            {
+                throw new ArgumentNullException("Invalid entry entered more than 3 times");
+            }
+
             decimal? price = UserInput.ReadDecimal("Enter the price of the product: ");
             if (price == null)
             {
@@ -47,75 +53,45 @@ namespace InventoryManager.View
                 throw new ArgumentNullException("Invalid entry entered more than 3 times");
             }
 
-            try
-            {
-                this._inventoryServices.CreateProduct(name, price, quantity);
-                Output.Success("Created product successfully");
-            }
-            catch (Exception ex)
-            {
-                //Output.Error(ex.Message);
-                Output.Error("Product not created");
-                return;
-            }
+            this._inventoryServices.CreateProduct(name, id, (decimal)price, (decimal)quantity);
+            Output.Success("Created product successfully");
         }
 
         /// <summary>
         /// to Manipulate products.
         /// </summary>
-        public void ManipulateProduct()
+        public void SearchProduct()
         {
             if (this._inventoryServices.IsEmptyDatabase())
             {
-                Output.Error("Empty database");
+                Output.Error("Empty Inventory. First Add a product.");
                 return;
             }
 
-            string? name = UserInput.ReadInput("Enter the name of the product: ");
+            string? name = UserInput.ReadInput("Enter the name or ID of the product: ");
             if (name == null)
             {
                 throw new ArgumentNullException("Invalid entry entered more than 3 times");
             }
 
-            try
+            List<Product> products = this._inventoryServices.SearchProducts(name);
+
+            if (products.Count() == 0)
             {
-                List<Product> products = this._inventoryServices.SearchProducts(name);
-
-                if (products.Count() == 0)
-                {
-                    Output.Error(" Not Found .");
-                    return;
-                }
-
-                Display.PrintTable(products);
-                Console.WriteLine("\n====================\n1.Update product\n2.Delete product\n3.Exit\n====================");
-                int? choice = UserInput.ReadInt("Enter choice : ", 1, 3);
-                if (choice == null)
-                {
-                    return;
-                }
-
-                Operation operation = (Operation)choice;
-                switch (operation)
-                {
-                    case Operation.Update: this.UpdateProduct(products); break;
-                    case Operation.Delete: this.DeleteProduct(products); break;
-                    case Operation.Exit: return;
-                }
+                Output.Error(" Not Found .");
+                return;
             }
-            catch (Exception)
-            {
-                //Output.Error(ex.Message);
-                Console.Write("Returning to Main Menu");
-            }
+
+            Display.PrintTable(products);
         }
 
         /// <summary>
         /// to update the product
         /// </summary>
-        /// <param name="products"> list of searched product </param>
-        public void UpdateProduct(List<Product> products)
+        public void UpdateProduct()
         {
+            this.DisplayProducts();
+            IEnumerable<Product> products = this._inventoryServices.GetAllProducts();
             int? index = UserInput.ReadInt("Enter the S.No of the product: ", 1, products.Count());
             if (index == null)
             {
@@ -136,7 +112,12 @@ namespace InventoryManager.View
                 case UpdateChoice.Name:
                     {
                         string? name = UserInput.ReadInput("Enter Name: ");
-                        if (this._inventoryServices.UpdateProduct(products[(int)index].Id, name))
+                        if (name == null)
+                        {
+                            throw new ArgumentNullException("Invalid entry entered more than 3 times");
+                        }
+
+                        if (this._inventoryServices.UpdateProduct(products.ElementAt((int)index).Id, name))
                         {
                             Output.Success("updated successfully. ");
                         }
@@ -151,7 +132,12 @@ namespace InventoryManager.View
                 case UpdateChoice.Quantity:
                     {
                         decimal? quantity = UserInput.ReadDecimal("Enter Quantity: ");
-                        if (this._inventoryServices.UpdateProduct(UpdateChoice.Quantity, products[(int)index].Id, quantity))
+                        if (quantity == null)
+                        {
+                            throw new ArgumentNullException("Invalid entry entered more than 3 times");
+                        }
+
+                        if (this._inventoryServices.UpdateProduct(UpdateChoice.Quantity, products.ElementAt((int)index).Id, (decimal)quantity))
                         {
                             Output.Success("updated successfully. ");
                         }
@@ -166,7 +152,12 @@ namespace InventoryManager.View
                 case UpdateChoice.Price:
                     {
                         decimal? price = UserInput.ReadDecimal("Enter Price: ");
-                        if (this._inventoryServices.UpdateProduct(UpdateChoice.Price, products[(int)index].Id, price))
+                        if (price == null)
+                        {
+                            throw new ArgumentNullException("Invalid entry entered more than 3 times");
+                        }
+
+                        if (this._inventoryServices.UpdateProduct(UpdateChoice.Price, products.ElementAt((int)index).Id, (decimal)price))
                         {
                             Output.Success("updated successfully. ");
                         }
@@ -183,9 +174,10 @@ namespace InventoryManager.View
         /// <summary>
         /// to Delete product
         /// </summary>
-        /// <param name="products"> list of searched product </param>
-        public void DeleteProduct(List<Product> products)
+        public void DeleteProduct()
         {
+            IEnumerable<Product> products = this._inventoryServices.GetAllProducts();
+            this.DisplayProducts();
             int? index = UserInput.ReadInt("Enter the S.No of the product: ", 1, products.Count());
             if (index == null)
             {
@@ -193,7 +185,7 @@ namespace InventoryManager.View
             }
 
             index = index - 1;
-            Guid id = products[(int)index].Id;
+            string id = products.ElementAt((int)index).Id;
             if (this._inventoryServices.DeleteProduct(id))
             {
                 Output.Success("deleted Successfully");
@@ -212,7 +204,7 @@ namespace InventoryManager.View
             IEnumerable<Product> products = this._inventoryServices.GetAllProducts();
             if (products.Count() == 0)
             {
-                Output.Error("Nothing to display");
+                Output.Error("No Product Available");
                 return;
             }
 
@@ -226,7 +218,7 @@ namespace InventoryManager.View
         {
             if (this._inventoryServices.IsEmptyDatabase())
             {
-                Output.Error("Empty database");
+                Output.Error("Empty Inventory Add Products first");
                 return;
             }
 
@@ -240,9 +232,26 @@ namespace InventoryManager.View
 
             switch ((UpdateChoice)choice)
             {
-                case UpdateChoice.Name: products = products.OrderBy(p => p.Name).ToList(); Display.PrintTable(products); break;
-                case UpdateChoice.Quantity: products = products.OrderBy(p => p.Quantity).ToList(); Display.PrintTable(products); break;
-                case UpdateChoice.Price: products = products.OrderBy(p => p.Price).ToList(); Display.PrintTable(products); break;
+                case UpdateChoice.Name:
+                    {
+                        products = products.OrderBy(p => p.Name).ToList();
+                        Display.PrintTable(products);
+                        break;
+                    }
+
+                case UpdateChoice.Quantity:
+                    {
+                        products = products.OrderBy(p => p.Quantity).ToList();
+                        Display.PrintTable(products);
+                        break;
+                    }
+
+                case UpdateChoice.Price:
+                    {
+                        products = products.OrderBy(p => p.Price).ToList();
+                        Display.PrintTable(products);
+                        break;
+                    }
             }
         }
     }

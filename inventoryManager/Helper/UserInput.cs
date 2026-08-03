@@ -1,4 +1,5 @@
 ﻿using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
 
 namespace InventoryManager.Helper
 {
@@ -35,6 +36,38 @@ namespace InventoryManager.Helper
                 else
                 {
                     return amount;
+                }
+
+                Output.Error($"{3 - tried} attempts remaining\n");
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// this reads the Id
+        /// </summary>
+        /// <param name="prompt"> the prompt for the input </param>
+        /// <returns> returns string </returns>
+        public static string? ReadId(string? prompt)
+        {
+            for (int tried = 1; tried <= 3; tried++)
+            {
+                Console.Write(prompt);
+                string? input = Console.ReadLine();
+                if (input == null)
+                {
+                    Output.Error("Invalid. Please enter a ID Similar to ABCD-0001.");
+                    continue;
+                }
+
+                if (!Regex.IsMatch(input, @"^[A-Za-z]{4}-\d{4}$"))
+                {
+                    Output.Error("Invalid. Please enter a ID Similar to ABCD-0001.");
+                }
+                else
+                {
+                    return input;
                 }
 
                 Output.Error($"{3 - tried} attempts remaining\n");

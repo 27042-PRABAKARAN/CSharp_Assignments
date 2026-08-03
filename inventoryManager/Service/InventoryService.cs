@@ -24,21 +24,14 @@ namespace InventoryManager.Service
         /// to create a new product.
         /// </summary>
         /// <param name="name"> the name of the product </param>
+        /// <param name="id"> the id of the product </param>
         /// <param name="price"> the price of the product </param>
         /// <param name="quantity"> the quantity of the product</param>
         /// <returns> returns status</returns>
-        public bool CreateProduct(string? name, decimal? price, decimal? quantity)
+        public bool CreateProduct(string name, string id, decimal price, decimal quantity)
         {
-            Guid id = Guid.NewGuid();
             Product newProduct = new Product(id, name, price, quantity);
-            try
-            {
-                return this._repository.AddProduct(newProduct);
-            }
-            catch (Exception)
-            {
-                throw new NullReferenceException("The product is null here");
-            }
+            return this._repository.AddProduct(newProduct);
         }
 
         /// <summary>
@@ -46,7 +39,7 @@ namespace InventoryManager.Service
         /// </summary>
         /// <param name="id"> the GUID of the Product</param>
         /// <returns> returns the status of the deletion process</returns>
-        public bool DeleteProduct(Guid id)
+        public bool DeleteProduct(string id)
         {
             return this._repository.RemoveProduct(id);
         }
@@ -77,7 +70,7 @@ namespace InventoryManager.Service
         /// <param name="id"> on which product the upadte takes place</param>
         /// <param name="value"> new value to be updated</param>
         /// <returns> status of the updation</returns>
-        public bool UpdateProduct(UpdateChoice choice, Guid id, decimal? value)
+        public bool UpdateProduct(UpdateChoice choice, string id, decimal value)
         {
             Product? product = this.GetProduct(id);
             if (product == null)
@@ -89,8 +82,18 @@ namespace InventoryManager.Service
             {
                 switch (choice)
                 {
-                    case UpdateChoice.Price: product.Price = value; return this._repository.UpdateProduct(product);
-                    case UpdateChoice.Quantity: product.Quantity = value; return this._repository.UpdateProduct(product);
+                    case UpdateChoice.Price:
+                        {
+                            product.Price = value;
+                            return this._repository.UpdateProduct(product);
+                        }
+
+                    case UpdateChoice.Quantity:
+                        {
+                            product.Quantity = value;
+                            return this._repository.UpdateProduct(product);
+                        }
+
                     default: return false;
                 }
             }
@@ -106,7 +109,7 @@ namespace InventoryManager.Service
         /// <param name="id"> on which product the upadte takes place</param>
         /// <param name="value"> new value to be updated</param>
         /// <returns> status of the updation</returns>
-        public bool UpdateProduct(Guid id, string? value)
+        public bool UpdateProduct(string id, string value)
         {
             Product? product = this.GetProduct(id);
             if (product == null)
@@ -115,14 +118,7 @@ namespace InventoryManager.Service
             }
 
             product.Name = value;
-            try
-            {
-                return this._repository.UpdateProduct(product);
-            }
-            catch (Exception)
-            {
-                throw new NullReferenceException("The product is not Updated");
-            }
+            return this._repository.UpdateProduct(product);
         }
 
         /// <summary>
@@ -140,7 +136,7 @@ namespace InventoryManager.Service
             return false;
         }
 
-        private Product? GetProduct(Guid id)
+        private Product? GetProduct(string id)
         {
             return this._repository.GetAll().FirstOrDefault(product => product.Id == id);
         }

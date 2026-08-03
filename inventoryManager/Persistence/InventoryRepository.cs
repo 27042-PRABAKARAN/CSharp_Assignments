@@ -35,9 +35,9 @@ namespace InventoryManager.Persistence
         /// </summary>
         /// <param name="id"> the product to be removed </param>
         /// <returns> the status of deletion </returns>
-        public bool RemoveProduct(Guid id)
+        public bool RemoveProduct(string id)
         {
-            Product? product = this.GetProduct(id);
+            Product? product = this.GetProductById(id);
             if (product != null)
             {
                 this._products.Remove(product);
@@ -52,14 +52,9 @@ namespace InventoryManager.Persistence
         /// </summary>
         /// <param name="name"> the name of the product to be searched </param>
         /// <returns> enumberable list of found elements </returns>
-        public List<Product> SearchProducts(string? name)
+        public List<Product> SearchProducts(string name)
         {
-            if (name == null)
-            {
-                throw new ArgumentNullException("The name is not entered");
-            }
-
-            return this._products.Where(e => e.Name != null && e.Name.Contains(name)).Select(p => new Product(
+            return this._products.Where(e => e.Name != null && (e.Name.Contains(name) || e.Id.Equals(name))).Select(p => new Product(
                 p.Id,
                 p.Name,
                 p.Price,
@@ -86,11 +81,6 @@ namespace InventoryManager.Persistence
         /// <returns> the status of the product updation </returns>
         public bool UpdateProduct(Product updateProduct)
         {
-            if (updateProduct == null)
-            {
-                throw new NullReferenceException("The product is not Updated");
-            }
-
             Product? product = this.GetProductById(updateProduct.Id);
             if (product != null)
             {
@@ -103,7 +93,7 @@ namespace InventoryManager.Persistence
             return false;
         }
 
-        private Product? GetProductById(Guid id)
+        private Product? GetProductById(string id)
         {
             return this._products.FirstOrDefault(product => product.Id == id);
         }

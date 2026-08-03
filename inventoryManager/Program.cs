@@ -27,8 +27,8 @@ namespace InventoryManager
             {
                 try
                 {
-                    Console.WriteLine("\n====================\n1.Create product\n2.Search, Update and Delete Product.\n3.Sort Product\n4.Display\n5.Exit\n====================\n");
-                    int? choice = UserInput.ReadInt("Enter your choice : ", 1, 5);
+                    Console.WriteLine("\n====================\n1.Create product\n2.Update product\n3.Search \n4.Delete Product\n5.Sort Product\n6.Display\n7.Exit\n====================\n");
+                    int? choice = UserInput.ReadInt("Enter your choice : ", 1, 7);
                     if (choice == null)
                     {
                         throw new NullReferenceException("The choice is null here");
@@ -36,11 +36,49 @@ namespace InventoryManager
 
                     switch ((Choice)choice)
                     {
-                        case Choice.CreateProduct: inventoryOperations.CreateProduct(); break;
-                        case Choice.ManipulateProduct: inventoryOperations.ManipulateProduct(); break;
-                        case Choice.SortProduct: inventoryOperations.SortProducts(); break;
-                        case Choice.DisplayProduct: inventoryOperations.DisplayProducts(); break;
-                        case Choice.Exit: Output.Success("Exiting..."); app = false; break;
+                        case Choice.CreateProduct:
+                            {
+                                inventoryOperations.CreateProduct();
+                                break;
+                            }
+
+                        case Choice.UpdateProduct:
+                            {
+                                inventoryOperations.UpdateProduct();
+                                break;
+                            }
+
+                        case Choice.SearchProduct:
+                            {
+                                inventoryOperations.SearchProduct();
+                                break;
+                            }
+
+                        case Choice.DeleteProduct:
+                            {
+                                inventoryOperations.DeleteProduct();
+                                break;
+                            }
+
+                        case Choice.SortProduct:
+                            {
+                                inventoryOperations.SortProducts();
+                                break;
+                            }
+
+                        case Choice.DisplayProduct:
+                            {
+                                inventoryOperations.DisplayProducts();
+                                break;
+                            }
+
+                        case Choice.Exit:
+                            {
+                                Output.Success("Exiting...");
+                                app = false;
+                                break;
+                            }
+
                         default: Output.Error("Enter Valid Input"); break;
                     }
                 }

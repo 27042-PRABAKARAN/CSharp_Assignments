@@ -19,7 +19,17 @@ namespace InventoryManager.Models
         /// <summary>
         /// ManipulateProduct
         /// </summary>
-        ManipulateProduct = 2,
+        UpdateProduct,
+
+        /// <summary>
+        /// SearchProduct
+        /// </summary>
+        SearchProduct,
+
+        /// <summary>
+        /// DeleteProduct
+        /// </summary>
+        DeleteProduct,
 
         /// <summary>
         /// Sort Product
