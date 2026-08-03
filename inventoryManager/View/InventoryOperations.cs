@@ -32,19 +32,19 @@ namespace InventoryManager.View
             string? name = UserInput.ReadInput("Enter name of the product : ");
             if (name == null)
             {
-                throw new ArgumentNullException("Exception : Invalid entry entered more than 3 times");
+                throw new ArgumentNullException("Invalid entry entered more than 3 times");
             }
 
             decimal? price = UserInput.ReadDecimal("Enter the price of the product: ");
             if (price == null)
             {
-                throw new ArgumentNullException("Exception : Invalid entry entered more than 3 times");
+                throw new ArgumentNullException("Invalid entry entered more than 3 times");
             }
 
             decimal? quantity = UserInput.ReadDecimal("Enter the Quantity of the product: ");
             if (quantity == null)
             {
-                throw new ArgumentNullException("Exception : Invalid entry entered more than 3 times");
+                throw new ArgumentNullException("Invalid entry entered more than 3 times");
             }
 
             try
@@ -54,7 +54,7 @@ namespace InventoryManager.View
             }
             catch (Exception ex)
             {
-                Output.Error(ex.Message);
+                //Output.Error(ex.Message);
                 Output.Error("Product not created");
                 return;
             }
@@ -74,7 +74,7 @@ namespace InventoryManager.View
             string? name = UserInput.ReadInput("Enter the name of the product: ");
             if (name == null)
             {
-                throw new ArgumentNullException("Exception : Invalid entry entered more than 3 times");
+                throw new ArgumentNullException("Invalid entry entered more than 3 times");
             }
 
             try
@@ -98,14 +98,15 @@ namespace InventoryManager.View
                 Operation operation = (Operation)choice;
                 switch (operation)
                 {
-                    case Operation.Update: this.Update(products); break;
-                    case Operation.Delete: this.Delete(products); break;
+                    case Operation.Update: this.UpdateProduct(products); break;
+                    case Operation.Delete: this.DeleteProduct(products); break;
                     case Operation.Exit: return;
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                Output.Error(ex.Message);
+                //Output.Error(ex.Message);
+                Console.Write("Returning to Main Menu");
             }
         }
 
@@ -113,12 +114,12 @@ namespace InventoryManager.View
         /// to update the product
         /// </summary>
         /// <param name="products"> list of searched product </param>
-        public void Update(List<Product> products)
+        public void UpdateProduct(List<Product> products)
         {
             int? index = UserInput.ReadInt("Enter the S.No of the product: ", 1, products.Count());
             if (index == null)
             {
-                throw new ArgumentNullException("Exception : Invalid entry entered more than 3 times");
+                throw new ArgumentNullException("Invalid entry entered more than 3 times");
             }
 
             index = index - 1;
@@ -135,7 +136,7 @@ namespace InventoryManager.View
                 case UpdateChoice.Name:
                     {
                         string? name = UserInput.ReadInput("Enter Name: ");
-                        if (this._inventoryServices.Update(products[(int)index].Id, name))
+                        if (this._inventoryServices.UpdateProduct(products[(int)index].Id, name))
                         {
                             Output.Success("updated successfully. ");
                         }
@@ -150,7 +151,7 @@ namespace InventoryManager.View
                 case UpdateChoice.Quantity:
                     {
                         decimal? quantity = UserInput.ReadDecimal("Enter Quantity: ");
-                        if (this._inventoryServices.Update(UpdateChoice.Quantity, products[(int)index].Id, quantity))
+                        if (this._inventoryServices.UpdateProduct(UpdateChoice.Quantity, products[(int)index].Id, quantity))
                         {
                             Output.Success("updated successfully. ");
                         }
@@ -165,7 +166,7 @@ namespace InventoryManager.View
                 case UpdateChoice.Price:
                     {
                         decimal? price = UserInput.ReadDecimal("Enter Price: ");
-                        if (this._inventoryServices.Update(UpdateChoice.Price, products[(int)index].Id, price))
+                        if (this._inventoryServices.UpdateProduct(UpdateChoice.Price, products[(int)index].Id, price))
                         {
                             Output.Success("updated successfully. ");
                         }
@@ -183,12 +184,12 @@ namespace InventoryManager.View
         /// to Delete product
         /// </summary>
         /// <param name="products"> list of searched product </param>
-        public void Delete(List<Product> products)
+        public void DeleteProduct(List<Product> products)
         {
             int? index = UserInput.ReadInt("Enter the S.No of the product: ", 1, products.Count());
             if (index == null)
             {
-                throw new ArgumentNullException("Exception : Invalid entry entered more than 3 times");
+                throw new ArgumentNullException("Invalid entry entered more than 3 times");
             }
 
             index = index - 1;
@@ -221,7 +222,7 @@ namespace InventoryManager.View
         /// <summary>
         /// to sort products
         /// </summary>
-        public void SortProduct()
+        public void SortProducts()
         {
             if (this._inventoryServices.IsEmptyDatabase())
             {
@@ -234,7 +235,7 @@ namespace InventoryManager.View
             int? choice = UserInput.ReadInt("Enter the choice : ", 1, 4);
             if (choice == null)
             {
-                throw new ArgumentNullException("Exception : Invalid entry entered more than 3 times");
+                throw new ArgumentNullException("Invalid entry entered more than 3 times");
             }
 
             switch ((UpdateChoice)choice)

@@ -33,11 +33,11 @@ namespace InventoryManager.Service
             Product newProduct = new Product(id, name, price, quantity);
             try
             {
-                return this._repository.Add(newProduct);
+                return this._repository.AddProduct(newProduct);
             }
             catch (Exception)
             {
-                throw new NullReferenceException("Exception : The product is null here");
+                throw new NullReferenceException("The product is null here");
             }
         }
 
@@ -48,7 +48,7 @@ namespace InventoryManager.Service
         /// <returns> returns the status of the deletion process</returns>
         public bool DeleteProduct(Guid id)
         {
-            return this._repository.Remove(id);
+            return this._repository.RemoveProduct(id);
         }
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace InventoryManager.Service
         /// <returns> the list of searched product</returns>
         public List<Product> SearchProducts(string name)
         {
-            return this._repository.Search(name);
+            return this._repository.SearchProducts(name);
         }
 
         /// <summary>
@@ -77,7 +77,7 @@ namespace InventoryManager.Service
         /// <param name="id"> on which product the upadte takes place</param>
         /// <param name="value"> new value to be updated</param>
         /// <returns> status of the updation</returns>
-        public bool Update(UpdateChoice choice, Guid id, decimal? value)
+        public bool UpdateProduct(UpdateChoice choice, Guid id, decimal? value)
         {
             Product? product = this.GetProduct(id);
             if (product == null)
@@ -89,14 +89,14 @@ namespace InventoryManager.Service
             {
                 switch (choice)
                 {
-                    case UpdateChoice.Price: product.Price = value; return this._repository.Update(product);
-                    case UpdateChoice.Quantity: product.Quantity = value; return this._repository.Update(product);
+                    case UpdateChoice.Price: product.Price = value; return this._repository.UpdateProduct(product);
+                    case UpdateChoice.Quantity: product.Quantity = value; return this._repository.UpdateProduct(product);
                     default: return false;
                 }
             }
             catch (Exception)
             {
-                throw new NullReferenceException("Exception : The product is null here");
+                throw new NullReferenceException("The product is not Updated");
             }
         }
 
@@ -106,7 +106,7 @@ namespace InventoryManager.Service
         /// <param name="id"> on which product the upadte takes place</param>
         /// <param name="value"> new value to be updated</param>
         /// <returns> status of the updation</returns>
-        public bool Update(Guid id, string? value)
+        public bool UpdateProduct(Guid id, string? value)
         {
             Product? product = this.GetProduct(id);
             if (product == null)
@@ -117,11 +117,11 @@ namespace InventoryManager.Service
             product.Name = value;
             try
             {
-                return this._repository.Update(product);
+                return this._repository.UpdateProduct(product);
             }
             catch (Exception)
             {
-                throw new NullReferenceException("Exception : The product is null here");
+                throw new NullReferenceException("The product is not Updated");
             }
         }
 
@@ -142,7 +142,7 @@ namespace InventoryManager.Service
 
         private Product? GetProduct(Guid id)
         {
-            return this._repository.GetAll().FirstOrDefault(p => p.Id == id);
+            return this._repository.GetAll().FirstOrDefault(product => product.Id == id);
         }
     }
 }

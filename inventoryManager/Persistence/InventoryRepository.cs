@@ -19,11 +19,11 @@ namespace InventoryManager.Persistence
         /// </summary>
         /// <param name="product"> the product to be added</param>
         /// <returns> status of addition </returns>
-        public bool Add(Product product)
+        public bool AddProduct(Product product)
         {
             if (product == null)
             {
-                throw new NullReferenceException("Exception : The product is null here");
+                throw new NullReferenceException("The product is not Added");
             }
 
             this._products.Add(product);
@@ -35,7 +35,7 @@ namespace InventoryManager.Persistence
         /// </summary>
         /// <param name="id"> the product to be removed </param>
         /// <returns> the status of deletion </returns>
-        public bool Remove(Guid id)
+        public bool RemoveProduct(Guid id)
         {
             Product? product = this.GetProduct(id);
             if (product != null)
@@ -52,11 +52,11 @@ namespace InventoryManager.Persistence
         /// </summary>
         /// <param name="name"> the name of the product to be searched </param>
         /// <returns> enumberable list of found elements </returns>
-        public List<Product> Search(string? name)
+        public List<Product> SearchProducts(string? name)
         {
             if (name == null)
             {
-                throw new ArgumentNullException("Exception : The name entered to search is null here");
+                throw new ArgumentNullException("The name is not entered");
             }
 
             return this._products.Where(e => e.Name != null && e.Name.Contains(name)).Select(p => new Product(
@@ -84,14 +84,14 @@ namespace InventoryManager.Persistence
         /// </summary>
         /// <param name="updateProduct"> the updated product </param>
         /// <returns> the status of the product updation </returns>
-        public bool Update(Product updateProduct)
+        public bool UpdateProduct(Product updateProduct)
         {
             if (updateProduct == null)
             {
-                throw new NullReferenceException("Exception : The product is null here");
+                throw new NullReferenceException("The product is not Updated");
             }
 
-            Product? product = this.GetProduct(updateProduct.Id);
+            Product? product = this.GetProductById(updateProduct.Id);
             if (product != null)
             {
                 product.Name = updateProduct.Name;
@@ -103,9 +103,9 @@ namespace InventoryManager.Persistence
             return false;
         }
 
-        private Product? GetProduct(Guid id)
+        private Product? GetProductById(Guid id)
         {
-            return this._products.FirstOrDefault(p => p.Id == id);
+            return this._products.FirstOrDefault(product => product.Id == id);
         }
     }
 }

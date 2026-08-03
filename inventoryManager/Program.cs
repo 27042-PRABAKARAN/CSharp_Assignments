@@ -38,7 +38,7 @@ namespace InventoryManager
                     {
                         case Choice.CreateProduct: inventoryOperations.CreateProduct(); break;
                         case Choice.ManipulateProduct: inventoryOperations.ManipulateProduct(); break;
-                        case Choice.SortProduct: inventoryOperations.SortProduct(); break;
+                        case Choice.SortProduct: inventoryOperations.SortProducts(); break;
                         case Choice.DisplayProduct: inventoryOperations.DisplayProducts(); break;
                         case Choice.Exit: Output.Success("Exiting..."); app = false; break;
                         default: Output.Error("Enter Valid Input"); break;
