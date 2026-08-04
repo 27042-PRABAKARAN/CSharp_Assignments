@@ -26,7 +26,7 @@ namespace InventoryManager.View
         /// </summary>
         public void CreateProduct()
         {
-            string? name = UserInput.ReadInput("Enter name of the product : ");
+            string? name = UserInput.ReadName("Enter name of the product : ");
             if (name == null)
             {
                 throw new InvalidOperationException("Invalid entry entered more than 3 times");

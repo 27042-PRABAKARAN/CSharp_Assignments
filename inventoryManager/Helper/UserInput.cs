@@ -65,6 +65,37 @@ namespace InventoryManager.Helper
         /// </summary>
         /// <param name="prompt"> the prompt for the input </param>
         /// <returns> returns string </returns>
+        public static string? ReadName(string? prompt)
+        {
+            for (int tried = 1; tried <= 3; tried++)
+            {
+                Console.Write(prompt);
+                string? input = Console.ReadLine();
+
+                if (string.IsNullOrWhiteSpace(input))
+                {
+                    Output.Error("Name cannot be empty.");
+                }
+                else if (!Regex.IsMatch(input, @"^[A-Za-z0-9 ]+$"))
+                {
+                    Output.Error("Name cannot contain special characters.");
+                }
+                else
+                {
+                    return input.Trim();
+                }
+
+                Output.Error($"{3 - tried} attempts remaining\n");
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// this reads the input
+        /// </summary>
+        /// <param name="prompt"> the prompt for the input </param>
+        /// <returns> returns string </returns>
         public static long? ReadQuantity(string? prompt)
         {
             for (int tried = 1; tried <= 3; tried++)
