@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using InventoryManager.Models;
+﻿using InventoryManager.Models;
 
 namespace InventoryManager.Persistence
 {
@@ -21,11 +16,6 @@ namespace InventoryManager.Persistence
         /// <returns> status of addition </returns>
         public bool AddProduct(Product product)
         {
-            if (product == null)
-            {
-                throw new NullReferenceException("The product is not Added");
-            }
-
             this._products.Add(product);
             return true;
         }
@@ -75,10 +65,10 @@ namespace InventoryManager.Persistence
         }
 
         /// <summary>
-        /// to udate the product details
+        /// to update the product details
         /// </summary>
         /// <param name="updateProduct"> the updated product </param>
-        /// <returns> the status of the product updation </returns>
+        /// <returns> the status of the product update </returns>
         public bool UpdateProduct(Product updateProduct)
         {
             Product? product = this.GetProductById(updateProduct.Id);

@@ -47,9 +47,10 @@ namespace InventoryManager.Helper
         /// <summary>
         /// this reads the Id
         /// </summary>
-        /// <param name="prompt"> the prompt for the input </param>
-        /// <returns> returns string </returns>
-        public static string? ReadId(string? prompt)
+        /// <param name="prompt">the prompt for the input </param>
+        /// <param name="isValid"> function to validate id</param>
+        /// <returns> ID read from user </returns>
+        public static string? ReadId(string? prompt, Func<string, bool> isValid)
         {
             for (int tried = 1; tried <= 3; tried++)
             {
@@ -58,19 +59,27 @@ namespace InventoryManager.Helper
                 if (input == null)
                 {
                     Output.Error("Invalid. Please enter a ID Similar to ABCD-0001.");
+                    Output.Error($"{3 - tried} attempts remaining\n");
                     continue;
                 }
 
                 if (!Regex.IsMatch(input, @"^[A-Za-z]{4}-\d{4}$"))
                 {
                     Output.Error("Invalid. Please enter a ID Similar to ABCD-0001.");
+                    Output.Error($"{3 - tried} attempts remaining\n");
+                    continue;
+                }
+
+                if (!isValid(input))
+                {
+                    Output.Error("Product Id already Exists.");
+                    Output.Error($"{3 - tried} attempts remaining\n");
+                    continue;
                 }
                 else
                 {
-                    return input;
+                    return input.Trim();
                 }
-
-                Output.Error($"{3 - tried} attempts remaining\n");
             }
 
             return null;
@@ -104,7 +113,7 @@ namespace InventoryManager.Helper
         }
 
         /// <summary>
-        /// TO check if user is enterring a valid input or not
+        /// TO check if user is entering a valid input or not
         /// </summary>
         /// <param name="prompt"> to print before user enters value </param>
         /// <param name="validation">  the validating function </param>
@@ -122,9 +131,9 @@ namespace InventoryManager.Helper
                     continue;
                 }
 
-                if (validation(input))
+                if (validation(input.Trim()))
                 {
-                    return input;
+                    return input.Trim();
                 }
 
                 Output.Error(errorMessage);

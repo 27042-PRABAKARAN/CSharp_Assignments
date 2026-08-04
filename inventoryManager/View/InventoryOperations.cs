@@ -32,7 +32,7 @@ namespace InventoryManager.View
                 throw new ArgumentNullException("Invalid entry entered more than 3 times");
             }
 
-            string? id = UserInput.ReadId("Enter Id of the product ( ABCD-0001 ): ");
+            string? id = UserInput.ReadId("Enter Id of the product ( ABCD-0001 ): ", this._inventoryServices.IsIdExists);
             if (id == null)
             {
                 throw new ArgumentNullException("Invalid entry entered more than 3 times");
@@ -44,10 +44,20 @@ namespace InventoryManager.View
                 throw new ArgumentNullException("Invalid entry entered more than 3 times");
             }
 
+            if (price > 100000000)
+            {
+                throw new ArgumentOutOfRangeException("Price cannot be more than 10 Crore");
+            }
+
             decimal? quantity = UserInput.ReadDecimal("Enter the Quantity of the product: ");
             if (quantity == null)
             {
                 throw new ArgumentNullException("Invalid entry entered more than 3 times");
+            }
+
+            if (quantity > 100000)
+            {
+                throw new ArgumentOutOfRangeException("Quantity cannot be more than 10 Lakh.");
             }
 
             this._inventoryServices.CreateProduct(name, id, (decimal)price, (decimal)quantity);
@@ -87,6 +97,12 @@ namespace InventoryManager.View
         /// </summary>
         public void UpdateProduct()
         {
+            if (this._inventoryServices.IsEmptyDatabase())
+            {
+                Output.Error("Empty Inventory. First Add a product.");
+                return;
+            }
+
             this.DisplayProducts();
             IEnumerable<Product> products = this._inventoryServices.GetAllProducts();
             int? index = UserInput.ReadInt("Enter the S.No of the product: ", 1, products.Count());
@@ -173,6 +189,12 @@ namespace InventoryManager.View
         /// </summary>
         public void DeleteProduct()
         {
+            if (this._inventoryServices.IsEmptyDatabase())
+            {
+                Output.Error("Empty Inventory. First Add a product.");
+                return;
+            }
+
             IEnumerable<Product> products = this._inventoryServices.GetAllProducts();
             this.DisplayProducts();
             int? index = UserInput.ReadInt("Enter the S.No of the product: ", 1, products.Count());
@@ -198,13 +220,13 @@ namespace InventoryManager.View
         /// </summary>
         public void DisplayProducts()
         {
-            IEnumerable<Product> products = this._inventoryServices.GetAllProducts();
-            if (products.Count() == 0)
+            if (this._inventoryServices.IsEmptyDatabase())
             {
-                Output.Error("No Product Available");
+                Output.Error("Empty Inventory. First Add a product.");
                 return;
             }
 
+            IEnumerable<Product> products = this._inventoryServices.GetAllProducts();
             Display.PrintTable(products);
         }
 
@@ -215,7 +237,7 @@ namespace InventoryManager.View
         {
             if (this._inventoryServices.IsEmptyDatabase())
             {
-                Output.Error("Empty Inventory Add Products first");
+                Output.Error("Empty Inventory. First Add a product.");
                 return;
             }
 

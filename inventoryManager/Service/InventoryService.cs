@@ -122,7 +122,7 @@ namespace InventoryManager.Service
         }
 
         /// <summary>
-        /// to check if the database is enmpty or not
+        /// to check if the database is empty or not
         /// </summary>
         /// <returns> the status of the repo</returns>
         public bool IsEmptyDatabase()
@@ -134,6 +134,16 @@ namespace InventoryManager.Service
             }
 
             return false;
+        }
+
+        /// <summary>
+        /// to check that the product id already exist.
+        /// </summary>
+        /// <param name="id"> the product id</param>
+        /// <returns> true if product of same id exist else returns false</returns>
+        public bool IsIdExists(string id)
+        {
+            return this.GetProduct(id) == null;
         }
 
         private Product? GetProduct(string id)
