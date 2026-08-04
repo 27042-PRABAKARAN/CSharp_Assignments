@@ -29,38 +29,32 @@ namespace InventoryManager.View
             string? name = UserInput.ReadInput("Enter name of the product : ");
             if (name == null)
             {
-                throw new ArgumentNullException("Invalid entry entered more than 3 times");
+                throw new InvalidOperationException("Invalid entry entered more than 3 times");
             }
 
             string? id = UserInput.ReadId("Enter Id of the product ( ABCD-0001 ): ", this._inventoryServices.IsIdExists);
             if (id == null)
             {
-                throw new ArgumentNullException("Invalid entry entered more than 3 times");
+                throw new InvalidOperationException("Invalid entry entered more than 3 times");
             }
 
-            decimal? price = UserInput.ReadDecimal("Enter the price of the product: ");
+            decimal? price = UserInput.ReadPrice("Enter the price of the product: ");
             if (price == null)
             {
-                throw new ArgumentNullException("Invalid entry entered more than 3 times");
+                throw new InvalidOperationException("Invalid entry entered more than 3 times");
             }
 
-            if (price > 100000000)
-            {
-                throw new ArgumentOutOfRangeException("Price cannot be more than 10 Crore");
-            }
-
-            decimal? quantity = UserInput.ReadDecimal("Enter the Quantity of the product: ");
+            long? quantity = UserInput.ReadQuantity("Enter the Quantity of the product: ");
             if (quantity == null)
             {
-                throw new ArgumentNullException("Invalid entry entered more than 3 times");
+                throw new InvalidOperationException("Invalid entry entered more than 3 times");
             }
-
             if (quantity > 100000)
             {
                 throw new ArgumentOutOfRangeException("Quantity cannot be more than 10 Lakh.");
             }
 
-            this._inventoryServices.CreateProduct(name, id, (decimal)price, (decimal)quantity);
+            this._inventoryServices.CreateProduct(name, id, (decimal)price, (long)quantity);
             Output.Success("Created product successfully");
         }
 
@@ -78,7 +72,7 @@ namespace InventoryManager.View
             string? name = UserInput.ReadInput("Enter the name or ID of the product: ");
             if (name == null)
             {
-                throw new ArgumentNullException("Invalid entry entered more than 3 times");
+                throw new InvalidOperationException("Invalid entry entered more than 3 times");
             }
 
             List<Product> products = this._inventoryServices.SearchProducts(name);
@@ -108,7 +102,7 @@ namespace InventoryManager.View
             int? index = UserInput.ReadInt("Enter the S.No of the product: ", 1, products.Count());
             if (index == null)
             {
-                throw new ArgumentNullException("Invalid entry entered more than 3 times");
+                throw new InvalidOperationException("Invalid entry entered more than 3 times");
             }
 
             index = index - 1;
@@ -127,7 +121,7 @@ namespace InventoryManager.View
                         string? name = UserInput.ReadInput("Enter Name: ");
                         if (name == null)
                         {
-                            throw new ArgumentNullException("Invalid entry entered more than 3 times");
+                            throw new InvalidOperationException("Invalid entry entered more than 3 times");
                         }
 
                         if (this._inventoryServices.UpdateProduct(products.ElementAt((int)index).Id, name))
@@ -144,13 +138,13 @@ namespace InventoryManager.View
 
                 case UpdateChoice.Quantity:
                     {
-                        decimal? quantity = UserInput.ReadDecimal("Enter Quantity: ");
+                        decimal? quantity = UserInput.ReadQuantity("Enter Quantity: ");
                         if (quantity == null)
                         {
-                            throw new ArgumentNullException("Invalid entry entered more than 3 times");
+                            throw new InvalidOperationException("Invalid entry entered more than 3 times");
                         }
 
-                        if (this._inventoryServices.UpdateProduct(UpdateChoice.Quantity, products.ElementAt((int)index).Id, (decimal)quantity))
+                        if (this._inventoryServices.UpdateProduct(UpdateChoice.Quantity, products.ElementAt((int)index).Id, (long)quantity))
                         {
                             Output.Success("updated successfully. ");
                         }
@@ -164,13 +158,13 @@ namespace InventoryManager.View
 
                 case UpdateChoice.Price:
                     {
-                        decimal? price = UserInput.ReadDecimal("Enter Price: ");
+                        decimal? price = UserInput.ReadPrice("Enter Price: ");
                         if (price == null)
                         {
-                            throw new ArgumentNullException("Invalid entry entered more than 3 times");
+                            throw new InvalidOperationException("Invalid entry entered more than 3 times");
                         }
 
-                        if (this._inventoryServices.UpdateProduct(UpdateChoice.Price, products.ElementAt((int)index).Id, (decimal)price))
+                        if (this._inventoryServices.UpdateProduct(UpdateChoice.Price, products.ElementAt((int)index).Id, (long)price))
                         {
                             Output.Success("updated successfully. ");
                         }
@@ -200,7 +194,7 @@ namespace InventoryManager.View
             int? index = UserInput.ReadInt("Enter the S.No of the product: ", 1, products.Count());
             if (index == null)
             {
-                throw new ArgumentNullException("Invalid entry entered more than 3 times");
+                throw new InvalidOperationException("Invalid entry entered more than 3 times");
             }
 
             index = index - 1;
@@ -246,7 +240,7 @@ namespace InventoryManager.View
             int? choice = UserInput.ReadInt("Enter the choice : ", 1, 4);
             if (choice == null)
             {
-                throw new ArgumentNullException("Invalid entry entered more than 3 times");
+                throw new InvalidOperationException("Invalid entry entered more than 3 times");
             }
 
             switch ((UpdateChoice)choice)

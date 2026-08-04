@@ -28,10 +28,10 @@ namespace InventoryManager
                 try
                 {
                     Console.WriteLine("\n====================\n1.Create product\n2.Update product\n3.Search \n4.Delete Product\n5.Sort Product\n6.Display\n7.Exit\n====================\n");
-                    int? choice = UserInput.ReadInt("Enter your choice : ", 1, 7);
+                    int? choice = UserInput.ReadChoice("Enter your choice : ");
                     if (choice == null)
                     {
-                        throw new NullReferenceException("The choice is null here");
+                        throw new InvalidOperationException("Enter Valid Input between 1-7");
                     }
 
                     switch ((Choice)choice)
@@ -79,7 +79,7 @@ namespace InventoryManager
                                 break;
                             }
 
-                        default: Output.Error("Enter Valid Input"); break;
+                        default: Output.Error("Enter Valid Input between 1-7"); break;
                     }
                 }
                 catch (Exception e)

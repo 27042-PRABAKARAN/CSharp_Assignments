@@ -44,11 +44,11 @@ namespace InventoryManager.Persistence
         /// <returns> enumerable list of found elements </returns>
         public List<Product> SearchProducts(string name)
         {
-            return this._products.Where(e => e.Name != null && (e.Name.Contains(name, StringComparison.OrdinalIgnoreCase) || e.Id.Equals(name))).Select(p => new Product(
-                p.Id,
-                p.Name,
-                p.Price,
-                p.Quantity)).ToList();
+            return this._products.Where(record => record.Name != null && (record.Name.Contains(name, StringComparison.OrdinalIgnoreCase) || record.Id.Contains(name, StringComparison.OrdinalIgnoreCase))).Select(product => new Product(
+                product.Id,
+                product.Name,
+                product.Price,
+                product.Quantity)).ToList();
         }
 
         /// <summary>

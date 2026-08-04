@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace InventoryManager.Models
+﻿namespace InventoryManager.Models
 {
     /// <summary>
     /// Product model
@@ -14,11 +8,11 @@ namespace InventoryManager.Models
         /// <summary>
         ///  Initializes a new instance of the <see cref="Product"/> class.
         /// </summary>
-        /// <param name="id"> the id</param>
+        /// <param name="id"> the id </param>
         /// <param name="name"> name </param>
         /// <param name="price"> price </param>
         /// <param name="quantity"> quantity </param>
-        public Product(string id, string name, decimal price, decimal quantity)
+        public Product(string id, string name, decimal price, long quantity)
         {
             this.Id = id;
             this.Name = name;
@@ -36,18 +30,18 @@ namespace InventoryManager.Models
         /// gets or sets the name of the product.
         /// </summary>
         /// <value> name of the product </value>
-        public string Name { get; set; } = string.Empty;
+        public string Name { get; set; }
 
         /// <summary>
         /// gets or sets the price of the product
         /// </summary>
         /// <value> stores the price </value>
-        public decimal Price { get; set; } = decimal.Zero;
+        public decimal Price { get; set; }
 
         /// <summary>
         /// gets or sets the quantity of the product
         /// </summary>
         /// <value> stores the quantity </value>
-        public decimal Quantity { get; set; } = decimal.Zero;
+        public long Quantity { get; set; }
     }
 }

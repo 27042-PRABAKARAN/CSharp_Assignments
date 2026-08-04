@@ -27,8 +27,8 @@ namespace InventoryManager.Service
         /// <param name="id"> the id of the product </param>
         /// <param name="price"> the price of the product </param>
         /// <param name="quantity"> the quantity of the product</param>
-        /// <returns> returns status</returns>
-        public bool CreateProduct(string name, string id, decimal price, decimal quantity)
+        /// <returns> returns status </returns>
+        public bool CreateProduct(string name, string id, decimal price, long quantity)
         {
             Product newProduct = new Product(id, name, price, quantity);
             return this._repository.AddProduct(newProduct);
@@ -37,7 +37,7 @@ namespace InventoryManager.Service
         /// <summary>
         /// the delete operation takes place.
         /// </summary>
-        /// <param name="id"> the GUID of the Product</param>
+        /// <param name="id"> the ID of the Product</param>
         /// <returns> returns the status of the deletion process</returns>
         public bool DeleteProduct(string id)
         {
@@ -67,10 +67,10 @@ namespace InventoryManager.Service
         /// to update
         /// </summary>
         /// <param name="choice"> which parameter is updated</param>
-        /// <param name="id"> on which product the upadte takes place</param>
+        /// <param name="id"> on which product the update takes place</param>
         /// <param name="value"> new value to be updated</param>
-        /// <returns> status of the updation</returns>
-        public bool UpdateProduct(UpdateChoice choice, string id, decimal value)
+        /// <returns> status of the update</returns>
+        public bool UpdateProduct(UpdateChoice choice, string id, long value)
         {
             Product? product = this.GetProduct(id);
             if (product == null)
@@ -78,37 +78,30 @@ namespace InventoryManager.Service
                 return false;
             }
 
-            try
+            switch (choice)
             {
-                switch (choice)
-                {
-                    case UpdateChoice.Price:
-                        {
-                            product.Price = value;
-                            return this._repository.UpdateProduct(product);
-                        }
+                case UpdateChoice.Price:
+                    {
+                        product.Price = value;
+                        return this._repository.UpdateProduct(product);
+                    }
 
-                    case UpdateChoice.Quantity:
-                        {
-                            product.Quantity = value;
-                            return this._repository.UpdateProduct(product);
-                        }
+                case UpdateChoice.Quantity:
+                    {
+                        product.Quantity = value;
+                        return this._repository.UpdateProduct(product);
+                    }
 
-                    default: return false;
-                }
-            }
-            catch (Exception)
-            {
-                throw new NullReferenceException("The product is not Updated");
+                default: return false;
             }
         }
 
         /// <summary>
         /// to update
         /// </summary>
-        /// <param name="id"> on which product the upadte takes place</param>
+        /// <param name="id"> on which product the update takes place</param>
         /// <param name="value"> new value to be updated</param>
-        /// <returns> status of the updation</returns>
+        /// <returns> status of the update</returns>
         public bool UpdateProduct(string id, string value)
         {
             Product? product = this.GetProduct(id);

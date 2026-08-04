@@ -1,6 +1,4 @@
-﻿using System.Text.RegularExpressions;
-
-namespace InventoryManager.Helper
+﻿namespace InventoryManager.Helper
 {
     /// <summary>
     /// Validation class which has validation methods.

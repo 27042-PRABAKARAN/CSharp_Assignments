@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using System.Text.RegularExpressions;
+﻿using System.Text.RegularExpressions;
 
 namespace InventoryManager.Helper
 {
@@ -24,21 +23,72 @@ namespace InventoryManager.Helper
         /// </summary>
         /// <param name="prompt"> the prompt for the input </param>
         /// <returns> returns string </returns>
-        public static decimal? ReadDecimal(string? prompt)
+        public static decimal? ReadPrice(string? prompt)
         {
             for (int tried = 1; tried <= 3; tried++)
             {
                 Console.Write(prompt);
-                if (!decimal.TryParse(Console.ReadLine(), out decimal amount) || amount <= 0)
+                string? price = Console.ReadLine();
+                if (price == null)
                 {
                     Output.Error("Invalid. Please enter a positive number.");
+                    Output.Error($"{3 - tried} attempts remaining\n");
+                    continue;
+                }
+
+                if (decimal.TryParse(price, out decimal amount) || amount <= 0)
+                {
+                    if (amount > 10000000)
+                    {
+                        Output.Error("Invalid price cannot exceed 1cr");
+                        Output.Error($"{3 - tried} attempts remaining\n");
+                        continue;
+                    }
+                    else
+                    {
+                        return amount;
+                    }
                 }
                 else
                 {
-                    return amount;
+                    Output.Error("Invalid. Please enter a positive number.");
+                    Output.Error($"{3 - tried} attempts remaining\n");
+                    continue;
                 }
+            }
 
-                Output.Error($"{3 - tried} attempts remaining\n");
+            return null;
+        }
+
+        /// <summary>
+        /// this reads the input
+        /// </summary>
+        /// <param name="prompt"> the prompt for the input </param>
+        /// <returns> returns string </returns>
+        public static long? ReadQuantity(string? prompt)
+        {
+            for (int tried = 1; tried <= 3; tried++)
+            {
+                Console.Write(prompt);
+                if (long.TryParse(Console.ReadLine(), out long quantity))
+                {
+                    if (quantity > 10000000)
+                    {
+                        Output.Error("Invalid Quantity cannot exceed 1cr");
+                        Output.Error($"{3 - tried} attempts remaining\n");
+                        continue;
+                    }
+                    else
+                    {
+                        return quantity;
+                    }
+                }
+                else
+                {
+                    Output.Error("Invalid. Please enter a positive number.");
+                    Output.Error($"{3 - tried} attempts remaining\n");
+                    continue;
+                }
             }
 
             return null;
@@ -63,7 +113,7 @@ namespace InventoryManager.Helper
                     continue;
                 }
 
-                if (!Regex.IsMatch(input, @"^[A-Za-z]{4}-\d{4}$"))
+                if (!Regex.IsMatch(input, @"^[A-Za-z]{4}-\d+$"))
                 {
                     Output.Error("Invalid. Please enter a ID Similar to ABCD-0001.");
                     Output.Error($"{3 - tried} attempts remaining\n");
@@ -110,6 +160,24 @@ namespace InventoryManager.Helper
             }
 
             return null;
+        }
+
+        /// <summary>
+        /// this reads choice.
+        /// </summary>
+        /// <param name="prompt"> to prompt the message </param>
+        /// <returns> returns read number </returns>
+        public static int? ReadChoice(string? prompt)
+        {
+            Console.Write(prompt);
+            if (!int.TryParse(Console.ReadLine(), out int number))
+            {
+                return null;
+            }
+            else
+            {
+                return number;
+            }
         }
 
         /// <summary>
