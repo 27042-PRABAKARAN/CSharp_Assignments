@@ -31,7 +31,11 @@ namespace ManagementSystem.View
             Console.WriteLine("Welcome to Shapes ");
             while (true)
             {
-                Console.WriteLine("========================\n1. Create A Rectangle.\n2. Create A Circle.\n3. Exit the app\n========================");
+                Console.WriteLine(@"========================
+1. Create A Rectangle.
+2. Create A Circle.
+3. Exit the app
+========================");
                 int? index = UserInput.ReadInt("Enter the choice: ", 1, 3);
                 if (index == null)
                 {
@@ -55,21 +59,21 @@ namespace ManagementSystem.View
         /// </summary>
         public void CreateRectangle()
         {
-            double? length = UserInput.ReadMetres("Enter length in meters : ");
+            double? length = UserInput.ReadMeters("Enter length in meters : ");
 
             if (length == null)
             {
                 return;
             }
 
-            double? width = UserInput.ReadMetres("Enter width in meters : ");
+            double? width = UserInput.ReadMeters("Enter width in meters : ");
 
             if (width == null)
             {
                 return;
             }
 
-            string? colour = UserInput.GetColour("Enter Colour of the Rectangle: ");
+            string? colour = UserInput.GetColor("Enter Color of the Rectangle: ");
             if (colour == null)
             {
                 return;
@@ -83,14 +87,14 @@ namespace ManagementSystem.View
         /// </summary>
         public void CreateCircle()
         {
-            double? radius = UserInput.ReadMetres("Enter radius in meters : ");
+            double? radius = UserInput.ReadMeters("Enter radius in meters : ");
 
             if (radius == null)
             {
                 return;
             }
 
-            string? colour = UserInput.GetColour("Enter Colour of the Circle : ");
+            string? colour = UserInput.GetColor("Enter Color of the Circle : ");
             if (colour == null)
             {
                 return;

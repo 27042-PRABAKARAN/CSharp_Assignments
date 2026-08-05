@@ -54,7 +54,7 @@ namespace ManagementSystem.Helper
         }
 
         /// <summary>
-        /// TO check if user is enterring a valid input or not
+        /// TO check if user is entering a valid input or not
         /// </summary>
         /// <param name="prompt"> to print before user enters value </param>
         /// <param name="validation">  the validating function </param>

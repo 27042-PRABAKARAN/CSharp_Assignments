@@ -1,4 +1,6 @@
-﻿namespace ManagementSystem.Model.Bank
+﻿using System.Runtime.CompilerServices;
+
+namespace ManagementSystem.Model.Bank
 {
     /// <summary>
     /// the Bank Account Class
@@ -6,12 +8,23 @@
     internal class BankAccount
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="BankAccount"/> class.
+        /// </summary>
+        /// <param name="accountNumber"> account number</param>
+        /// <param name="balance">the balance</param>
+        public BankAccount(string accountNumber, decimal balance)
+        {
+            this.AccountNumber = accountNumber;
+            this.Balance = balance;
+        }
+
+        /// <summary>
         /// gets or sets the account number of the bank account
         /// </summary>
         /// <value>
         /// the account number of the bank account
         /// </value>
-        public string AccountNumber { get; set; } = string.Empty;
+        public string AccountNumber { get; set; }
 
         /// <summary>
         /// Gets or sets the balance in the bank account
@@ -19,7 +32,7 @@
         /// <value>
         /// the account number of the bank account
         /// </value>
-        public decimal Balance { get; set; } = decimal.Zero;
+        public decimal Balance { get; set; }
 
         /// <summary>
         /// the amount to be deposited will be added in the balance
@@ -47,7 +60,8 @@
         /// <returns> returns details</returns>
         public override string ToString()
         {
-            return $"Account Number is {this.AccountNumber}.\nThe Balance is {this.Balance} Rupees.";
+            return $@"Account Number is {this.AccountNumber}.
+The Balance is {this.Balance} Rupees.";
         }
     }
 }

@@ -11,12 +11,12 @@
         /// Initializes a new instance of the <see cref="Rectangle"/> class.
         /// constructor for the Rectangle class
         /// </summary>
-        /// <param name="colour"> colour of the rectangle </param>
+        /// <param name="color"> color of the rectangle </param>
         /// <param name="length"> the length of the rectangle </param>
         /// <param name="width"> the width of the rectangle </param>
-        public Rectangle(string colour, double length, double width)
+        public Rectangle(string color, double length, double width)
+            : base(color)
         {
-            this.Colour = colour;
             this.Length = length;
             this.Width = width;
         }
@@ -40,7 +40,10 @@
         /// <returns> returns the details</returns>
         public override string PrintDetails()
         {
-            return $"\nThe Shape is : {Name}\nArea is : {this.CalculateArea()} meter Square.\nColour is : {this.Colour}\n";
+            return $@"
+The Shape is : {Name}
+Area is : {this.CalculateArea()} meter Square.
+Color is : {this.Color}";
         }
     }
 }

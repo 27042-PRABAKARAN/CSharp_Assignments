@@ -12,11 +12,11 @@
         /// constructor for the circle class
         /// </summary>
         /// <param name="radius"> the radius of the circle </param>
-        /// <param name="colour"> the colour of the circle </param>
-        public Circle(double radius, string colour)
+        /// <param name="color"> the color of the circle </param>
+        public Circle(double radius, string color)
+            : base(color)
         {
             this.Radius = radius;
-            this.Colour = colour;
         }
 
         /// <summary>
@@ -39,7 +39,7 @@
         /// <returns> returns the details</returns>
         public override string PrintDetails()
         {
-            return $"\nThe Shape is : {Name}\nArea is : {this.CalculateArea()} meter square.\nColour is {this.Colour}\n";
+            return $"\nThe Shape is : {Name}\nArea is : {this.CalculateArea()} meter square.\nColor is {this.Color}\n";
         }
     }
 }

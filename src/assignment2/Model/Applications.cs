@@ -8,12 +8,12 @@
         /// <summary>
         /// to navigate to Shape system.
         /// </summary>
-        ShapeHirearchy = 1,
+        ShapeHierarchy = 1,
 
         /// <summary>
         /// to navigate to Employee system.
         /// </summary>
-        EmployeeHirearchy,
+        EmployeeHierarchy,
 
         /// <summary>
         /// to navigate to Bank system.

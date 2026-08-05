@@ -13,9 +13,8 @@
         /// <param name="name"> the name of the employee </param>
         /// <param name="salary"> the salary of the employee</param>
         public Manager(string name, decimal salary)
+            : base(name, salary)
         {
-            this.Name = name;
-            this.Salary = salary;
         }
 
         /// <summary>
@@ -32,7 +31,10 @@
         /// <returns> return the details </returns>
         public override string PrintDetails()
         {
-            return $"\nName : {this.Name}\nPosition : Manager\nSalary : {this.Salary}\nBonus : {this.Bonus}.\n";
+            return $@"\nName : {this.Name}
+Position : Manager
+Salary : {this.Salary}
+Bonus : {this.Bonus}.";
         }
     }
 }
