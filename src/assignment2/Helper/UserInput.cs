@@ -17,11 +17,11 @@
         }
 
         /// <summary>
-        /// to get the colour of string.
+        /// to get the color of string.
         /// </summary>
-        /// <param name="prompt"> promt the user </param>
-        /// <returns> returns colour </returns>
-        public static string? GetColour(string? prompt)
+        /// <param name="prompt"> prompt the user </param>
+        /// <returns> returns color </returns>
+        public static string? GetColor(string? prompt)
         {
             for (int tried = 1; tried <= 3; tried++)
             {
@@ -29,14 +29,14 @@
                 string? input = Console.ReadLine();
                 if (!Validation.IsValidInput(input) || input == null)
                 {
-                    Output.Error("Enter valid colour(colour should be only contain alphabets.");
+                    Output.Error("Enter valid color(color should be only contain alphabets.");
                     Output.Error($"{3 - tried} attempts remaining\n");
                     continue;
                 }
 
                 if (!input.All(char.IsLetter))
                 {
-                    Output.Error("Enter valid colour(colour should be only contain alphabets.");
+                    Output.Error("Enter valid color (color should be only contain alphabets).");
                     Output.Error($"{3 - tried} attempts remaining\n");
                 }
                 else
@@ -155,7 +155,7 @@
         /// </summary>
         /// <param name="prompt"> to prompt the message </param>
         /// <returns> returns read number </returns>
-        public static double? ReadMetres(string? prompt)
+        public static double? ReadMeters(string? prompt)
         {
             for (int tried = 1; tried <= 3; tried++)
             {

@@ -10,25 +10,25 @@ namespace ManagementSystem.Service
         /// <summary>
         /// Creating the rectangle
         /// </summary>
-        /// <param name="colour"> the colour of the rectangle </param>
+        /// <param name="color"> the color of the rectangle </param>
         /// <param name="width"> the width of the rectangle </param>
         /// <param name="length"> the length of the rectangle </param>
         /// <returns> returns the details</returns>
-        public string CreateRectangle(string colour, double width, double length)
+        public string CreateRectangle(string color, double width, double length)
         {
-            Rectangle newRectangle = new Rectangle(colour, length, width);
+            Rectangle newRectangle = new Rectangle(color, length, width);
             return newRectangle.PrintDetails();
         }
 
         /// <summary>
         /// Creating the circle
         /// </summary>
-        /// <param name="colour"> The colour of the circle  </param>
+        /// <param name="color"> The color of the circle  </param>
         /// <param name="radius"> the radius of the circle </param>
         /// <returns> returns the details if created </returns>
-        public string CreateCircle(string colour, double radius)
+        public string CreateCircle(string color, double radius)
         {
-            Circle newCircle = new Circle(radius, colour);
+            Circle newCircle = new Circle(radius, color);
             return newCircle.PrintDetails();
         }
     }

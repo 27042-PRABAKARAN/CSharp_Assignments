@@ -31,7 +31,11 @@ namespace ManagementSystem.View
             Console.WriteLine("Welcome to Employee Management System :  ");
             while (true)
             {
-                Console.WriteLine("========================\n1. Create A Developer.\n2. Create a Manager.\n3. Exit the app.\n========================\n");
+                Console.WriteLine(@"========================
+1. Create A Developer.
+2. Create a Manager.
+3. Exit the app.
+========================");
                 int? index = UserInput.ReadInt("Enter the choice: ", 1, 3);
                 if (index == null)
                 {

@@ -28,15 +28,19 @@ namespace ManagementSystem.View
         /// </summary>
         public void BankOperations()
         {
-            Console.WriteLine("\nWelcome to Account Management System :  ");
+            Console.WriteLine("\nWelcome to Account Management System");
             BankAccount? account = null;
             while (true)
             {
-                Console.WriteLine("\n==========Menu==========\n1. Create A Saving Account.\n2. Create A Checking Account.\n3. Exit the app.\n========================\n");
+                Console.WriteLine(@"==========Menu==========
+1. Create A Saving Account.
+2. Create A Checking Account.
+3. Exit the app.
+========================");
                 int? index = UserInput.ReadInt("Enter the choice: ", 1, 3);
                 if (index == null)
                 {
-                    Console.WriteLine("reteurning to main menu");
+                    Console.WriteLine("returning to main menu");
                     return;
                 }
 
@@ -58,7 +62,12 @@ namespace ManagementSystem.View
                 bool loop = true;
                 while (loop)
                 {
-                    Console.WriteLine("\n==========Menu==========\n1. Withdraw Money.\n2. Deposit Money.\n3. Get details.\n4. Exit.\n========================\n");
+                    Console.WriteLine(@"==========Menu==========
+1. Withdraw Money.
+2. Deposit Money.
+3. Get details.
+4. Exit.
+========================");
                     int? choice = UserInput.ReadInt("Enter the choice: ", 1, 4);
                     if (choice == null)
                     {
@@ -139,37 +148,36 @@ namespace ManagementSystem.View
         /// to withdraw amount
         /// </summary>
         /// <param name="account"> the account in which withdraw takes place</param>
-        public void Withdraw(BankAccount? account)
+        public void Withdraw(BankAccount account)
         {
-            if (account == null)
-            {
-                Output.Error("No account to withdraw amount. create one first.");
-                return;
-            }
-
             decimal? amount = UserInput.ReadAmount("Enter the amount to be Withdrawn in Rupees: ");
             if (amount == null)
             {
                 return;
             }
 
-            if (!this._bankServices.WithDraw(account, (decimal)amount))
+            switch (this._bankServices.WithDraw(account, (decimal)amount))
             {
-                if (account is SavingsAccount)
-                {
-                    Output.Error("invalid - violates minimum balance requirement.");
-                    Console.WriteLine("Back to Menu");
-                }
-                else
-                {
-                    Output.Error("Amount entered is more than balance ");
-                    Console.WriteLine("Back to Menu");
-                }
-            }
-            else
-            {
-                Output.Success("withdraw successful");
-                this.FetchDetails(account);
+                case Message.Successful:
+                    {
+                        Output.Success("withdraw successful");
+                        this.FetchDetails(account);
+                        break;
+                    }
+
+                case Message.InsufficientBalance:
+                    {
+                        Output.Error("Amount entered is more than balance ");
+                        Console.WriteLine("Back to Menu");
+                        return;
+                    }
+
+                case Message.MinimumBalance:
+                    {
+                        Output.Error("invalid - violates minimum balance requirement.");
+                        Console.WriteLine("Back to Menu");
+                        return;
+                    }
             }
         }
 
@@ -177,14 +185,8 @@ namespace ManagementSystem.View
         /// to deposit amount
         /// </summary>
         /// <param name="account"> the account in which deposit takes place</param>
-        public void Deposit(BankAccount? account)
+        public void Deposit(BankAccount account)
         {
-            if (account == null)
-            {
-                Output.Error("No account to Deposit amount. create one first.");
-                return;
-            }
-
             decimal? amount = UserInput.ReadAmount("Enter the amount to be deposited in Rupees: ");
             if (amount == null)
             {
@@ -192,7 +194,7 @@ namespace ManagementSystem.View
             }
 
             this._bankServices.Deposit(account, (decimal)amount);
-            Output.Success("Deposit Successfull");
+            Output.Success("Deposit Successful");
         }
 
         /// <summary>
