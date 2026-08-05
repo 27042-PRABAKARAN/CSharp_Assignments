@@ -19,7 +19,12 @@ namespace ManagementSystem
             Console.WriteLine("Hey User,");
             while (true)
             {
-                Console.WriteLine("========================\n1. Shape Hirearchy.\n2. Employee Hirearchy.\n3. BankSystem.\n4. Exit.\n========================");
+                Console.WriteLine(@"========================
+1. Shape Hierarchy.
+2. Employee Hierarchy.
+3. BankSystem.
+4. Exit.
+========================");
                 int? choice = UserInput.ReadInt("Enter the choice : ", 1, 4);
                 if (choice == null)
                 {
@@ -36,13 +41,13 @@ namespace ManagementSystem
                 Applications app = (Applications)choice;
                 switch (app)
                 {
-                    case Applications.ShapeHirearchy:
+                    case Applications.ShapeHierarchy:
                         {
                             shape.ShapeOperations();
                             break;
                         }
 
-                    case Applications.EmployeeHirearchy:
+                    case Applications.EmployeeHierarchy:
                         {
                             employee.EmployeeOperations();
                             break;
