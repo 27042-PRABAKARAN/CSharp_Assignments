@@ -28,7 +28,7 @@
         }
 
         /// <summary>
-        /// Display funtion is present here
+        /// Display to write in console.
         /// </summary>
         /// <param name="text"> the content that has to be displayed </param>
         public static void Display(string? text)

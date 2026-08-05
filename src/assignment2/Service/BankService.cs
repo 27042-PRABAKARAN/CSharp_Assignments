@@ -48,27 +48,42 @@ namespace ManagementSystem.Service
         /// to Withdraw amount
         /// </summary>
         /// <param name="account"> the account which WithDraw should be made </param>
-        /// <param name="amount"> the amount to be Withdrawed </param>
+        /// <param name="amount"> the amount to Withdraw </param>
         /// <returns> returns the status </returns>
-        public bool WithDraw(BankAccount account, decimal amount)
+        public Message WithDraw(BankAccount account, decimal amount)
         {
-            if (account is SavingsAccount && account.Balance - amount >= SavingsAccount.MinBalance)
+            if (account is SavingsAccount)
             {
-                return account.Withdraw(amount);
-            }
-            else if (account is CheckingAccount && account.Balance - amount >= 0)
-            {
-                return account.Withdraw(amount);
-            }
+                if (account.Balance < amount)
+                {
+                    return Message.InsufficientBalance;
+                }
 
-            return false;
+                if (account.Balance - amount < SavingsAccount.MinBalance)
+                {
+                    return Message.MinimumBalance;
+                }
+
+                account.Withdraw(amount);
+                return Message.Successful;
+            }
+            else
+            {
+                if (account.Balance - amount < 0)
+                {
+                    return Message.InsufficientBalance;
+                }
+
+                account.Withdraw(amount);
+                return Message.Successful;
+            }
         }
 
         /// <summary>
         /// this fetches Details
         /// </summary>
         /// <param name="account"> from which account the balance to be fetched </param>
-        /// <returns> returnsdetails </returns>
+        /// <returns> details </returns>
         public string FetchDetails(BankAccount account)
         {
             return account.ToString();

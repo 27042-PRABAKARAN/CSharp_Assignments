@@ -13,9 +13,8 @@
         /// <param name="name"> the name of the employee </param>
         /// <param name="salary"> the salary of the employee</param>
         public Developer(string name, decimal salary)
+            : base(name, salary)
         {
-            this.Name = name;
-            this.Salary = salary;
         }
 
         /// <summary>

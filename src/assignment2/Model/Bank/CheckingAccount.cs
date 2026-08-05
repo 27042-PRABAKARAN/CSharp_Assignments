@@ -11,9 +11,8 @@
         /// <param name="accountNumber"> the account number of the account</param>
         /// <param name="balance"> the balance </param>
         public CheckingAccount(string accountNumber, decimal balance)
+            : base(accountNumber, balance)
         {
-            this.AccountNumber = accountNumber;
-            this.Balance = balance;
         }
 
         /// <summary>
@@ -22,7 +21,11 @@
         /// <returns> returns details</returns>
         public override string ToString()
         {
-            return $"This is a Checking Account.\nAccount Number is {this.AccountNumber}.\nThe Balance is {this.Balance} Rupees.";
+            return $@"
+This is a Checking Account.
+Account Number is {this.AccountNumber}.
+The Balance is {this.Balance} Rupees.
+";
         }
     }
 }
