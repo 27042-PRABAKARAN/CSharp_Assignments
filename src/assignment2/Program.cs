@@ -17,6 +17,12 @@ namespace ManagementSystem
         private static void Main(string[] args)
         {
             Console.WriteLine("Hey User,");
+            ShapeService shapeService = new ShapeService();
+            EmployeeServices employeeServices = new EmployeeServices();
+            BankService bankService = new BankService();
+            ShapesSystem shape = new ShapesSystem(shapeService);
+            EmployeeSystem employee = new EmployeeSystem(employeeServices);
+            BankSystem bankSystem = new BankSystem(bankService);
             while (true)
             {
                 Console.WriteLine(@"========================
@@ -32,12 +38,6 @@ namespace ManagementSystem
                     break;
                 }
 
-                ShapeService shapeService = new ShapeService();
-                EmployeeServices employeeServices = new EmployeeServices();
-                BankService bankService = new BankService();
-                ShapesSystem shape = new ShapesSystem(shapeService);
-                EmployeeSystem employee = new EmployeeSystem(employeeServices);
-                BankSystem bankSystem = new BankSystem(bankService);
                 Applications app = (Applications)choice;
                 switch (app)
                 {
