@@ -36,25 +36,28 @@ namespace InventoryManager.Helper
                     continue;
                 }
 
-                if (decimal.TryParse(price, out decimal amount) || amount <= 0)
+                if (!decimal.TryParse(price, out decimal amount))
                 {
-                    if (amount > 10000000)
-                    {
-                        Output.Error("Invalid price cannot exceed 1cr");
-                        Output.Error($"{3 - tried} attempts remaining\n");
-                        continue;
-                    }
-                    else
-                    {
-                        return amount;
-                    }
-                }
-                else
-                {
-                    Output.Error("Invalid. Please enter a positive number.");
+                    Output.Error("Invalid. Please enter a valid number.");
                     Output.Error($"{3 - tried} attempts remaining\n");
                     continue;
                 }
+
+                if (amount <= 0)
+                {
+                    Output.Error("Invalid. Price must be greater than 0.");
+                    Output.Error($"{3 - tried} attempts remaining\n");
+                    continue;
+                }
+
+                if (amount > 10000000)
+                {
+                    Output.Error("Invalid. Price cannot exceed 1 crore.");
+                    Output.Error($"{3 - tried} attempts remaining\n");
+                    continue;
+                }
+
+                return amount;
             }
 
             return null;
