@@ -1,4 +1,5 @@
-﻿using ManagementSystem.Helper;
+﻿using System.Runtime.InteropServices;
+using ManagementSystem.Helper;
 using ManagementSystem.Model.Bank;
 using ManagementSystem.Service;
 
@@ -30,7 +31,8 @@ namespace ManagementSystem.View
         {
             Console.WriteLine("\nWelcome to Account Management System");
             BankAccount? account = null;
-            while (true)
+            bool state = true;
+            while (state)
             {
                 Console.WriteLine(@"==========Menu==========
 1. Create A Saving Account.
@@ -49,7 +51,7 @@ namespace ManagementSystem.View
                 {
                     case AccountType.CreateSavings: account = this.CreateSavingAccount(); break;
                     case AccountType.CreateChecking: account = this.CreateCheckingAccount(); break;
-                    case AccountType.Exit: return;
+                    case AccountType.Exit: state = false; return;
 
                     default: Output.Error("enter valid choice"); break;
                 }

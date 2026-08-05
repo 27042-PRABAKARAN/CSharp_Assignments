@@ -23,7 +23,8 @@ namespace ManagementSystem
             ShapesSystem shape = new ShapesSystem(shapeService);
             EmployeeSystem employee = new EmployeeSystem(employeeServices);
             BankSystem bankSystem = new BankSystem(bankService);
-            while (true)
+            bool state = true;
+            while (state)
             {
                 Console.WriteLine(@"========================
 1. Shape Hierarchy.
