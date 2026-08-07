@@ -29,7 +29,8 @@ namespace ManagementSystem.View
         public void ShapeOperations()
         {
             Console.WriteLine("Welcome to Shapes ");
-            while (true)
+            bool state = true;
+            while (state)
             {
                 Console.WriteLine(@"========================
 1. Create A Rectangle.
@@ -48,7 +49,7 @@ namespace ManagementSystem.View
                 {
                     case Operation.CreateRectangle: this.CreateRectangle(); break;
                     case Operation.CreateCircle: this.CreateCircle(); break;
-                    case Operation.Exit: return;
+                    case Operation.Exit: state = false; return;
                     default: Output.Error("enter valid choice"); break;
                 }
             }
