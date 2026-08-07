@@ -29,7 +29,8 @@ namespace ManagementSystem.View
         public void EmployeeOperations()
         {
             Console.WriteLine("Welcome to Employee Management System :  ");
-            while (true)
+            bool state = true;
+            while (state)
             {
                 Console.WriteLine(@"========================
 1. Create A Developer.
@@ -48,9 +49,7 @@ namespace ManagementSystem.View
                 {
                     case Operation.CreateDeveloper: this.CreateDeveloper(); break;
                     case Operation.CreateManager: this.CreateManager(); break;
-
-                    case Operation.Exit: return;
-
+                    case Operation.Exit: state = false; return;
                     default: Output.Error("enter valid choice"); break;
                 }
             }
