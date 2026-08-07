@@ -1,6 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-
-namespace ManagementSystem.Model.Bank
+﻿namespace ManagementSystem.Model.Bank
 {
     /// <summary>
     /// the Bank Account Class
