@@ -50,6 +50,7 @@ namespace ExpenseTracker.View
                 {
                     case TransactionType.Income:
                         {
+                            Console.Clear();
                             this.IncomeOperations();
                             UserInput.WaitAndClear();
                             break;
@@ -57,6 +58,7 @@ namespace ExpenseTracker.View
 
                     case TransactionType.Expense:
                         {
+                            Console.Clear();
                             this.ExpenseOperations();
                             UserInput.WaitAndClear();
                             break;
@@ -65,7 +67,7 @@ namespace ExpenseTracker.View
                     case TransactionType.Summary:
                         {
                             Console.Clear();
-                            //this.UpdateTransaction();
+                            this.GenerateSummary();
                             UserInput.WaitAndClear();
                             break;
                         }
@@ -542,6 +544,33 @@ namespace ExpenseTracker.View
 
                         break;
                     }
+            }
+        }
+
+        /// <summary>
+        /// to generate summary
+        /// </summary>
+        public void GenerateSummary()
+        {
+            if (this._transactionServices.IsEmptyIncome() && this._transactionServices.IsEmptyExpense())
+            {
+                Output.Error("no records for generating summary");
+                return;
+            }
+
+            decimal income = this._transactionServices.GetTotalIncome();
+            decimal expense = this._transactionServices.GetTotalExpense();
+            Console.WriteLine($@"=========Summary========
+Total Income: {income}
+Total Expense: {expense}
+");
+            if (income >= expense)
+            {
+                Console.WriteLine($"You have saved {income - expense} Rupees");
+            }
+            else
+            {
+                Console.WriteLine($"You have exceeded {expense - income} Rupees");
             }
         }
     }

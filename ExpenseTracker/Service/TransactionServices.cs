@@ -213,6 +213,24 @@ namespace ExpenseTracker.Service
         }
 
         /// <summary>
+        /// to get total expense
+        /// </summary>
+        /// <returns> total expense</returns>
+        public decimal GetTotalExpense()
+        {
+            return this._repository.GetTotalExpenses();
+        }
+
+        /// <summary>
+        /// to get total expense
+        /// </summary>
+        /// <returns> total expense</returns>
+        public decimal GetTotalIncome()
+        {
+            return this._repository.GetTotalIncomes();
+        }
+
+        /// <summary>
         /// to get transaction by id
         /// </summary>
         /// <param name="id"> id of the transaction </param>

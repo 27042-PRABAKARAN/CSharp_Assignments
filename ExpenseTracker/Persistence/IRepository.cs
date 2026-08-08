@@ -71,5 +71,17 @@ namespace ExpenseTracker.Persistence
         /// </summary>
         /// <returns>list of expense</returns>
         public List<Expense> GetAllExpenses();
+
+        /// <summary>
+        /// to get total expense
+        /// </summary>
+        /// <returns> total expense </returns>
+        public decimal GetTotalExpenses();
+
+        /// <summary>
+        /// to get total Income
+        /// </summary>
+        /// <returns> total Income </returns>
+        public decimal GetTotalIncomes();
     }
 }

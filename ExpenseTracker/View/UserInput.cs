@@ -303,7 +303,7 @@ namespace ExpenseTracker.View
         /// </summary>
         public static void WaitAndClear()
         {
-            Console.WriteLine("Enter any key to return to menu");
+            Console.Write("Enter any key to return to menu");
             Console.ReadKey();
             Console.Clear();
         }

@@ -152,6 +152,28 @@ namespace ExpenseTracker.Persistence
         }
 
         /// <summary>
+        /// to get total expense
+        /// </summary>
+        /// <returns> total expense </returns>
+        public decimal GetTotalExpenses()
+        {
+            return this._expenseTransactions?
+              .Where(e => e != null)
+              .Sum(e => e.Amount) ?? 0m;
+        }
+
+        /// <summary>
+        /// to get total expense
+        /// </summary>
+        /// <returns> total expense </returns>
+        public decimal GetTotalIncomes()
+        {
+            return this._incomeTransactions?
+              .Where(e => e != null)
+              .Sum(e => e.Amount) ?? 0m;
+        }
+
+        /// <summary>
         /// to get transaction by id
         /// </summary>
         /// <param name="id"> id of the transaction </param>
