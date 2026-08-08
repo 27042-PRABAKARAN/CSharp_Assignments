@@ -80,11 +80,19 @@ namespace ExpenseTracker.Persistence
         /// <summary>
         /// to get all the transaction
         /// </summary>
-        /// <param name="id"> the transaction id</param>
         /// <returns> list of transactions </returns>
-        public List<Income> GetAllIncome(string id)
+        public List<Income> GetAllIncomes()
         {
             return this._incomeTransactions.Select(transaction => transaction.Clone()).ToList();
+        }
+
+        /// <summary>
+        /// to get all the transaction
+        /// </summary>
+        /// <returns> list of transactions </returns>
+        public List<Expense> GetAllExpenses()
+        {
+            return this._expenseTransactions.Select(transaction => transaction.Clone()).ToList();
         }
 
         /// <summary>
@@ -131,7 +139,7 @@ namespace ExpenseTracker.Persistence
         /// <returns> status of the Income List</returns>
         public bool IsEmptyIncome()
         {
-            return !(this._incomeTransactions.Count == 0);
+            return this._incomeTransactions.Count == 0;
         }
 
         /// <summary>
@@ -140,7 +148,7 @@ namespace ExpenseTracker.Persistence
         /// <returns> status of Expense List</returns>
         public bool IsEmptyExpense()
         {
-            return !(this._expenseTransactions.Count == 0);
+            return this._expenseTransactions.Count == 0;
         }
 
         /// <summary>

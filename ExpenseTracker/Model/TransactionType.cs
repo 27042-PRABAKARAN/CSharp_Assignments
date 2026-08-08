@@ -7,28 +7,28 @@ using System.Threading.Tasks;
 namespace ExpenseTracker.Model
 {
     /// <summary>
-    /// Type of expenses
+    /// Type of transaction
     /// </summary>
-    internal enum ExpenseType
+    internal enum TransactionType
     {
         /// <summary>
-        /// expenses for food
+        /// Income Type
         /// </summary>
-        Food =1,
+        Income = 1,
 
         /// <summary>
-        /// expenses for travel
+        /// Expense Type
         /// </summary>
-        Travel,
+        Expense,
 
         /// <summary>
-        /// expenses for Emergency
+        /// summary of Both Income and Expense
         /// </summary>
-        Emergency,
+        Summary,
 
         /// <summary>
-        /// expenses for Health
+        /// Exit
         /// </summary>
-        Health,
+        Exit,
     }
 }
