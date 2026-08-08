@@ -14,7 +14,7 @@ namespace ExpenseTracker.Model
         /// <summary>
         /// salary as income source
         /// </summary>
-        Salary,
+        Salary = 1,
 
         /// <summary>
         /// Investments returns as income source

@@ -1,10 +1,23 @@
-﻿namespace Assignments
+﻿using ExpenseTracker.Persistence;
+using ExpenseTracker.Service;
+using ExpenseTracker.View;
+
+namespace Assignments
 {
+    /// <summary>
+    /// program class
+    /// </summary>
     internal class Program
     {
-        static void Main(string[] args)
+        /// <summary>
+        /// main function
+        /// </summary>
+        public static void Main()
         {
-            Console.WriteLine("Hello, World!");
+           InMemoryRepository repository = new InMemoryRepository();
+           TransactionServices services = new TransactionServices(repository);
+           FinanceView view = new FinanceView(services);
+           view.FinanceOperations();
         }
     }
 }
