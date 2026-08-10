@@ -6,22 +6,22 @@
     internal enum TransactionOptions
     {
         /// <summary>
-        /// to add an Expense
+        /// to add Transaction
         /// </summary>
         Add = 1,
 
         /// <summary>
-        /// to delete an Expense
+        /// to delete Transaction
         /// </summary>
         Delete,
 
         /// <summary>
-        /// to update an Expense
+        /// to update Transaction
         /// </summary>
         Update,
 
         /// <summary>
-        /// to view an Expense
+        /// to view Transaction
         /// </summary>
         View,
 
