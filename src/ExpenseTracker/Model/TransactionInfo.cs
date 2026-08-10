@@ -29,12 +29,12 @@
         public decimal Amount { get; set; }
 
         /// <summary>
-        /// Gets or sets transaction Id
+        /// Gets transaction Id
         /// </summary>
         /// <value>
         /// Transaction ID
         /// </value>
-        public string Id { get; set; }
+        public string Id { get; init; }
 
         /// <summary>
         /// Gets or sets the date of transaction
