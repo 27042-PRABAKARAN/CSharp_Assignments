@@ -31,8 +31,8 @@ namespace ExpenseTracker.View
         {
             Console.WriteLine("Hey User,");
             Console.WriteLine("Welcome to Finance tracker");
-            bool state = true;
-            while (state)
+            bool loop = true;
+            while (loop)
             {
                 Console.WriteLine(@"===========MENU==========
 1. Income Options
@@ -46,35 +46,34 @@ namespace ExpenseTracker.View
                     continue;
                 }
 
-                switch ((TransactionType)choice)
+                Console.Clear();
+
+                switch ((TransactionOptions)choice)
                 {
-                    case TransactionType.Income:
+                    case TransactionOptions.Income:
                         {
-                            Console.Clear();
                             this._incomeView.IncomeOperations();
                             UserInput.WaitAndClear();
                             break;
                         }
 
-                    case TransactionType.Expense:
+                    case TransactionOptions.Expense:
                         {
-                            Console.Clear();
                             this._expenseView.ExpenseOperations();
                             UserInput.WaitAndClear();
                             break;
                         }
 
-                    case TransactionType.Summary:
+                    case TransactionOptions.Summary:
                         {
-                            Console.Clear();
                             this._dashboardView.GenerateSummary();
                             UserInput.WaitAndClear();
                             break;
                         }
 
-                    case TransactionType.Exit:
+                    case TransactionOptions.Exit:
                         {
-                            state = false;
+                            loop = false;
                             break;
                         }
                 }

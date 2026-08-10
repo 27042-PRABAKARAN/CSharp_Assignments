@@ -1,32 +1,27 @@
 ﻿namespace ExpenseTracker.Model.Enums
 {
     /// <summary>
-    /// enum for income operations
+    /// Type of transaction
     /// </summary>
     internal enum TransactionOptions
     {
         /// <summary>
-        /// to add Transaction
+        /// Income Type
         /// </summary>
-        Add = 1,
+        Income = 1,
 
         /// <summary>
-        /// to delete Transaction
+        /// Expense Type
         /// </summary>
-        Delete,
+        Expense,
 
         /// <summary>
-        /// to update Transaction
+        /// Summary of Both Income and Expense
         /// </summary>
-        Update,
+        Summary,
 
         /// <summary>
-        /// to view Transaction
-        /// </summary>
-        View,
-
-        /// <summary>
-        /// exit
+        /// Exit
         /// </summary>
         Exit,
     }

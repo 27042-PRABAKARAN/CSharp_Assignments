@@ -3,7 +3,7 @@
     /// <summary>
     /// enum to update
     /// </summary>
-    internal enum Update
+    internal enum UpdateOptions
     {
         /// <summary>
         /// Date

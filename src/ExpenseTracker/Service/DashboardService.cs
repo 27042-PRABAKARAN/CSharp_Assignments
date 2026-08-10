@@ -19,7 +19,7 @@ namespace ExpenseTracker.Service
         }
 
         /// <summary>
-        /// to check if the income is empty
+        /// To check if the income is empty
         /// </summary>
         /// <returns> status of income </returns>
         public bool IsEmptyIncome()
@@ -28,7 +28,7 @@ namespace ExpenseTracker.Service
         }
 
         /// <summary>
-        /// check if the expense is empty
+        /// Check if the expense is empty
         /// </summary>
         /// <returns> status of expense </returns>
         public bool IsEmptyExpense()
@@ -37,7 +37,7 @@ namespace ExpenseTracker.Service
         }
 
         /// <summary>
-        /// to get total expense
+        /// To get total expense
         /// </summary>
         /// <returns> total expense</returns>
         public decimal GetTotalExpense()
@@ -46,7 +46,7 @@ namespace ExpenseTracker.Service
         }
 
         /// <summary>
-        /// to get total expense
+        /// To get total expense
         /// </summary>
         /// <returns> total expense</returns>
         public decimal GetTotalIncome()
@@ -55,9 +55,9 @@ namespace ExpenseTracker.Service
         }
 
         /// <summary>
-        /// to get the summary details
+        /// To get the summary details
         /// </summary>
-        /// <returns> summary </returns>
+        /// <returns>Ssummary </returns>
         public string GetSummary()
         {
             decimal income = this.GetTotalIncome();

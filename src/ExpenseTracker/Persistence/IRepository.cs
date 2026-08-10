@@ -34,51 +34,51 @@ namespace ExpenseTracker.Persistence
         bool DeleteExpense(string id);
 
         /// <summary>
-        /// to check empty Income list
+        /// To check empty Income list
         /// </summary>
         /// <returns> status of the Income List</returns>
         public bool IsEmptyIncome();
 
         /// <summary>
-        /// to check empty expensed
+        /// To check empty expensed
         /// </summary>
         /// <returns> status of Expense List</returns>
         public bool IsEmptyExpense();
 
         /// <summary>
-        /// to update the income record
+        /// To update the income record
         /// </summary>
         /// <param name="incomeRecord"> the updated record</param>
         /// <returns> status of update </returns>
         public bool UpdateIncome(Income incomeRecord);
 
         /// <summary>
-        /// to update the expense record
+        /// To update the expense record
         /// </summary>
         /// <param name="expenseRecord"> the updated record</param>
         /// <returns> status of update</returns>
         public bool UpdateExpense(Expense expenseRecord);
 
         /// <summary>
-        /// to fetch all income
+        /// To fetch all income
         /// </summary>
         /// <returns> list of incomes</returns>
         public IEnumerable<Income> GetAllIncomes();
 
         /// <summary>
-        /// to fetch all expense
+        /// To fetch all expense
         /// </summary>
         /// <returns>list of expense</returns>
         public IEnumerable<Expense> GetAllExpenses();
 
         /// <summary>
-        /// to get total expense
+        /// To get total expense
         /// </summary>
         /// <returns> total expense </returns>
         public decimal GetTotalExpenses();
 
         /// <summary>
-        /// to get total Income
+        /// To get total Income
         /// </summary>
         /// <returns> total Income </returns>
         public decimal GetTotalIncomes();

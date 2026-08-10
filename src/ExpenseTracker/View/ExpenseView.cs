@@ -41,37 +41,37 @@ namespace ExpenseTracker.View
                     return;
                 }
 
-                switch ((TransactionOptions)choice)
+                switch ((TransactionOperations)choice)
                 {
-                    case TransactionOptions.Add:
+                    case TransactionOperations.Add:
                         {
-                            this.AddExpense();
+                            this.CreateExpense();
                             UserInput.WaitAndClear();
                             break;
                         }
 
-                    case TransactionOptions.Delete:
+                    case TransactionOperations.Delete:
                         {
                             this.DeleteExpense();
                             UserInput.WaitAndClear();
                             break;
                         }
 
-                    case TransactionOptions.Update:
+                    case TransactionOperations.Update:
                         {
                             this.UpdateExpense();
                             UserInput.WaitAndClear();
                             break;
                         }
 
-                    case TransactionOptions.View:
+                    case TransactionOperations.View:
                         {
                             this.ViewAllExpense();
                             UserInput.WaitAndClear();
                             break;
                         }
 
-                    case TransactionOptions.Exit:
+                    case TransactionOperations.Exit:
                         {
                             state = false;
                             return;
@@ -81,14 +81,14 @@ namespace ExpenseTracker.View
         }
 
         /// <summary>
-        /// Adding an Expense
+        /// creating an Expense
         /// </summary>
-        public void AddExpense()
+        public void CreateExpense()
         {
             Console.Clear();
             Console.WriteLine("Adding a Expense: ");
 
-            decimal? amount = UserInput.ReadPrice("Enter the amount: ");
+            decimal? amount = UserInput.ReadAmount("Enter the amount: ");
             if (amount == null)
             {
                 return;
@@ -146,13 +146,13 @@ namespace ExpenseTracker.View
 
             IEnumerable<TransactionInfo> transactions = this._expenseServices.GetAllExpenses();
             this.ViewAllExpense();
-            int? index = UserInput.ReadInt("Enter S.no: ", 1, transactions.Count());
-            if (index == null)
+            int? serialNumber = UserInput.ReadInt("Enter S.no: ", 1, transactions.Count());
+            if (serialNumber == null)
             {
                 return;
             }
 
-            index = index - 1;
+            int? index = serialNumber - 1;
             if (this._expenseServices.DeleteExpense(transactions.ElementAt((int)index).Id))
             {
                 Output.Success("Deleted Successfully");
@@ -192,9 +192,9 @@ namespace ExpenseTracker.View
                 return;
             }
 
-            switch ((Update)choice)
+            switch ((UpdateOptions)choice)
             {
-                case Update.Date:
+                case UpdateOptions.Date:
                     {
                         DateOnly? date = UserInput.ReadDate();
                         if (date == null)
@@ -214,9 +214,9 @@ namespace ExpenseTracker.View
                         break;
                     }
 
-                case Update.Amount:
+                case UpdateOptions.Amount:
                     {
-                        decimal? amount = UserInput.ReadPrice("Enter new Amount: ");
+                        decimal? amount = UserInput.ReadAmount("Enter new Amount: ");
                         if (amount == null)
                         {
                             return;
@@ -234,7 +234,7 @@ namespace ExpenseTracker.View
                         break;
                     }
 
-                case Update.Category:
+                case UpdateOptions.Category:
                     {
                         Console.WriteLine("Enter the Type of Expense: ");
                         Console.WriteLine(@"1. Food
