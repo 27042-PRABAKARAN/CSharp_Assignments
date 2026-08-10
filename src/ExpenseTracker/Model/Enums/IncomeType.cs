@@ -1,12 +1,12 @@
 ﻿namespace ExpenseTracker.Model.Enums
 {
     /// <summary>
-    /// enum for source of income
+    /// Enum for source of income
     /// </summary>
     internal enum IncomeType
     {
         /// <summary>
-        /// salary as income source
+        /// Salary as income source
         /// </summary>
         Salary = 1,
 
@@ -21,7 +21,7 @@
         Bonus,
 
         /// <summary>
-        /// any other income source
+        /// Any other income source
         /// </summary>
         Others,
     }

@@ -6,27 +6,27 @@
     internal enum TransactionOperations
     {
         /// <summary>
-        /// to add Transaction
+        /// To add Transaction
         /// </summary>
         Add = 1,
 
         /// <summary>
-        /// to delete Transaction
+        /// To delete Transaction
         /// </summary>
         Delete,
 
         /// <summary>
-        /// to update Transaction
+        /// To update Transaction
         /// </summary>
         Update,
 
         /// <summary>
-        /// to view Transaction
+        /// To view Transaction
         /// </summary>
         View,
 
         /// <summary>
-        /// exit
+        /// Exit
         /// </summary>
         Exit,
     }

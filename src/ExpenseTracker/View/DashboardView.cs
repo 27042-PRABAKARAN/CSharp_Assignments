@@ -4,7 +4,7 @@ using ExpenseTracker.Service;
 namespace ExpenseTracker.View
 {
     /// <summary>
-    /// view layer of dashboard
+    /// View layer of dashboard
     /// </summary>
     internal class DashboardView
     {
@@ -20,7 +20,7 @@ namespace ExpenseTracker.View
         }
 
         /// <summary>
-        /// to generate summary
+        /// To generate summary
         /// </summary>
         public void GenerateSummary()
         {

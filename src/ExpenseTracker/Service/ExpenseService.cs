@@ -21,7 +21,7 @@ namespace ExpenseTracker.Service
         }
 
         /// <summary>
-        /// to create an Expense
+        /// To create an Expense
         /// </summary>
         /// <param name="amount"> amount of income </param>
         /// <param name="date"> date of income </param>
@@ -33,7 +33,7 @@ namespace ExpenseTracker.Service
         }
 
         /// <summary>
-        /// to delete the expense
+        /// To delete the expense
         /// </summary>
         /// <param name="id">the id of the expense to be deleted</param>
         /// <returns>status of delete</returns>
@@ -43,7 +43,7 @@ namespace ExpenseTracker.Service
         }
 
         /// <summary>
-        /// check if the expense is empty
+        /// Check if the expense is empty
         /// </summary>
         /// <returns> status of expense </returns>
         public bool IsEmptyExpense()
@@ -52,7 +52,7 @@ namespace ExpenseTracker.Service
         }
 
         /// <summary>
-        /// to fetch all expenses
+        /// To fetch all expenses
         /// </summary>
         /// <returns>list of expenses</returns>
         public IEnumerable<Expense> GetAllExpenses()
@@ -61,7 +61,7 @@ namespace ExpenseTracker.Service
         }
 
         /// <summary>
-        /// to update Expense
+        /// To update Expense
         /// </summary>
         /// <param name="id"> id of the record</param>
         /// <param name="amount"> the amount to be updated </param>
@@ -79,7 +79,7 @@ namespace ExpenseTracker.Service
         }
 
         /// <summary>
-        /// to update Expense
+        /// To update Expense date
         /// </summary>
         /// <param name="id"> id of the record</param>
         /// <param name="date"> the date to be updated </param>
@@ -97,7 +97,7 @@ namespace ExpenseTracker.Service
         }
 
         /// <summary>
-        /// to updateExpense
+        /// To update Expense category
         /// </summary>
         /// <param name="id"> id of the record</param>
         /// <param name="category"> the category to be updated </param>
@@ -115,7 +115,7 @@ namespace ExpenseTracker.Service
         }
 
         /// <summary>
-        /// to get transaction by id
+        /// To get transaction by id
         /// </summary>
         /// <param name="id"> id of the transaction </param>
         /// <returns> returns list of transaction </returns>

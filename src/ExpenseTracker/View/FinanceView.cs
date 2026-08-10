@@ -4,7 +4,7 @@ using ExpenseTracker.Persistence;
 namespace ExpenseTracker.View
 {
     /// <summary>
-    /// the view layer of finance tracker
+    /// The view layer of finance tracker
     /// </summary>
     internal class FinanceView
     {
@@ -25,7 +25,7 @@ namespace ExpenseTracker.View
         }
 
         /// <summary>
-        /// operation that can be made in this applications.
+        /// Operation that can be made in this applications.
         /// </summary>
         public void FinanceOperations()
         {

@@ -21,7 +21,7 @@ namespace ExpenseTracker.View
         }
 
         /// <summary>
-        /// operations in Expense
+        /// Operations in Expense
         /// </summary>
         public void ExpenseOperations()
         {
@@ -81,7 +81,7 @@ namespace ExpenseTracker.View
         }
 
         /// <summary>
-        /// creating an Expense
+        /// Creating an Expense
         /// </summary>
         public void CreateExpense()
         {
@@ -115,7 +115,7 @@ namespace ExpenseTracker.View
         }
 
         /// <summary>
-        /// to view all expense
+        /// To view all expense
         /// </summary>
         public void ViewAllExpense()
         {
@@ -134,7 +134,7 @@ namespace ExpenseTracker.View
         }
 
         /// <summary>
-        /// to delete an Expense
+        /// To delete an Expense
         /// </summary>
         public void DeleteExpense()
         {
