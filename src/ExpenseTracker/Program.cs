@@ -4,12 +4,12 @@ using ExpenseTracker.View;
 namespace Assignments
 {
     /// <summary>
-    /// program class
+    /// Program class
     /// </summary>
     internal class Program
     {
         /// <summary>
-        /// main function
+        /// Main function
         /// </summary>
         public static void Main()
         {

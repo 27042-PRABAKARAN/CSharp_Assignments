@@ -6,22 +6,22 @@
     internal enum ExpenseType
     {
         /// <summary>
-        /// expenses for food
+        /// Expenses for food
         /// </summary>
         Food = 1,
 
         /// <summary>
-        /// expenses for travel
+        /// Expenses for travel
         /// </summary>
         Travel,
 
         /// <summary>
-        /// expenses for Emergency
+        /// Expenses for Emergency
         /// </summary>
         Emergency,
 
         /// <summary>
-        /// expenses for Health
+        /// Expenses for Health
         /// </summary>
         Health,
     }

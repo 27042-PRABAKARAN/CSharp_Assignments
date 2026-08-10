@@ -1,16 +1,16 @@
 ﻿namespace ExpenseTracker.View
 {
     /// <summary>
-    /// user input class
+    /// User input class to read input from users
     /// </summary>
     public static class UserInput
     {
         /// <summary>
-        /// this reads the input
+        /// This reads the input
         /// </summary>
         /// <param name="prompt"> the prompt for the input </param>
         /// <returns> returns string </returns>
-        public static decimal? ReadPrice(string? prompt)
+        public static decimal? ReadAmount(string? prompt)
         {
             for (int tried = 1; tried <= 3; tried++)
             {
@@ -51,12 +51,14 @@
         }
 
         /// <summary>
-        /// this reads the amount
+        /// This reads the Date
         /// </summary>
         /// <param name="prompt"> the prompt for the input </param>
         /// <returns> returns amount </returns>
         public static DateOnly? ReadDate()
         {
+            DateOnly today = DateOnly.FromDateTime(DateTime.Today);
+
             for (int tried = 1; tried <= 3; tried++)
             {
                 Console.Write("Enter date (YYYY-MM-DD), (DD-MM-YYYY) or press Enter for today: ");
@@ -65,22 +67,28 @@
 
                 if (string.IsNullOrEmpty(input))
                 {
-                    return DateOnly.FromDateTime(DateTime.Today);
+                    return today;
                 }
 
                 if (DateOnly.TryParse(input, out DateOnly date))
                 {
-                    return date;
+                    if (date <= today)
+                    {
+                        return date;
+                    }
+
+                    Output.Error("Future dates are not allowed.");
                 }
                 else
                 {
-                    Output.Error("Invalid date");
+                    Output.Error("Invalid date.");
+                }
 
-                    int remaining = 3 - tried;
-                    if (remaining > 0)
-                    {
-                        Console.WriteLine($"{remaining} attempt(s) remaining.\n");
-                    }
+                int remaining = 3 - tried;
+
+                if (remaining > 0)
+                {
+                    Console.WriteLine($"{remaining} attempt(s) remaining.\n");
                 }
             }
 
@@ -88,7 +96,7 @@
         }
 
         /// <summary>
-        /// this reads number.
+        /// This reads number.
         /// </summary>
         /// <param name="prompt"> to prompt the message </param>
         /// <param name="minRange"> the minimum range  </param>
@@ -115,7 +123,7 @@
         }
 
         /// <summary>
-        /// this reads choice.
+        /// This reads choice.
         /// </summary>
         /// <param name="prompt"> to prompt the message </param>
         /// <returns> returns read number </returns>
@@ -133,7 +141,7 @@
         }
 
         /// <summary>
-        /// to wait until user enters key
+        /// To wait until user enters key
         /// </summary>
         public static void WaitAndClear()
         {

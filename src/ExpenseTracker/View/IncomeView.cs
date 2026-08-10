@@ -41,37 +41,37 @@ namespace ExpenseTracker.View
                     return;
                 }
 
-                switch ((TransactionOptions)choice)
+                switch ((TransactionOperations)choice)
                 {
-                    case TransactionOptions.Add:
+                    case TransactionOperations.Add:
                         {
-                            this.AddIncome();
+                            this.CreateIncome();
                             UserInput.WaitAndClear();
                             break;
                         }
 
-                    case TransactionOptions.Delete:
+                    case TransactionOperations.Delete:
                         {
                             this.DeleteIncome();
                             UserInput.WaitAndClear();
                             break;
                         }
 
-                    case TransactionOptions.Update:
+                    case TransactionOperations.Update:
                         {
                             this.UpdateIncome();
                             UserInput.WaitAndClear();
                             break;
                         }
 
-                    case TransactionOptions.View:
+                    case TransactionOperations.View:
                         {
                             this.ViewAllIncome();
                             UserInput.WaitAndClear();
                             break;
                         }
 
-                    case TransactionOptions.Exit:
+                    case TransactionOperations.Exit:
                         {
                             state = false;
                             return;
@@ -83,12 +83,12 @@ namespace ExpenseTracker.View
         /// <summary>
         /// Adding a income
         /// </summary>
-        public void AddIncome()
+        public void CreateIncome()
         {
             Console.Clear();
             Console.WriteLine("Adding an Income");
 
-            decimal? amount = UserInput.ReadPrice("Enter the amount: ");
+            decimal? amount = UserInput.ReadAmount("Enter the amount: ");
             if (amount == null)
             {
                 return;
@@ -147,13 +147,13 @@ namespace ExpenseTracker.View
 
             IEnumerable<TransactionInfo> transactions = this._incomeServices.GetAllIncomes();
             this.ViewAllIncome();
-            int? index = UserInput.ReadInt("Enter S.no: ", 1, transactions.Count());
-            if (index == null)
+            int? serialNumber = UserInput.ReadInt("Enter S.no: ", 1, transactions.Count());
+            if (serialNumber == null)
             {
                 return;
             }
 
-            index = index - 1;
+            int? index = serialNumber - 1;
             if (this._incomeServices.DeleteIncome(transactions.ElementAt((int)index).Id))
             {
                 Output.Success("Deleted Successfully");
@@ -193,9 +193,9 @@ namespace ExpenseTracker.View
                 return;
             }
 
-            switch ((Update)choice)
+            switch ((UpdateOptions)choice)
             {
-                case Update.Date:
+                case UpdateOptions.Date:
                     {
                         DateOnly? date = UserInput.ReadDate();
                         if (date == null)
@@ -207,13 +207,17 @@ namespace ExpenseTracker.View
                         {
                             Output.Success("Updated Date successfully");
                         }
+                        else
+                        {
+                            Output.Error("Update failed");
+                        }
 
                         break;
                     }
 
-                case Update.Amount:
+                case UpdateOptions.Amount:
                     {
-                        decimal? amount = UserInput.ReadPrice("Enter new Amount: ");
+                        decimal? amount = UserInput.ReadAmount("Enter new Amount: ");
                         if (amount == null)
                         {
                             return;
@@ -223,11 +227,15 @@ namespace ExpenseTracker.View
                         {
                             Output.Success("Updated Amount successfully");
                         }
+                        else
+                        {
+                            Output.Error("Update failed");
+                        }
 
                         break;
                     }
 
-                case Update.Category:
+                case UpdateOptions.Category:
                     {
                         Console.WriteLine("Enter the Type of income: ");
                         Console.WriteLine(@"1. Salary
@@ -243,6 +251,10 @@ namespace ExpenseTracker.View
                         if (this._incomeServices.UpdateIncomeCategory(transactions.ElementAt((int)index).Id, ((IncomeType)category).ToString()))
                         {
                             Output.Success("Updated Category successfully");
+                        }
+                        else
+                        {
+                            Output.Error("Update failed");
                         }
 
                         break;
