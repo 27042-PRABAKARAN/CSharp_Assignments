@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Transactions;
-using ExpenseTracker.Model;
+﻿using ExpenseTracker.Model;
 
 namespace ExpenseTracker.Persistence
 {
@@ -81,7 +74,7 @@ namespace ExpenseTracker.Persistence
         /// to get all the transaction
         /// </summary>
         /// <returns> list of transactions </returns>
-        public List<Income> GetAllIncomes()
+        public IEnumerable<Income> GetAllIncomes()
         {
             return this._incomeTransactions.Select(transaction => transaction.Clone()).ToList();
         }
@@ -90,7 +83,7 @@ namespace ExpenseTracker.Persistence
         /// to get all the transaction
         /// </summary>
         /// <returns> list of transactions </returns>
-        public List<Expense> GetAllExpenses()
+        public IEnumerable<Expense> GetAllExpenses()
         {
             return this._expenseTransactions.Select(transaction => transaction.Clone()).ToList();
         }
@@ -157,9 +150,7 @@ namespace ExpenseTracker.Persistence
         /// <returns> total expense </returns>
         public decimal GetTotalExpenses()
         {
-            return this._expenseTransactions?
-              .Where(e => e != null)
-              .Sum(e => e.Amount) ?? 0m;
+            return this._expenseTransactions.Sum(e => e.Amount);
         }
 
         /// <summary>
@@ -168,9 +159,7 @@ namespace ExpenseTracker.Persistence
         /// <returns> total expense </returns>
         public decimal GetTotalIncomes()
         {
-            return this._incomeTransactions?
-              .Where(e => e != null)
-              .Sum(e => e.Amount) ?? 0m;
+            return this._incomeTransactions.Sum(e => e.Amount);
         }
 
         /// <summary>

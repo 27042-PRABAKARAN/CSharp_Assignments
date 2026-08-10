@@ -1,38 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ExpenseTracker.Model
+﻿namespace ExpenseTracker.Model.Enums
 {
     /// <summary>
-    /// enum of choice
+    /// enum for income operations
     /// </summary>
-    internal enum Choice
+    internal enum ExpenseOptions
     {
         /// <summary>
-        /// to add
+        /// to add an Expense
         /// </summary>
         Add = 1,
 
         /// <summary>
-        /// to delete
+        /// to delete an Expense
         /// </summary>
         Delete,
 
         /// <summary>
-        /// to update
+        /// to update an Expense
         /// </summary>
         Update,
 
         /// <summary>
-        /// to view
+        /// to view an Expense
         /// </summary>
         View,
 
         /// <summary>
-        /// to exit
+        /// exit
         /// </summary>
         Exit,
     }
