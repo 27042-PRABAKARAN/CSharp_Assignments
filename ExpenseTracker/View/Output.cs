@@ -1,13 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Transactions;
-using ConsoleTables;
+﻿using ConsoleTables;
 using ExpenseTracker.Model;
 
-namespace ExpenseTracker
+namespace ExpenseTracker.View
 {
     /// <summary>
     /// Display class is used for displaying output

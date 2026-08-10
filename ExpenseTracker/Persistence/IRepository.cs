@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using ExpenseTracker.Model;
+﻿using ExpenseTracker.Model;
 
 namespace ExpenseTracker.Persistence
 {
@@ -64,13 +63,13 @@ namespace ExpenseTracker.Persistence
         /// to fetch all income
         /// </summary>
         /// <returns> list of incomes</returns>
-        public List<Income> GetAllIncomes();
+        public IEnumerable<Income> GetAllIncomes();
 
         /// <summary>
         /// to fetch all expense
         /// </summary>
         /// <returns>list of expense</returns>
-        public List<Expense> GetAllExpenses();
+        public IEnumerable<Expense> GetAllExpenses();
 
         /// <summary>
         /// to get total expense

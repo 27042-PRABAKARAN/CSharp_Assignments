@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ExpenseTracker.Model
+﻿namespace ExpenseTracker.Model
 {
     /// <summary>
     /// Type of expenses
@@ -14,7 +8,7 @@ namespace ExpenseTracker.Model
         /// <summary>
         /// expenses for food
         /// </summary>
-        Food =1,
+        Food = 1,
 
         /// <summary>
         /// expenses for travel

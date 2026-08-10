@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ExpenseTracker.Model
+﻿namespace ExpenseTracker.Model
 {
     /// <summary>
     /// enum for source of income
     /// </summary>
-    internal enum Source
+    internal enum IncomeType
     {
         /// <summary>
         /// salary as income source

@@ -1,28 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
-
-namespace ExpenseTracker.View
+﻿namespace ExpenseTracker.View
 {
     /// <summary>
     /// user input class
     /// </summary>
     public static class UserInput
     {
-        /// <summary>
-        /// this reads the input
-        /// </summary>
-        /// <param name="prompt"> the prompt for the input </param>
-        /// <returns> returns string </returns>
-        public static string? ReadInput(string? prompt)
-        {
-            string? userInput = GetValidInput(prompt, IsValidInput, "Nothing Entered !!");
-            return userInput;
-        }
-
         /// <summary>
         /// this reads the input
         /// </summary>
@@ -69,71 +51,6 @@ namespace ExpenseTracker.View
         }
 
         /// <summary>
-        /// this reads the input
-        /// </summary>
-        /// <param name="prompt"> the prompt for the input </param>
-        /// <returns> returns string </returns>
-        public static string? ReadName(string? prompt)
-        {
-            for (int tried = 1; tried <= 3; tried++)
-            {
-                Console.Write(prompt);
-                string? input = Console.ReadLine();
-
-                if (string.IsNullOrWhiteSpace(input))
-                {
-                    Output.Error("Name cannot be empty.");
-                }
-                else if (!Regex.IsMatch(input, @"^[A-Za-z0-9 ]+$"))
-                {
-                    Output.Error("Name cannot contain special characters.");
-                }
-                else
-                {
-                    return input.Trim();
-                }
-
-                Output.Error($"{3 - tried} attempts remaining\n");
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        /// this reads the input
-        /// </summary>
-        /// <param name="prompt"> the prompt for the input </param>
-        /// <returns> returns string </returns>
-        public static long? ReadQuantity(string? prompt)
-        {
-            for (int tried = 1; tried <= 3; tried++)
-            {
-                Console.Write(prompt);
-                if (long.TryParse(Console.ReadLine(), out long quantity))
-                {
-                    if (quantity > 10000000)
-                    {
-                        Output.Error("Invalid Quantity cannot exceed 1cr");
-                        Output.Error($"{3 - tried} attempts remaining\n");
-                        continue;
-                    }
-                    else
-                    {
-                        return quantity;
-                    }
-                }
-                else
-                {
-                    Output.Error("Invalid. Please enter a positive number.");
-                    Output.Error($"{3 - tried} attempts remaining\n");
-                    continue;
-                }
-            }
-
-            return null;
-        }
-
-        /// <summary>
         /// this reads the amount
         /// </summary>
         /// <param name="prompt"> the prompt for the input </param>
@@ -164,47 +81,6 @@ namespace ExpenseTracker.View
                     {
                         Console.WriteLine($"{remaining} attempt(s) remaining.\n");
                     }
-                }
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        /// this reads the Id
-        /// </summary>
-        /// <param name="prompt">the prompt for the input </param>
-        /// <param name="isValid"> function to validate id</param>
-        /// <returns> ID read from user </returns>
-        public static string? ReadId(string? prompt, Func<string, bool> isValid)
-        {
-            for (int tried = 1; tried <= 3; tried++)
-            {
-                Console.Write(prompt);
-                string? input = Console.ReadLine();
-                if (input == null)
-                {
-                    Output.Error("Invalid. Please enter a ID Similar to ABCD-0001.");
-                    Output.Error($"{3 - tried} attempts remaining\n");
-                    continue;
-                }
-
-                if (!Regex.IsMatch(input, @"^[A-Za-z]{4}-\d+$"))
-                {
-                    Output.Error("Invalid. Please enter a ID Similar to ABCD-0001.");
-                    Output.Error($"{3 - tried} attempts remaining\n");
-                    continue;
-                }
-
-                if (!isValid(input))
-                {
-                    Output.Error("Product Id already Exists.");
-                    Output.Error($"{3 - tried} attempts remaining\n");
-                    continue;
-                }
-                else
-                {
-                    return input.Trim();
                 }
             }
 
@@ -254,48 +130,6 @@ namespace ExpenseTracker.View
             {
                 return number;
             }
-        }
-
-        /// <summary>
-        /// TO check if user is entering a valid input or not
-        /// </summary>
-        /// <param name="prompt"> to print before user enters value </param>
-        /// <param name="validation">  the validating function </param>
-        /// <param name="errorMessage"> the error message </param>
-        /// <returns> returns string </returns>
-        public static string? GetValidInput(string? prompt, Func<string, bool> validation, string? errorMessage)
-        {
-            for (int tried = 1; tried <= 3; tried++)
-            {
-                Console.Write(prompt);
-                string? input = Console.ReadLine();
-                if (input == null)
-                {
-                    Output.Error(errorMessage);
-                    continue;
-                }
-
-                if (validation(input.Trim()))
-                {
-                    return input.Trim();
-                }
-
-                Output.Error(errorMessage);
-                Output.Error($"{3 - tried} attempts remaining\n");
-            }
-
-            return null;
-        }
-
-        /// <summary>
-        /// to check if the given input is valid or not
-        /// </summary>
-        /// <param name="input"> string input </param>
-        /// <returns> input validated
-        /// </returns>
-        public static bool IsValidInput(string? input)
-        {
-            return !string.IsNullOrWhiteSpace(input);
         }
 
         /// <summary>
