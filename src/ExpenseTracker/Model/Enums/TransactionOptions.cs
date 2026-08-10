@@ -3,7 +3,7 @@
     /// <summary>
     /// enum for income operations
     /// </summary>
-    internal enum ExpenseOptions
+    internal enum TransactionOptions
     {
         /// <summary>
         /// to add an Expense

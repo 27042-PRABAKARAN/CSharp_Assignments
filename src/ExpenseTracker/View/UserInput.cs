@@ -59,7 +59,7 @@
         {
             for (int tried = 1; tried <= 3; tried++)
             {
-                Console.Write("Enter date (YYYY-MM-DD) or press Enter for today: ");
+                Console.Write("Enter date (YYYY-MM-DD), (DD-MM-YYYY) or press Enter for today: ");
 
                 string? input = Console.ReadLine()?.Trim();
 

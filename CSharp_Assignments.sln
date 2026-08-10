@@ -20,7 +20,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionHandling", "src\Ex
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanguageIntegratedQuery", "src\LanguageIntegratedQuery\LanguageIntegratedQuery.csproj", "{C4D7F0EF-F30E-4373-94A9-DA639025FF84}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseTracker", "ExpenseTracker\ExpenseTracker.csproj", "{7B1D899E-C4AF-4F22-A008-B49FB6F68005}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseTracker", "src\ExpenseTracker\ExpenseTracker.csproj", "{7B1D899E-C4AF-4F22-A008-B49FB6F68005}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

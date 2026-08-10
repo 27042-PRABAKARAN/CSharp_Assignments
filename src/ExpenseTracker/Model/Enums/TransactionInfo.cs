@@ -1,4 +1,4 @@
-﻿namespace ExpenseTracker.Model
+﻿namespace ExpenseTracker.Model.Enums
 {
     /// <summary>
     /// Transaction abstract class
@@ -45,7 +45,7 @@
         public DateOnly Date { get; set; }
 
         /// <summary>
-        /// Gets or sets th category of the transaction
+        /// Gets or sets the category of the transaction
         /// </summary>
         /// <value> type of transaction </value>
         public string Category { get; set; }

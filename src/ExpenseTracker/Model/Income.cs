@@ -1,4 +1,6 @@
-﻿namespace ExpenseTracker.Model
+﻿using ExpenseTracker.Model.Enums;
+
+namespace ExpenseTracker.Model
 {
     /// <summary>
     /// Income class
