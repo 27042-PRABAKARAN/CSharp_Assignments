@@ -20,7 +20,7 @@ namespace ExpenseTracker.Model
         }
 
         /// <summary>
-        /// to clone the object
+        /// To clone the object
         /// </summary>
         /// <returns>returns the cloned object</returns>
         public Income Clone()

@@ -21,7 +21,7 @@ namespace ExpenseTracker.View
         }
 
         /// <summary>
-        /// operations in Income
+        /// Operations in Income
         /// </summary>
         public void IncomeOperations()
         {
@@ -81,7 +81,7 @@ namespace ExpenseTracker.View
         }
 
         /// <summary>
-        /// Adding a income
+        /// Creating a income
         /// </summary>
         public void CreateIncome()
         {
@@ -116,7 +116,7 @@ namespace ExpenseTracker.View
         }
 
         /// <summary>
-        /// to view all income
+        /// To view all income
         /// </summary>
         public void ViewAllIncome()
         {
@@ -135,7 +135,7 @@ namespace ExpenseTracker.View
         }
 
         /// <summary>
-        /// to delete an income
+        /// To delete an income
         /// </summary>
         public void DeleteIncome()
         {

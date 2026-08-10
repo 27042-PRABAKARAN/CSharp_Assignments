@@ -9,7 +9,7 @@ namespace ExpenseTracker.View
     public static class Output
     {
         /// <summary>
-        /// to print the message in red
+        /// To print the message in red
         /// </summary>
         /// <param name="message">the message that has to be printed in red</param>
         public static void Error(string? message)
@@ -20,7 +20,7 @@ namespace ExpenseTracker.View
         }
 
         /// <summary>
-        /// to print the message in Green
+        /// To print the message in Green
         /// </summary>
         /// <param name="message">the message that has to be printed in Green</param>
         public static void Success(string? message)
@@ -31,7 +31,7 @@ namespace ExpenseTracker.View
         }
 
         /// <summary>
-        /// to display as tables.
+        /// To display as tables.
         /// </summary>
         /// <param name="transactions"> the list to be printed as tables </param>
         internal static void PrintTable(IEnumerable<TransactionInfo> transactions)

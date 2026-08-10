@@ -1,7 +1,7 @@
 ﻿namespace ExpenseTracker.Model.Enums
 {
     /// <summary>
-    /// enum to update
+    /// Enum to update
     /// </summary>
     internal enum UpdateOptions
     {

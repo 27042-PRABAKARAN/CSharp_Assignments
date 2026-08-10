@@ -9,17 +9,17 @@ namespace ExpenseTracker.Persistence
         : IRepository
     {
         /// <summary>
-        /// list of transactions
+        /// List of transactions
         /// </summary>
         private readonly List<Income> _incomeTransactions = new List<Income>();
 
         /// <summary>
-        /// list of transactions
+        /// List of transactions
         /// </summary>
         private readonly List<Expense> _expenseTransactions = new List<Expense>();
 
         /// <summary>
-        /// to add a transaction
+        /// To add a transaction
         /// </summary>
         /// <param name="transaction"> the transaction </param>
         public void AddIncome(Income transaction)
@@ -28,7 +28,7 @@ namespace ExpenseTracker.Persistence
         }
 
         /// <summary>
-        /// to add a transaction
+        /// To add a transaction
         /// </summary>
         /// <param name="transaction"> the transaction </param>
         public void AddExpense(Expense transaction)
@@ -37,7 +37,7 @@ namespace ExpenseTracker.Persistence
         }
 
         /// <summary>
-        /// to remove the transaction.
+        /// To remove the transaction.
         /// </summary>
         /// <param name="id">id of transaction</param>
         /// <returns>returns status of deleting</returns>
@@ -54,7 +54,7 @@ namespace ExpenseTracker.Persistence
         }
 
         /// <summary>
-        /// to remove the transaction.
+        /// To remove the transaction.
         /// </summary>
         /// <param name="id">id of transaction</param>
         /// <returns>returns status of deleting</returns>
@@ -71,7 +71,7 @@ namespace ExpenseTracker.Persistence
         }
 
         /// <summary>
-        /// to get all the transaction
+        /// To get all the transaction
         /// </summary>
         /// <returns> list of transactions </returns>
         public IEnumerable<Income> GetAllIncomes()
@@ -80,7 +80,7 @@ namespace ExpenseTracker.Persistence
         }
 
         /// <summary>
-        /// to get all the transaction
+        /// To get all the transaction
         /// </summary>
         /// <returns> list of transactions </returns>
         public IEnumerable<Expense> GetAllExpenses()
@@ -89,7 +89,7 @@ namespace ExpenseTracker.Persistence
         }
 
         /// <summary>
-        /// to update the income record
+        /// To update the income record
         /// </summary>
         /// <param name="incomeRecord"> the updated record</param>
         /// <returns> status of update </returns>
@@ -108,7 +108,7 @@ namespace ExpenseTracker.Persistence
         }
 
         /// <summary>
-        /// to update the expense record
+        /// To update the expense record
         /// </summary>
         /// <param name="expenseRecord"> the updated record</param>
         /// <returns> status of update</returns>
@@ -127,7 +127,7 @@ namespace ExpenseTracker.Persistence
         }
 
         /// <summary>
-        /// to check empty Income list
+        /// To check empty Income list
         /// </summary>
         /// <returns> status of the Income List</returns>
         public bool IsEmptyIncome()
@@ -136,7 +136,7 @@ namespace ExpenseTracker.Persistence
         }
 
         /// <summary>
-        /// to check empty expensed
+        /// To check empty expensed
         /// </summary>
         /// <returns> status of Expense List</returns>
         public bool IsEmptyExpense()
@@ -145,7 +145,7 @@ namespace ExpenseTracker.Persistence
         }
 
         /// <summary>
-        /// to get total expense
+        /// To get total expense
         /// </summary>
         /// <returns> total expense </returns>
         public decimal GetTotalExpenses()
@@ -154,7 +154,7 @@ namespace ExpenseTracker.Persistence
         }
 
         /// <summary>
-        /// to get total expense
+        /// To get total expense
         /// </summary>
         /// <returns> total expense </returns>
         public decimal GetTotalIncomes()
@@ -163,7 +163,7 @@ namespace ExpenseTracker.Persistence
         }
 
         /// <summary>
-        /// to get transaction by id
+        /// To get transaction by id
         /// </summary>
         /// <param name="id"> id of the transaction </param>
         /// <returns> returns list of transaction </returns>
@@ -173,7 +173,7 @@ namespace ExpenseTracker.Persistence
         }
 
         /// <summary>
-        /// to get transaction by id
+        /// To get transaction by id
         /// </summary>
         /// <param name="id"> id of the transaction </param>
         /// <returns> returns list of transaction </returns>
