@@ -1,38 +1,38 @@
-﻿using ExpenseTracker.Model;
+﻿using ExpenseTracker.Model.Enums;
 using ExpenseTracker.Persistence;
 using ExpenseTracker.Service;
 
 namespace ExpenseTracker.View
 {
     /// <summary>
-    /// Income view
+    /// Expense view
     /// </summary>
-    internal class IncomeView
+    internal class ExpenseView
     {
-        private readonly IncomeService _incomeServices;
+        private readonly ExpenseService _expenseServices;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="IncomeView"/> class.
+        /// Initializes a new instance of the <see cref="ExpenseView"/> class.
         /// </summary>
         /// <param name="repository"> instance of repository </param>
-        public IncomeView(IRepository repository)
+        public ExpenseView(IRepository repository)
         {
-            this._incomeServices = new IncomeService(repository);
+            this._expenseServices = new ExpenseService(repository);
         }
 
         /// <summary>
-        /// operations in Income
+        /// operations in Expense
         /// </summary>
-        public void IncomeOperations()
+        public void ExpenseOperations()
         {
             bool state = true;
             while (state)
             {
                 Console.WriteLine(@"===========MENU==========
-1. Add an Income
-2. Delete an Income
-3. Update an Income
-4. View All Income
+1. Add an Expense
+2. Delete an Expense
+3. Update an Expense
+4. View All Expense
 5. Exit
 =========================");
                 int? choice = UserInput.ReadInt("Enter your choice: ", 1, 5);
@@ -41,37 +41,37 @@ namespace ExpenseTracker.View
                     return;
                 }
 
-                switch ((IncomeOptions)choice)
+                switch ((TransactionOptions)choice)
                 {
-                    case IncomeOptions.Add:
+                    case TransactionOptions.Add:
                         {
-                            this.AddIncome();
+                            this.AddExpense();
                             UserInput.WaitAndClear();
                             break;
                         }
 
-                    case IncomeOptions.Delete:
+                    case TransactionOptions.Delete:
                         {
-                            this.DeleteIncome();
+                            this.DeleteExpense();
                             UserInput.WaitAndClear();
                             break;
                         }
 
-                    case IncomeOptions.Update:
+                    case TransactionOptions.Update:
                         {
-                            this.UpdateIncome();
+                            this.UpdateExpense();
                             UserInput.WaitAndClear();
                             break;
                         }
 
-                    case IncomeOptions.View:
+                    case TransactionOptions.View:
                         {
-                            this.ViewAllIncome();
+                            this.ViewAllExpense();
                             UserInput.WaitAndClear();
                             break;
                         }
 
-                    case IncomeOptions.Exit:
+                    case TransactionOptions.Exit:
                         {
                             state = false;
                             return;
@@ -81,12 +81,12 @@ namespace ExpenseTracker.View
         }
 
         /// <summary>
-        /// Adding a income
+        /// Adding an Expense
         /// </summary>
-        public void AddIncome()
+        public void AddExpense()
         {
             Console.Clear();
-            Console.WriteLine("Adding an Income");
+            Console.WriteLine("Adding a Expense: ");
 
             decimal? amount = UserInput.ReadPrice("Enter the amount: ");
             if (amount == null)
@@ -100,53 +100,52 @@ namespace ExpenseTracker.View
                 return;
             }
 
-            Console.WriteLine("Enter the Type of income: ");
-            Console.WriteLine(@"1. Salary
-2. Investment Returns.
-3. Bonus.
-4. Others.");
+            Console.WriteLine(@"1. Food
+2. Travel.
+3. Emergency.
+4. Health.");
             int? choice = UserInput.ReadInt("Enter choice: ", 1, 4);
             if (choice == null)
             {
                 return;
             }
 
-            this._incomeServices.CreateIncome((decimal)amount, (DateOnly)date, (IncomeType)choice);
-            Output.Success("Created Income Successfully");
+            this._expenseServices.CreateExpense((decimal)amount, (DateOnly)date, (ExpenseType)choice);
+            Output.Success("Created Expense Successfully");
         }
 
         /// <summary>
-        /// to view all income
+        /// to view all expense
         /// </summary>
-        public void ViewAllIncome()
+        public void ViewAllExpense()
         {
             Console.Clear();
-            bool isEmptyIncomes = this._incomeServices.IsEmptyIncome();
+            bool isEmptyExpenses = this._expenseServices.IsEmptyExpense();
 
-            if (isEmptyIncomes)
+            if (isEmptyExpenses)
             {
                 Output.Error("There are no records to display.");
                 return;
             }
 
-            IEnumerable<TransactionInfo> transactions = this._incomeServices.GetAllIncomes();
-            Console.WriteLine("All income Records:");
+            IEnumerable<TransactionInfo> transactions = this._expenseServices.GetAllExpenses();
+            Console.WriteLine("All Expense Records.");
             Output.PrintTable(transactions);
         }
 
         /// <summary>
-        /// to delete an income
+        /// to delete an Expense
         /// </summary>
-        public void DeleteIncome()
+        public void DeleteExpense()
         {
-            if (this._incomeServices.IsEmptyIncome())
+            if (this._expenseServices.IsEmptyExpense())
             {
                 Output.Error("There are no records to display.");
                 return;
             }
 
-            IEnumerable<TransactionInfo> transactions = this._incomeServices.GetAllIncomes();
-            this.ViewAllIncome();
+            IEnumerable<TransactionInfo> transactions = this._expenseServices.GetAllExpenses();
+            this.ViewAllExpense();
             int? index = UserInput.ReadInt("Enter S.no: ", 1, transactions.Count());
             if (index == null)
             {
@@ -154,7 +153,7 @@ namespace ExpenseTracker.View
             }
 
             index = index - 1;
-            if (this._incomeServices.DeleteIncome(transactions.ElementAt((int)index).Id))
+            if (this._expenseServices.DeleteExpense(transactions.ElementAt((int)index).Id))
             {
                 Output.Success("Deleted Successfully");
             }
@@ -165,18 +164,18 @@ namespace ExpenseTracker.View
         }
 
         /// <summary>
-        /// To update income
+        /// To update Expense
         /// </summary>
-        public void UpdateIncome()
+        public void UpdateExpense()
         {
-            if (this._incomeServices.IsEmptyIncome())
+            if (this._expenseServices.IsEmptyExpense())
             {
                 Output.Error("There are no records to display.");
                 return;
             }
 
-            this.ViewAllIncome();
-            IEnumerable<TransactionInfo> transactions = this._incomeServices.GetAllIncomes();
+            IEnumerable<TransactionInfo> transactions = this._expenseServices.GetAllExpenses();
+            this.ViewAllExpense();
             int? index = UserInput.ReadInt("Enter S.no: ", 1, transactions.Count());
             if (index == null)
             {
@@ -203,9 +202,13 @@ namespace ExpenseTracker.View
                             return;
                         }
 
-                        if (this._incomeServices.UpdateIncomeDate(transactions.ElementAt((int)index).Id, (DateOnly)date))
+                        if (this._expenseServices.UpdateExpenseDate(transactions.ElementAt((int)index).Id, (DateOnly)date))
                         {
                             Output.Success("Updated Date successfully");
+                        }
+                        else
+                        {
+                            Output.Error("Updated Date Failed");
                         }
 
                         break;
@@ -219,9 +222,13 @@ namespace ExpenseTracker.View
                             return;
                         }
 
-                        if (this._incomeServices.UpdateIncomeAmount(transactions.ElementAt((int)index).Id, (decimal)amount))
+                        if (this._expenseServices.UpdateExpenseAmount(transactions.ElementAt((int)index).Id, (decimal)amount))
                         {
                             Output.Success("Updated Amount successfully");
+                        }
+                        else
+                        {
+                            Output.Error("Updated Amount Failed");
                         }
 
                         break;
@@ -229,20 +236,24 @@ namespace ExpenseTracker.View
 
                 case Update.Category:
                     {
-                        Console.WriteLine("Enter the Type of income: ");
-                        Console.WriteLine(@"1. Salary
-2. Investment Returns.
-3. Bonus.
-4. Others.");
+                        Console.WriteLine("Enter the Type of Expense: ");
+                        Console.WriteLine(@"1. Food
+2. Travel.
+3. Emergency.
+4. Health.");
                         int? category = UserInput.ReadInt("Enter choice: ", 1, 4);
                         if (category == null)
                         {
                             return;
                         }
 
-                        if (this._incomeServices.UpdateIncomeCategory(transactions.ElementAt((int)index).Id, ((IncomeType)category).ToString()))
+                        if (this._expenseServices.UpdateExpenseCategory(transactions.ElementAt((int)index).Id, ((ExpenseType)category).ToString()))
                         {
                             Output.Success("Updated Category successfully");
+                        }
+                        else
+                        {
+                            Output.Error("Updated Category Failed");
                         }
 
                         break;

@@ -1,4 +1,4 @@
-﻿using ExpenseTracker.Model;
+﻿using ExpenseTracker.Model.Enums;
 using ExpenseTracker.Persistence;
 
 namespace ExpenseTracker.View
@@ -75,12 +75,6 @@ namespace ExpenseTracker.View
                     case TransactionType.Exit:
                         {
                             state = false;
-                            break;
-                        }
-
-                    default:
-                        {
-                            Output.Error("Enter Valid Input");
                             break;
                         }
                 }

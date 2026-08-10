@@ -1,5 +1,5 @@
 ﻿using ConsoleTables;
-using ExpenseTracker.Model;
+using ExpenseTracker.Model.Enums;
 
 namespace ExpenseTracker.View
 {

@@ -1,4 +1,4 @@
-﻿namespace ExpenseTracker.Model
+﻿namespace ExpenseTracker.Model.Enums
 {
     /// <summary>
     /// enum for source of income
