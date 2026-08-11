@@ -15,13 +15,14 @@ namespace ExpenseTracker.View
         /// <summary>
         /// Initializes a new instance of the <see cref="FinanceView"/> class.
         /// </summary>
-        /// <param name="service"> instance of services </param>
-        /// <param name="repository"> instance of repository </param>
-        public FinanceView(IRepository repository)
+        /// <param name="incomeView"> instance of income view layer </param>
+        /// <param name="expenseView"> instance of expense view layer </param>
+        /// <param name="dashboardView"> instance of dashboard view layer </param>
+        public FinanceView(IncomeView incomeView, ExpenseView expenseView, DashboardView dashboardView)
         {
-            this._dashboardView = new DashboardView(repository);
-            this._incomeView = new IncomeView(repository);
-            this._expenseView = new ExpenseView(repository);
+            this._dashboardView = dashboardView;
+            this._incomeView = incomeView;
+            this._expenseView = expenseView;
         }
 
         /// <summary>

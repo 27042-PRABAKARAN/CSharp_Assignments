@@ -14,10 +14,10 @@ namespace ExpenseTracker.View
         /// <summary>
         /// Initializes a new instance of the <see cref="ExpenseView"/> class.
         /// </summary>
-        /// <param name="repository"> instance of repository </param>
-        public ExpenseView(IRepository repository)
+        /// <param name="expenseService"> instance of Expense services </param>
+        public ExpenseView(ExpenseService expenseService)
         {
-            this._expenseServices = new ExpenseService(repository);
+            this._expenseServices = expenseService;
         }
 
         /// <summary>

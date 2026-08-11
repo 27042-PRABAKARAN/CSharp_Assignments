@@ -14,10 +14,10 @@ namespace ExpenseTracker.View
         /// <summary>
         /// Initializes a new instance of the <see cref="IncomeView"/> class.
         /// </summary>
-        /// <param name="repository"> instance of repository </param>
-        public IncomeView(IRepository repository)
+        /// <param name="incomeService"> instance of income service </param>
+        public IncomeView(IncomeService incomeService)
         {
-            this._incomeServices = new IncomeService(repository);
+            this._incomeServices = incomeService;
         }
 
         /// <summary>

@@ -13,10 +13,10 @@ namespace ExpenseTracker.View
         /// <summary>
         /// Initializes a new instance of the <see cref="DashboardView"/> class.
         /// </summary>
-        /// <param name="repository"> instance of repository </param>
-        public DashboardView(IRepository repository)
+        /// <param name="dashboardService"> instance of dashboard service </param>
+        public DashboardView(DashboardService dashboardService)
         {
-            this._dashboardServices = new DashboardService(repository);
+            this._dashboardServices = dashboardService;
         }
 
         /// <summary>

@@ -57,7 +57,7 @@ namespace ExpenseTracker.Service
         /// <summary>
         /// To get the summary details
         /// </summary>
-        /// <returns>Ssummary </returns>
+        /// <returns>Summary </returns>
         public string GetSummary()
         {
             decimal income = this.GetTotalIncome();
