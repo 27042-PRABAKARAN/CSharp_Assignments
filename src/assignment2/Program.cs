@@ -39,28 +39,28 @@ namespace ManagementSystem
                     break;
                 }
 
-                Applications app = (Applications)choice;
+                Application app = (Application)choice;
                 switch (app)
                 {
-                    case Applications.ShapeHierarchy:
+                    case Application.ShapeHierarchy:
                         {
                             shape.ShapeOperations();
                             break;
                         }
 
-                    case Applications.EmployeeHierarchy:
+                    case Application.EmployeeHierarchy:
                         {
                             employee.EmployeeOperations();
                             break;
                         }
 
-                    case Applications.BankSystem:
+                    case Application.BankSystem:
                         {
                             bankSystem.BankOperations();
                             break;
                         }
 
-                    case Applications.Exit:
+                    case Application.Exit:
                         {
                             Console.WriteLine("Exiting");
                             return;
