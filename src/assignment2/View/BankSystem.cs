@@ -50,7 +50,7 @@ namespace ManagementSystem.View
                 {
                     case AccountType.CreateSavings: account = this.CreateSavingAccount(); break;
                     case AccountType.CreateChecking: account = this.CreateCheckingAccount(); break;
-                    case AccountType.Exit: state = false; return;
+                    case AccountType.Exit: state = false; break;
 
                     default: Output.Error("enter valid choice"); break;
                 }
