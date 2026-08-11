@@ -14,7 +14,7 @@ namespace ExpenseTracker.Service
         /// <summary>
         /// Initializes a new instance of the <see cref="ExpenseService"/> class.
         /// </summary>
-        /// <param name="repository"> the instance of the repository</param>
+        /// <param name="repository"> The instance of the repository</param>
         public ExpenseService(IRepository repository)
         {
             this._repository = repository;
