@@ -170,14 +170,14 @@ namespace ManagementSystem.View
                     {
                         Output.Error("Amount entered is more than balance ");
                         Console.WriteLine("Back to Menu");
-                        return;
+                        break;
                     }
 
                 case Message.MinimumBalance:
                     {
                         Output.Error("invalid - violates minimum balance requirement.");
                         Console.WriteLine("Back to Menu");
-                        return;
+                        break;
                     }
             }
         }
