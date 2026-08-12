@@ -1,4 +1,4 @@
-﻿namespace ManagementSystem.Model.Shape
+﻿namespace ManagementSystem.Model.Shape.Enums
 {
     /// <summary>
     /// Operation enumerator
