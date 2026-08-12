@@ -1,5 +1,6 @@
 ﻿using InventoryManager.Helper;
 using InventoryManager.Models;
+using InventoryManager.Models.Enums;
 using InventoryManager.Service;
 
 namespace InventoryManager.View
@@ -59,7 +60,7 @@ namespace InventoryManager.View
         }
 
         /// <summary>
-        /// to Manipulate products.
+        /// to Search products.
         /// </summary>
         public void SearchProduct()
         {
@@ -144,7 +145,7 @@ namespace InventoryManager.View
                             throw new InvalidOperationException("Invalid entry entered more than 3 times");
                         }
 
-                        if (this._inventoryServices.UpdateProduct(UpdateChoice.Quantity, products.ElementAt((int)index).Id, (long)quantity))
+                        if (this._inventoryServices.UpdateProduct(products.ElementAt((int)index).Id, (long)quantity))
                         {
                             Output.Success("updated successfully. ");
                         }
@@ -164,7 +165,7 @@ namespace InventoryManager.View
                             throw new InvalidOperationException("Invalid entry entered more than 3 times");
                         }
 
-                        if (this._inventoryServices.UpdateProduct(UpdateChoice.Price, products.ElementAt((int)index).Id, (long)price))
+                        if (this._inventoryServices.UpdateProduct(products.ElementAt((int)index).Id, (decimal)price))
                         {
                             Output.Success("updated successfully. ");
                         }

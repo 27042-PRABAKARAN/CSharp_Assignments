@@ -1,7 +1,7 @@
 ﻿using ConsoleTables;
 using InventoryManager.Models;
 
-namespace InventoryManager.Helper
+namespace InventoryManager.View
 {
     /// <summary>
     /// to display as table.

@@ -1,4 +1,5 @@
 ﻿using InventoryManager.Models;
+using InventoryManager.Models.Enums;
 using InventoryManager.Persistence;
 
 namespace InventoryManager.Service
@@ -30,7 +31,7 @@ namespace InventoryManager.Service
         /// <returns> returns status </returns>
         public bool CreateProduct(string name, string id, decimal price, long quantity)
         {
-            Product newProduct = new Product(id, name, price, quantity);
+            Product newProduct = new (id, name, price, quantity);
             return this._repository.AddProduct(newProduct);
         }
 
@@ -66,11 +67,10 @@ namespace InventoryManager.Service
         /// <summary>
         /// to update
         /// </summary>
-        /// <param name="choice"> which parameter is updated</param>
         /// <param name="id"> on which product the update takes place</param>
         /// <param name="value"> new value to be updated</param>
         /// <returns> status of the update</returns>
-        public bool UpdateProduct(UpdateChoice choice, string id, long value)
+        public bool UpdateProduct(string id, long value)
         {
             Product? product = this.GetProduct(id);
             if (product == null)
@@ -78,22 +78,26 @@ namespace InventoryManager.Service
                 return false;
             }
 
-            switch (choice)
+            product.Quantity = value;
+            return this._repository.UpdateProduct(product);
+        }
+
+        /// <summary>
+        /// to update
+        /// </summary>
+        /// <param name="id"> on which product the update takes place</param>
+        /// <param name="value"> new value to be updated</param>
+        /// <returns> status of the update</returns>
+        public bool UpdateProduct(string id, decimal value)
+        {
+            Product? product = this.GetProduct(id);
+            if (product == null)
             {
-                case UpdateChoice.Price:
-                    {
-                        product.Price = value;
-                        return this._repository.UpdateProduct(product);
-                    }
-
-                case UpdateChoice.Quantity:
-                    {
-                        product.Quantity = value;
-                        return this._repository.UpdateProduct(product);
-                    }
-
-                default: return false;
+                return false;
             }
+
+            product.Price = value;
+            return this._repository.UpdateProduct(product);
         }
 
         /// <summary>
@@ -121,7 +125,7 @@ namespace InventoryManager.Service
         public bool IsEmptyDatabase()
         {
             IEnumerable<Product> list = this.GetAllProducts();
-            if (list.Count() == 0)
+            if (list.Any())
             {
                 return true;
             }

@@ -1,4 +1,4 @@
-﻿namespace InventoryManager.Models
+﻿namespace InventoryManager.Models.Enums
 {
     /// <summary>
     /// enum for update

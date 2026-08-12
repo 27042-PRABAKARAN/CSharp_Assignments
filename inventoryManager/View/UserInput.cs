@@ -1,6 +1,7 @@
 ﻿using System.Text.RegularExpressions;
+using InventoryManager.Helper;
 
-namespace InventoryManager.Helper
+namespace InventoryManager.View
 {
     /// <summary>
     /// Input class for taking inputs
@@ -12,10 +13,22 @@ namespace InventoryManager.Helper
         /// </summary>
         /// <param name="prompt"> the prompt for the input </param>
         /// <returns> returns string </returns>
-        public static string? ReadInput(string? prompt)
+        public static string? ReadInput(string prompt)
         {
-            string? userInput = GetValidInput(prompt, Validation.IsValidInput, "Nothing Entered !!");
-            return userInput;
+            for (int tried = 1; tried <= 3; tried++)
+            {
+                Console.Write(prompt);
+                string? input = Console.ReadLine();
+                if (!string.IsNullOrEmpty(input))
+                {
+                    return input.Trim();
+                }
+
+                Output.Error("Nothing entered");
+                Output.Error($"{3 - tried} attempts remaining\n");
+            }
+
+            return null;
         }
 
         /// <summary>
@@ -23,7 +36,7 @@ namespace InventoryManager.Helper
         /// </summary>
         /// <param name="prompt"> the prompt for the input </param>
         /// <returns> returns string </returns>
-        public static decimal? ReadPrice(string? prompt)
+        public static decimal? ReadPrice(string prompt)
         {
             for (int tried = 1; tried <= 3; tried++)
             {
@@ -68,7 +81,7 @@ namespace InventoryManager.Helper
         /// </summary>
         /// <param name="prompt"> the prompt for the input </param>
         /// <returns> returns string </returns>
-        public static string? ReadName(string? prompt)
+        public static string? ReadName(string prompt)
         {
             for (int tried = 1; tried <= 3; tried++)
             {
@@ -81,7 +94,7 @@ namespace InventoryManager.Helper
                 }
                 else if (!Regex.IsMatch(input, @"^[A-Za-z0-9 ]+$"))
                 {
-                    Output.Error("Name cannot contain special characters.");
+                    Output.Error("Name cannot contain special characters."); 
                 }
                 else
                 {
@@ -99,7 +112,7 @@ namespace InventoryManager.Helper
         /// </summary>
         /// <param name="prompt"> the prompt for the input </param>
         /// <returns> returns string </returns>
-        public static long? ReadQuantity(string? prompt)
+        public static long? ReadQuantity(string prompt)
         {
             for (int tried = 1; tried <= 3; tried++)
             {
@@ -134,7 +147,7 @@ namespace InventoryManager.Helper
         /// <param name="prompt">the prompt for the input </param>
         /// <param name="isValid"> function to validate id</param>
         /// <returns> ID read from user </returns>
-        public static string? ReadId(string? prompt, Func<string, bool> isValid)
+        public static string? ReadId(string prompt, Func<string, bool> isValid)
         {
             for (int tried = 1; tried <= 3; tried++)
             {
@@ -176,7 +189,7 @@ namespace InventoryManager.Helper
         /// <param name="minRange"> the minimum range  </param>
         /// <param name="maxRange"> the maximum range </param>
         /// <returns> returns read number </returns>
-        public static int? ReadInt(string? prompt, int minRange, int maxRange)
+        public static int? ReadInt(string prompt, int minRange, int maxRange)
         {
             for (int tried = 1; tried <= 3; tried++)
             {
@@ -201,7 +214,7 @@ namespace InventoryManager.Helper
         /// </summary>
         /// <param name="prompt"> to prompt the message </param>
         /// <returns> returns read number </returns>
-        public static int? ReadChoice(string? prompt)
+        public static int? ReadChoice(string prompt)
         {
             Console.Write(prompt);
             if (!int.TryParse(Console.ReadLine(), out int number))
@@ -212,37 +225,6 @@ namespace InventoryManager.Helper
             {
                 return number;
             }
-        }
-
-        /// <summary>
-        /// TO check if user is entering a valid input or not
-        /// </summary>
-        /// <param name="prompt"> to print before user enters value </param>
-        /// <param name="validation">  the validating function </param>
-        /// <param name="errorMessage"> the error message </param>
-        /// <returns> returns string </returns>
-        public static string? GetValidInput(string? prompt, Func<string, bool> validation, string? errorMessage)
-        {
-            for (int tried = 1; tried <= 3; tried++)
-            {
-                Console.Write(prompt);
-                string? input = Console.ReadLine();
-                if (input == null)
-                {
-                    Output.Error(errorMessage);
-                    continue;
-                }
-
-                if (validation(input.Trim()))
-                {
-                    return input.Trim();
-                }
-
-                Output.Error(errorMessage);
-                Output.Error($"{3 - tried} attempts remaining\n");
-            }
-
-            return null;
         }
     }
 }

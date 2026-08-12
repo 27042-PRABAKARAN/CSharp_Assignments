@@ -1,5 +1,5 @@
 ﻿using InventoryManager.Helper;
-using InventoryManager.Models;
+using InventoryManager.Models.Enums;
 using InventoryManager.Persistence;
 using InventoryManager.Service;
 using InventoryManager.View;
@@ -15,11 +15,11 @@ namespace InventoryManager
         /// main function.
         /// </summary>
         /// <param name="args"> terminal arguments </param>
-        public static void Main(string[] args)
+        public static void Main()
         {
-            InventoryRepository repository = new InventoryRepository();
-            InventoryService service = new InventoryService(repository);
-            InventoryOperations inventoryOperations = new InventoryOperations(service);
+            InventoryRepository repository = new ();
+            InventoryService service = new (repository);
+            InventoryOperations inventoryOperations = new (service);
             bool app = true;
             Console.WriteLine("Hey User,");
             Console.WriteLine("Welcome to Inventory Manager");
