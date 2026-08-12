@@ -1,5 +1,6 @@
 ﻿using ManagementSystem.Helper;
 using ManagementSystem.Model.Bank;
+using ManagementSystem.Model.Bank.Enums;
 using ManagementSystem.Service;
 
 namespace ManagementSystem.View

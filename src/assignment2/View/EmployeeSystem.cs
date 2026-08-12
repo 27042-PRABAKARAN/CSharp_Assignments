@@ -1,5 +1,5 @@
 ﻿using ManagementSystem.Helper;
-using ManagementSystem.Model.Employee;
+using ManagementSystem.Model.Employee.Enums;
 using ManagementSystem.Service;
 
 namespace ManagementSystem.View

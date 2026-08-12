@@ -1,5 +1,5 @@
 ﻿using ManagementSystem.Helper;
-using ManagementSystem.Model.Shape;
+using ManagementSystem.Model.Shape.Enums;
 using ManagementSystem.Service;
 
 namespace ManagementSystem.View

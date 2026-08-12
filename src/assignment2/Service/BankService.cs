@@ -1,4 +1,5 @@
 ﻿using ManagementSystem.Model.Bank;
+using ManagementSystem.Model.Bank.Enums;
 
 namespace ManagementSystem.Service
 {
