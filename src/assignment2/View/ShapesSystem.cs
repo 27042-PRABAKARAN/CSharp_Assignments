@@ -49,7 +49,7 @@ namespace ManagementSystem.View
                 {
                     case Operation.CreateRectangle: this.CreateRectangle(); break;
                     case Operation.CreateCircle: this.CreateCircle(); break;
-                    case Operation.Exit: state = false; return;
+                    case Operation.Exit: state = false; break;
                     default: Output.Error("enter valid choice"); break;
                 }
             }
@@ -74,13 +74,13 @@ namespace ManagementSystem.View
                 return;
             }
 
-            string? colour = UserInput.GetColor("Enter Color of the Rectangle: ");
-            if (colour == null)
+            string? color = UserInput.GetColor("Enter Color of the Rectangle: ");
+            if (color == null)
             {
                 return;
             }
 
-            Console.WriteLine(this._shapeService.CreateRectangle(colour, (double)width, (double)length));
+            Console.WriteLine(this._shapeService.CreateRectangle(color, (double)width, (double)length));
         }
 
         /// <summary>
@@ -95,13 +95,13 @@ namespace ManagementSystem.View
                 return;
             }
 
-            string? colour = UserInput.GetColor("Enter Color of the Circle : ");
-            if (colour == null)
+            string? color = UserInput.GetColor("Enter Color of the Circle : ");
+            if (color == null)
             {
                 return;
             }
 
-            Console.WriteLine(this._shapeService.CreateCircle(colour, (double)radius));
+            Console.WriteLine(this._shapeService.CreateCircle(color, (double)radius));
         }
     }
 }
