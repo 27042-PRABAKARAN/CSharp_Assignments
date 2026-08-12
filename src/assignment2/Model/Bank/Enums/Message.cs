@@ -1,4 +1,4 @@
-﻿namespace ManagementSystem.Model.Bank
+﻿namespace ManagementSystem.Model.Bank.Enums
 {
     /// <summary>
     /// enum to return the messages

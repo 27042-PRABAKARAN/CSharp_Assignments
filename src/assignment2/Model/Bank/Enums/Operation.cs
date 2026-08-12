@@ -1,4 +1,4 @@
-﻿namespace ManagementSystem.Model.Employee
+﻿namespace ManagementSystem.Model.Bank.Enums
 {
     /// <summary>
     /// Operation enumerator
@@ -6,14 +6,19 @@
     internal enum Operation
     {
         /// <summary>
-        /// to create a developer
+        /// to withdraw amount.
         /// </summary>
-        CreateDeveloper = 1,
+        WithDraw = 1,
 
         /// <summary>
-        /// to create a Manager
+        /// to deposit the amount.
         /// </summary>
-        CreateManager,
+        Deposit,
+
+        /// <summary>
+        /// to fetch details.
+        /// </summary>
+        FetchDetails,
 
         /// <summary>
         /// to exit the app

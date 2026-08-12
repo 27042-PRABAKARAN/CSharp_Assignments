@@ -49,7 +49,7 @@ namespace ManagementSystem.View
                 {
                     case Operation.CreateDeveloper: this.CreateDeveloper(); break;
                     case Operation.CreateManager: this.CreateManager(); break;
-                    case Operation.Exit: state = false; return;
+                    case Operation.Exit: state = false; break;
                     default: Output.Error("enter valid choice"); break;
                 }
             }
