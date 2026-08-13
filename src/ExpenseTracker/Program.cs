@@ -17,10 +17,9 @@ namespace Assignments
            InMemoryRepository repository = new InMemoryRepository();
            TransactionService transactionService = new TransactionService(repository);
            DashboardService dashboardService = new DashboardService(repository);
-           IncomeView incomeView = new IncomeView(transactionService);
-           ExpenseView expenseView = new ExpenseView(transactionService);
+           TransactionView transactionView = new TransactionView(transactionService);
            DashboardView dashboardView = new DashboardView(dashboardService);
-           FinanceView view = new FinanceView(incomeView, expenseView, dashboardView);
+           FinanceView view = new FinanceView(transactionView, dashboardView);
            view.FinanceOperations();
         }
     }
