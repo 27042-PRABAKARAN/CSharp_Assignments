@@ -38,11 +38,11 @@ namespace ExpenseTracker.View
         internal static void PrintTable(IEnumerable<TransactionInfo> transactions)
         {
             Console.WriteLine();
-            var table = new ConsoleTable("S.no", "TransactionId", "Transaction Date", "Transaction Amount", "Category");
+            var table = new ConsoleTable("S.no", "TransactionId", "Transaction Date", "Transaction Type", "Transaction Amount", "Category");
             int i = 0;
             foreach (TransactionInfo transaction in transactions)
             {
-                table.AddRow(++i, transaction.Id, transaction.Date, transaction.Amount, transaction.Category);
+                table.AddRow(++i, transaction.Id, transaction.Date, transaction.Type.ToString(), transaction.Amount, transaction.Category);
             }
 
             table.Write(Format.Alternative);
