@@ -1,5 +1,4 @@
-﻿using ExpenseTracker.Persistence;
-using ExpenseTracker.Service;
+﻿using ExpenseTracker.Service;
 
 namespace ExpenseTracker.View
 {
