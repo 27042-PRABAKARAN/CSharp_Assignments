@@ -1,4 +1,6 @@
-﻿using ExpenseTracker.Model;
+﻿using System.Transactions;
+using ExpenseTracker.Model;
+using ExpenseTracker.Model.Enums;
 
 namespace ExpenseTracker.Persistence
 {
@@ -11,29 +13,15 @@ namespace ExpenseTracker.Persistence
         /// <summary>
         /// List of transactions
         /// </summary>
-        private readonly List<Income> _incomeTransactions = new List<Income>();
-
-        /// <summary>
-        /// List of transactions
-        /// </summary>
-        private readonly List<Expense> _expenseTransactions = new List<Expense>();
+        private readonly List<TransactionInfo> _transactions = new ();
 
         /// <summary>
         /// To add a transaction
         /// </summary>
         /// <param name="transaction"> the transaction </param>
-        public void AddIncome(Income transaction)
+        public void AddTransaction(TransactionInfo transaction)
         {
-            this._incomeTransactions.Add(transaction);
-        }
-
-        /// <summary>
-        /// To add a transaction
-        /// </summary>
-        /// <param name="transaction"> the transaction </param>
-        public void AddExpense(Expense transaction)
-        {
-            this._expenseTransactions.Add(transaction);
+            this._transactions.Add(transaction);
         }
 
         /// <summary>
@@ -41,29 +29,12 @@ namespace ExpenseTracker.Persistence
         /// </summary>
         /// <param name="id">id of transaction</param>
         /// <returns>returns status of deleting</returns>
-        public bool DeleteIncome(string id)
+        public bool DeleteTransaction(string id)
         {
-            Income? deleteIncome = this.GetIncomeById(id);
-            if (deleteIncome != null)
+            TransactionInfo? deleteTransaction = this.GetTransactionById(id);
+            if (deleteTransaction != null)
             {
-                this._incomeTransactions.Remove(deleteIncome);
-                return true;
-            }
-
-            return false;
-        }
-
-        /// <summary>
-        /// To remove the transaction.
-        /// </summary>
-        /// <param name="id">id of transaction</param>
-        /// <returns>returns status of deleting</returns>
-        public bool DeleteExpense(string id)
-        {
-            Expense? deleteExpense = this.GetExpenseById(id);
-            if (deleteExpense != null)
-            {
-                this._expenseTransactions.Remove(deleteExpense);
+                this._transactions.Remove(deleteTransaction);
                 return true;
             }
 
@@ -74,18 +45,18 @@ namespace ExpenseTracker.Persistence
         /// To get all the transaction
         /// </summary>
         /// <returns> list of transactions </returns>
-        public IEnumerable<Income> GetAllIncomes()
+        public IEnumerable<TransactionInfo> GetAllIncomes()
         {
-            return this._incomeTransactions.Select(transaction => transaction.Clone()).ToList();
+            return this._transactions.Where(transaction => transaction.Type == TransactionType.Income).Select(transaction => transaction.Clone()).ToList();
         }
 
         /// <summary>
         /// To get all the transaction
         /// </summary>
         /// <returns> list of transactions </returns>
-        public IEnumerable<Expense> GetAllExpenses()
+        public IEnumerable<TransactionInfo> GetAllExpenses()
         {
-            return this._expenseTransactions.Select(transaction => transaction.Clone()).ToList();
+            return this._transactions.Where(transaction => transaction.Type == TransactionType.Expense).Select(transaction => transaction.Clone()).ToList();
         }
 
         /// <summary>
@@ -93,9 +64,9 @@ namespace ExpenseTracker.Persistence
         /// </summary>
         /// <param name="incomeRecord"> the updated record</param>
         /// <returns> status of update </returns>
-        public bool UpdateIncome(Income incomeRecord)
+        public bool UpdateTransaction(TransactionInfo incomeRecord)
         {
-            Income? updateRecord = this.GetIncomeById(incomeRecord.Id);
+            TransactionInfo? updateRecord = this.GetTransactionById(incomeRecord.Id);
             if (updateRecord == null)
             {
                 return false;
@@ -108,31 +79,12 @@ namespace ExpenseTracker.Persistence
         }
 
         /// <summary>
-        /// To update the expense record
-        /// </summary>
-        /// <param name="expenseRecord"> the updated record</param>
-        /// <returns> status of update</returns>
-        public bool UpdateExpense(Expense expenseRecord)
-        {
-            Expense? updateRecord = this.GetExpenseById(expenseRecord.Id);
-            if (updateRecord == null)
-            {
-                return false;
-            }
-
-            updateRecord.Amount = expenseRecord.Amount;
-            updateRecord.Date = expenseRecord.Date;
-            updateRecord.Category = expenseRecord.Category;
-            return true;
-        }
-
-        /// <summary>
         /// To check empty Income list
         /// </summary>
         /// <returns> status of the Income List</returns>
         public bool IsEmptyIncome()
         {
-            return this._incomeTransactions.Count == 0;
+            return this._transactions.Where(transaction => transaction.Type == TransactionType.Income).ToList().Count == 0;
         }
 
         /// <summary>
@@ -141,7 +93,7 @@ namespace ExpenseTracker.Persistence
         /// <returns> status of Expense List</returns>
         public bool IsEmptyExpense()
         {
-            return this._expenseTransactions.Count == 0;
+            return this._transactions.Where(transaction => transaction.Type == TransactionType.Expense).ToList().Count == 0;
         }
 
         /// <summary>
@@ -150,7 +102,7 @@ namespace ExpenseTracker.Persistence
         /// <returns> total expense </returns>
         public decimal GetTotalExpenses()
         {
-            return this._expenseTransactions.Sum(e => e.Amount);
+            return this._transactions.Where(transaction => transaction.Type == TransactionType.Expense).ToList().Sum(entry => entry.Amount);
         }
 
         /// <summary>
@@ -159,7 +111,7 @@ namespace ExpenseTracker.Persistence
         /// <returns> total expense </returns>
         public decimal GetTotalIncomes()
         {
-            return this._incomeTransactions.Sum(e => e.Amount);
+            return this._transactions.Where(transaction => transaction.Type == TransactionType.Income).ToList().Sum(entry => entry.Amount);
         }
 
         /// <summary>
@@ -167,19 +119,9 @@ namespace ExpenseTracker.Persistence
         /// </summary>
         /// <param name="id"> id of the transaction </param>
         /// <returns> returns list of transaction </returns>
-        private Income? GetIncomeById(string id)
+        private TransactionInfo? GetTransactionById(string id)
         {
-            return this._incomeTransactions.Find(transaction => transaction.Id.Equals(id));
-        }
-
-        /// <summary>
-        /// To get transaction by id
-        /// </summary>
-        /// <param name="id"> id of the transaction </param>
-        /// <returns> returns list of transaction </returns>
-        private Expense? GetExpenseById(string id)
-        {
-            return this._expenseTransactions.Find(transaction => transaction.Id.Equals(id));
+            return this._transactions.Find(transaction => transaction.Id.Equals(id));
         }
     }
 }

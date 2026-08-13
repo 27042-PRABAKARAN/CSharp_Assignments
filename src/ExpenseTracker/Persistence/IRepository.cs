@@ -1,4 +1,6 @@
-﻿using ExpenseTracker.Model;
+﻿using System.Xml.Linq;
+using ExpenseTracker.Model;
+using ExpenseTracker.Model.Enums;
 
 namespace ExpenseTracker.Persistence
 {
@@ -8,30 +10,36 @@ namespace ExpenseTracker.Persistence
     internal interface IRepository
     {
         /// <summary>
-        /// Adds a new income transaction.
+        /// To add a transaction
         /// </summary>
-        /// <param name="transaction"> transaction to be added</param>
-        void AddIncome(Income transaction);
+        /// <param name="transaction"> the transaction </param>
+        public void AddTransaction(TransactionInfo transaction);
 
         /// <summary>
-        /// Adds a new expense transaction.
+        /// To remove the transaction.
         /// </summary>
-        /// <param name="transaction"> transaction to be added</param>
-        void AddExpense(Expense transaction);
+        /// <param name="id">id of transaction</param>
+        /// <returns>returns status of deleting</returns>
+        public bool DeleteTransaction(string id);
 
         /// <summary>
-        /// Removes an income transaction by its identifier.
+        /// To get all the transaction
         /// </summary>
-        /// <returns> status of delete</returns>
-        /// <param name="id"> id of income</param>
-        bool DeleteIncome(string id);
+        /// <returns> list of transactions </returns>
+        public IEnumerable<TransactionInfo> GetAllIncomes();
 
         /// <summary>
-        /// Removes an expense transaction by its identifier.
+        /// To get all the transaction
         /// </summary>
-        /// <returns> status of delete</returns>
-        /// <param name="id"> id of income</param>
-        bool DeleteExpense(string id);
+        /// <returns> list of transactions </returns>
+        public IEnumerable<TransactionInfo> GetAllExpenses();
+
+        /// <summary>
+        /// To update the income record
+        /// </summary>
+        /// <param name="incomeRecord"> the updated record</param>
+        /// <returns> status of update </returns>
+        public bool UpdateTransaction(TransactionInfo incomeRecord);
 
         /// <summary>
         /// To check empty Income list
@@ -46,41 +54,15 @@ namespace ExpenseTracker.Persistence
         public bool IsEmptyExpense();
 
         /// <summary>
-        /// To update the income record
-        /// </summary>
-        /// <param name="incomeRecord"> the updated record</param>
-        /// <returns> status of update </returns>
-        public bool UpdateIncome(Income incomeRecord);
-
-        /// <summary>
-        /// To update the expense record
-        /// </summary>
-        /// <param name="expenseRecord"> the updated record</param>
-        /// <returns> status of update</returns>
-        public bool UpdateExpense(Expense expenseRecord);
-
-        /// <summary>
-        /// To fetch all income
-        /// </summary>
-        /// <returns> list of incomes</returns>
-        public IEnumerable<Income> GetAllIncomes();
-
-        /// <summary>
-        /// To fetch all expense
-        /// </summary>
-        /// <returns>list of expense</returns>
-        public IEnumerable<Expense> GetAllExpenses();
-
-        /// <summary>
         /// To get total expense
         /// </summary>
         /// <returns> total expense </returns>
         public decimal GetTotalExpenses();
 
         /// <summary>
-        /// To get total Income
+        /// To get total expense
         /// </summary>
-        /// <returns> total Income </returns>
+        /// <returns> total expense </returns>
         public decimal GetTotalIncomes();
     }
 }

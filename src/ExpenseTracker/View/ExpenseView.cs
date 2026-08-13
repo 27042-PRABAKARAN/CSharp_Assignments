@@ -1,5 +1,5 @@
-﻿using ExpenseTracker.Model.Enums;
-using ExpenseTracker.Persistence;
+﻿using ExpenseTracker.Model;
+using ExpenseTracker.Model.Enums;
 using ExpenseTracker.Service;
 
 namespace ExpenseTracker.View
@@ -9,15 +9,15 @@ namespace ExpenseTracker.View
     /// </summary>
     internal class ExpenseView
     {
-        private readonly ExpenseService _expenseServices;
+        private readonly TransactionService _transactionServices;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExpenseView"/> class.
         /// </summary>
         /// <param name="expenseService"> instance of Expense services </param>
-        public ExpenseView(ExpenseService expenseService)
+        public ExpenseView(TransactionService expenseService)
         {
-            this._expenseServices = expenseService;
+            this._transactionServices = expenseService;
         }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace ExpenseTracker.View
                     case TransactionOperations.Exit:
                         {
                             state = false;
-                            return;
+                            break;
                         }
                 }
             }
@@ -110,7 +110,7 @@ namespace ExpenseTracker.View
                 return;
             }
 
-            this._expenseServices.CreateExpense((decimal)amount, (DateOnly)date, (ExpenseType)choice);
+            this._transactionServices.CreateTransaction((decimal)amount, (DateOnly)date, ((ExpenseType)choice).ToString(), TransactionType.Expense);
             Output.Success("Created Expense Successfully");
         }
 
@@ -120,7 +120,7 @@ namespace ExpenseTracker.View
         public void ViewAllExpense()
         {
             Console.Clear();
-            bool isEmptyExpenses = this._expenseServices.IsEmptyExpense();
+            bool isEmptyExpenses = this._transactionServices.IsEmptyExpense();
 
             if (isEmptyExpenses)
             {
@@ -128,7 +128,7 @@ namespace ExpenseTracker.View
                 return;
             }
 
-            IEnumerable<TransactionInfo> transactions = this._expenseServices.GetAllExpenses();
+            IEnumerable<TransactionInfo> transactions = this._transactionServices.GetAllExpenses();
             Console.WriteLine("All Expense Records.");
             Output.PrintTable(transactions);
         }
@@ -138,13 +138,13 @@ namespace ExpenseTracker.View
         /// </summary>
         public void DeleteExpense()
         {
-            if (this._expenseServices.IsEmptyExpense())
+            if (this._transactionServices.IsEmptyExpense())
             {
                 Output.Error("There are no records to display.");
                 return;
             }
 
-            IEnumerable<TransactionInfo> transactions = this._expenseServices.GetAllExpenses();
+            IEnumerable<TransactionInfo> transactions = this._transactionServices.GetAllExpenses();
             this.ViewAllExpense();
             int? serialNumber = UserInput.ReadInt("Enter S.no: ", 1, transactions.Count());
             if (serialNumber == null)
@@ -153,7 +153,7 @@ namespace ExpenseTracker.View
             }
 
             int? index = serialNumber - 1;
-            if (this._expenseServices.DeleteExpense(transactions.ElementAt((int)index).Id))
+            if (this._transactionServices.DeleteTransaction(transactions.ElementAt((int)index).Id))
             {
                 Output.Success("Deleted Successfully");
             }
@@ -168,13 +168,13 @@ namespace ExpenseTracker.View
         /// </summary>
         public void UpdateExpense()
         {
-            if (this._expenseServices.IsEmptyExpense())
+            if (this._transactionServices.IsEmptyExpense())
             {
                 Output.Error("There are no records to display.");
                 return;
             }
 
-            IEnumerable<TransactionInfo> transactions = this._expenseServices.GetAllExpenses();
+            IEnumerable<TransactionInfo> transactions = this._transactionServices.GetAllExpenses();
             this.ViewAllExpense();
             int? index = UserInput.ReadInt("Enter S.no: ", 1, transactions.Count());
             if (index == null)
@@ -182,7 +182,7 @@ namespace ExpenseTracker.View
                 return;
             }
 
-            index = index - 1;
+            index--;
             Console.WriteLine(@"1. Update Date
 2. Update Amount
 3. Update Category");
@@ -202,7 +202,7 @@ namespace ExpenseTracker.View
                             return;
                         }
 
-                        if (this._expenseServices.UpdateExpenseDate(transactions.ElementAt((int)index).Id, (DateOnly)date))
+                        if (this._transactionServices.UpdateTransactionDate(transactions.ElementAt((int)index).Id, (DateOnly)date))
                         {
                             Output.Success("Updated Date successfully");
                         }
@@ -222,7 +222,7 @@ namespace ExpenseTracker.View
                             return;
                         }
 
-                        if (this._expenseServices.UpdateExpenseAmount(transactions.ElementAt((int)index).Id, (decimal)amount))
+                        if (this._transactionServices.UpdateTransactionAmount(transactions.ElementAt((int)index).Id, (decimal)amount))
                         {
                             Output.Success("Updated Amount successfully");
                         }
@@ -247,7 +247,7 @@ namespace ExpenseTracker.View
                             return;
                         }
 
-                        if (this._expenseServices.UpdateExpenseCategory(transactions.ElementAt((int)index).Id, ((ExpenseType)category).ToString()))
+                        if (this._transactionServices.UpdateTransactionCategory(transactions.ElementAt((int)index).Id, ((ExpenseType)category).ToString()))
                         {
                             Output.Success("Updated Category successfully");
                         }
