@@ -12,12 +12,14 @@
         /// <param name="id"> id of transaction</param>
         /// <param name="date">date of transaction</param>
         /// <param name="category"> category of transaction</param>
-        protected TransactionInfo(decimal amount, string id, DateOnly date, string category)
+        /// <param name="type">type transaction</param>
+        protected TransactionInfo(decimal amount, string id, DateOnly date, string category, TransactionType type)
         {
             this.Amount = amount;
             this.Category = category;
             this.Date = date;
             this.Id = id;
+            this.Type = type;
         }
 
         /// <summary>
@@ -35,6 +37,14 @@
         /// Transaction ID
         /// </value>
         public string Id { get; init; }
+
+        /// <summary>
+        /// Gets the Type of Transaction
+        /// </summary>
+        /// <value>
+        /// The Type of Transaction
+        /// </value>
+        public TransactionType Type { get; init; }
 
         /// <summary>
         /// Gets or sets the date of transaction
