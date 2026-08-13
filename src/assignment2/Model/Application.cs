@@ -3,7 +3,7 @@
     /// <summary>
     /// to navigate to right app.
     /// </summary>
-    internal enum Applications
+    internal enum Application
     {
         /// <summary>
         /// to navigate to Shape system.
