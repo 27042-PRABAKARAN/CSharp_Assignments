@@ -127,10 +127,10 @@ namespace InventoryManager.Service
             IEnumerable<Product> list = this.GetAllProducts();
             if (list.Any())
             {
-                return true;
+                return false;
             }
 
-            return false;
+            return true;
         }
 
         /// <summary>
