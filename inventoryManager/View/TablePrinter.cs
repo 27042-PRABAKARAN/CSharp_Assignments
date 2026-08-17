@@ -6,7 +6,7 @@ namespace InventoryManager.View
     /// <summary>
     /// to display as table.
     /// </summary>
-    internal class Display
+    internal class TablePrinter
     {
         /// <summary>
         /// to display as tables.

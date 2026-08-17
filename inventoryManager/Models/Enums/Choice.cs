@@ -3,7 +3,7 @@
     /// <summary>
     /// Choice enum
     /// </summary>
-    public enum Choice
+    internal enum Choice
     {
         /// <summary>
         /// CreateProduct

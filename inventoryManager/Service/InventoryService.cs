@@ -1,6 +1,6 @@
 ﻿using InventoryManager.Models;
 using InventoryManager.Models.Enums;
-using InventoryManager.Persistence;
+using InventoryManager.Repository;
 
 namespace InventoryManager.Service
 {

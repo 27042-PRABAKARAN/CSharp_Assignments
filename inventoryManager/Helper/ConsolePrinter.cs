@@ -3,7 +3,7 @@
     /// <summary>
     /// Display class is used for displaying output
     /// </summary>
-    public static class Output
+    internal static class ConsolePrinter
     {
         /// <summary>
         /// to print the message in red

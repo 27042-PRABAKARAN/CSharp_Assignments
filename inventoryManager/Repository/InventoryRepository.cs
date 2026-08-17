@@ -1,6 +1,6 @@
 ﻿using InventoryManager.Models;
 
-namespace InventoryManager.Persistence
+namespace InventoryManager.Repository
 {
     /// <summary>
     /// repository layer of inventory management system.

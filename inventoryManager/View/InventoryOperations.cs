@@ -56,7 +56,7 @@ namespace InventoryManager.View
             }
 
             this._inventoryServices.CreateProduct(name, id, (decimal)price, (long)quantity);
-            Output.Success("Created product successfully");
+            ConsolePrinter.Success("Created product successfully");
         }
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace InventoryManager.View
         {
             if (this._inventoryServices.IsEmptyDatabase())
             {
-                Output.Error("Empty Inventory. First Add a product.");
+                ConsolePrinter.Error("Empty Inventory. First Add a product.");
                 return;
             }
 
@@ -80,11 +80,11 @@ namespace InventoryManager.View
 
             if (products.Count() == 0)
             {
-                Output.Error(" Not Found .");
+                ConsolePrinter.Error(" Not Found .");
                 return;
             }
 
-            Display.PrintTable(products);
+            TablePrinter.PrintTable(products);
         }
 
         /// <summary>
@@ -94,7 +94,7 @@ namespace InventoryManager.View
         {
             if (this._inventoryServices.IsEmptyDatabase())
             {
-                Output.Error("Empty Inventory. First Add a product.");
+                ConsolePrinter.Error("Empty Inventory. First Add a product.");
                 return;
             }
 
@@ -127,11 +127,11 @@ namespace InventoryManager.View
 
                         if (this._inventoryServices.UpdateProduct(products.ElementAt((int)index).Id, name))
                         {
-                            Output.Success("updated successfully. ");
+                            ConsolePrinter.Success("updated successfully. ");
                         }
                         else
                         {
-                            Output.Error("Item not updated");
+                            ConsolePrinter.Error("Item not updated");
                         }
 
                         break;
@@ -147,11 +147,11 @@ namespace InventoryManager.View
 
                         if (this._inventoryServices.UpdateProduct(products.ElementAt((int)index).Id, (long)quantity))
                         {
-                            Output.Success("updated successfully. ");
+                            ConsolePrinter.Success("updated successfully. ");
                         }
                         else
                         {
-                            Output.Error("Item not updated");
+                            ConsolePrinter.Error("Item not updated");
                         }
 
                         break;
@@ -167,11 +167,11 @@ namespace InventoryManager.View
 
                         if (this._inventoryServices.UpdateProduct(products.ElementAt((int)index).Id, (decimal)price))
                         {
-                            Output.Success("updated successfully. ");
+                            ConsolePrinter.Success("updated successfully. ");
                         }
                         else
                         {
-                            Output.Error("Item not updated");
+                            ConsolePrinter.Error("Item not updated");
                         }
 
                         break;
@@ -186,7 +186,7 @@ namespace InventoryManager.View
         {
             if (this._inventoryServices.IsEmptyDatabase())
             {
-                Output.Error("Empty Inventory. First Add a product.");
+                ConsolePrinter.Error("Empty Inventory. First Add a product.");
                 return;
             }
 
@@ -202,11 +202,11 @@ namespace InventoryManager.View
             string id = products.ElementAt((int)index).Id;
             if (this._inventoryServices.DeleteProduct(id))
             {
-                Output.Success("deleted Successfully");
+                ConsolePrinter.Success("deleted Successfully");
             }
             else
             {
-                Output.Error("Item not deleted");
+                ConsolePrinter.Error("Item not deleted");
             }
         }
 
@@ -217,12 +217,12 @@ namespace InventoryManager.View
         {
             if (this._inventoryServices.IsEmptyDatabase())
             {
-                Output.Error("Empty Inventory. First Add a product.");
+                ConsolePrinter.Error("Empty Inventory. First Add a product.");
                 return;
             }
 
             IEnumerable<Product> products = this._inventoryServices.GetAllProducts();
-            Display.PrintTable(products);
+            TablePrinter.PrintTable(products);
         }
 
         /// <summary>
@@ -232,7 +232,7 @@ namespace InventoryManager.View
         {
             if (this._inventoryServices.IsEmptyDatabase())
             {
-                Output.Error("Empty Inventory. First Add a product.");
+                ConsolePrinter.Error("Empty Inventory. First Add a product.");
                 return;
             }
 
@@ -249,21 +249,21 @@ namespace InventoryManager.View
                 case UpdateChoice.Name:
                     {
                         products = products.OrderBy(p => p.Name).ToList();
-                        Display.PrintTable(products);
+                        TablePrinter.PrintTable(products);
                         break;
                     }
 
                 case UpdateChoice.Quantity:
                     {
                         products = products.OrderBy(p => p.Quantity).ToList();
-                        Display.PrintTable(products);
+                        TablePrinter.PrintTable(products);
                         break;
                     }
 
                 case UpdateChoice.Price:
                     {
                         products = products.OrderBy(p => p.Price).ToList();
-                        Display.PrintTable(products);
+                        TablePrinter.PrintTable(products);
                         break;
                     }
             }

@@ -6,7 +6,7 @@ namespace InventoryManager.View
     /// <summary>
     /// Input class for taking inputs
     /// </summary>
-    public static class UserInput
+    internal static class UserInput
     {
         /// <summary>
         /// this reads the input
@@ -24,8 +24,8 @@ namespace InventoryManager.View
                     return input.Trim();
                 }
 
-                Output.Error("Nothing entered");
-                Output.Error($"{3 - tried} attempts remaining\n");
+                ConsolePrinter.Error("Nothing entered");
+                ConsolePrinter.Error($"{3 - tried} attempts remaining\n");
             }
 
             return null;
@@ -44,29 +44,29 @@ namespace InventoryManager.View
                 string? price = Console.ReadLine();
                 if (price == null)
                 {
-                    Output.Error("Invalid. Please enter a positive number.");
-                    Output.Error($"{3 - tried} attempts remaining\n");
+                    ConsolePrinter.Error("Invalid. Please enter a positive number.");
+                    ConsolePrinter.Error($"{3 - tried} attempts remaining\n");
                     continue;
                 }
 
                 if (!decimal.TryParse(price, out decimal amount))
                 {
-                    Output.Error("Invalid. Please enter a valid number.");
-                    Output.Error($"{3 - tried} attempts remaining\n");
+                    ConsolePrinter.Error("Invalid. Please enter a valid number.");
+                    ConsolePrinter.Error($"{3 - tried} attempts remaining\n");
                     continue;
                 }
 
                 if (amount <= 0)
                 {
-                    Output.Error("Invalid. Price must be greater than 0.");
-                    Output.Error($"{3 - tried} attempts remaining\n");
+                    ConsolePrinter.Error("Invalid. Price must be greater than 0.");
+                    ConsolePrinter.Error($"{3 - tried} attempts remaining\n");
                     continue;
                 }
 
                 if (amount > 10000000)
                 {
-                    Output.Error("Invalid. Price cannot exceed 1 crore.");
-                    Output.Error($"{3 - tried} attempts remaining\n");
+                    ConsolePrinter.Error("Invalid. Price cannot exceed 1 crore.");
+                    ConsolePrinter.Error($"{3 - tried} attempts remaining\n");
                     continue;
                 }
 
@@ -90,18 +90,18 @@ namespace InventoryManager.View
 
                 if (string.IsNullOrWhiteSpace(input))
                 {
-                    Output.Error("Name cannot be empty.");
+                    ConsolePrinter.Error("Name cannot be empty.");
                 }
                 else if (!Regex.IsMatch(input, @"^[A-Za-z0-9 ]+$"))
                 {
-                    Output.Error("Name cannot contain special characters."); 
+                    ConsolePrinter.Error("Name cannot contain special characters."); 
                 }
                 else
                 {
                     return input.Trim();
                 }
 
-                Output.Error($"{3 - tried} attempts remaining\n");
+                ConsolePrinter.Error($"{3 - tried} attempts remaining\n");
             }
 
             return null;
@@ -121,8 +121,8 @@ namespace InventoryManager.View
                 {
                     if (quantity > 10000000)
                     {
-                        Output.Error("Invalid Quantity cannot exceed 1cr");
-                        Output.Error($"{3 - tried} attempts remaining\n");
+                        ConsolePrinter.Error("Invalid Quantity cannot exceed 1cr");
+                        ConsolePrinter.Error($"{3 - tried} attempts remaining\n");
                         continue;
                     }
                     else
@@ -132,8 +132,8 @@ namespace InventoryManager.View
                 }
                 else
                 {
-                    Output.Error("Invalid. Please enter a positive number.");
-                    Output.Error($"{3 - tried} attempts remaining\n");
+                    ConsolePrinter.Error("Invalid. Please enter a positive number.");
+                    ConsolePrinter.Error($"{3 - tried} attempts remaining\n");
                     continue;
                 }
             }
@@ -155,22 +155,22 @@ namespace InventoryManager.View
                 string? input = Console.ReadLine();
                 if (input == null)
                 {
-                    Output.Error("Invalid. Please enter a ID Similar to ABCD-0001.");
-                    Output.Error($"{3 - tried} attempts remaining\n");
+                    ConsolePrinter.Error("Invalid. Please enter a ID Similar to ABCD-0001.");
+                    ConsolePrinter.Error($"{3 - tried} attempts remaining\n");
                     continue;
                 }
 
                 if (!Regex.IsMatch(input, @"^[A-Za-z]{4}-\d+$"))
                 {
-                    Output.Error("Invalid. Please enter a ID Similar to ABCD-0001.");
-                    Output.Error($"{3 - tried} attempts remaining\n");
+                    ConsolePrinter.Error("Invalid. Please enter a ID Similar to ABCD-0001.");
+                    ConsolePrinter.Error($"{3 - tried} attempts remaining\n");
                     continue;
                 }
 
                 if (!isValid(input))
                 {
-                    Output.Error("Product Id already Exists.");
-                    Output.Error($"{3 - tried} attempts remaining\n");
+                    ConsolePrinter.Error("Product Id already Exists.");
+                    ConsolePrinter.Error($"{3 - tried} attempts remaining\n");
                     continue;
                 }
                 else
@@ -196,14 +196,14 @@ namespace InventoryManager.View
                 Console.Write(prompt);
                 if (!int.TryParse(Console.ReadLine(), out int number) || number > maxRange || number < minRange)
                 {
-                    Output.Error($"Invalid Number. Please enter a number between {minRange} to {maxRange}.");
+                    ConsolePrinter.Error($"Invalid Number. Please enter a number between {minRange} to {maxRange}.");
                 }
                 else
                 {
                     return number;
                 }
 
-                Output.Error($"{3 - tried} attempts remaining\n");
+                ConsolePrinter.Error($"{3 - tried} attempts remaining\n");
             }
 
             return null;

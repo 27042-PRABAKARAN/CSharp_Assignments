@@ -1,6 +1,6 @@
 ﻿using InventoryManager.Helper;
 using InventoryManager.Models.Enums;
-using InventoryManager.Persistence;
+using InventoryManager.Repository;
 using InventoryManager.Service;
 using InventoryManager.View;
 
@@ -74,17 +74,17 @@ namespace InventoryManager
 
                         case Choice.Exit:
                             {
-                                Output.Success("Exiting...");
+                                ConsolePrinter.Success("Exiting...");
                                 app = false;
                                 break;
                             }
 
-                        default: Output.Error("Enter Valid Input between 1-7"); break;
+                        default: ConsolePrinter.Error("Enter Valid Input between 1-7"); break;
                     }
                 }
                 catch (Exception e)
                 {
-                    Output.Error(e.Message);
+                    ConsolePrinter.Error(e.Message);
                 }
             }
         }
