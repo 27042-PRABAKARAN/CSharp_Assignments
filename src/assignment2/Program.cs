@@ -26,51 +26,58 @@ namespace ManagementSystem
             bool state = true;
             while (state)
             {
-                Console.WriteLine(@"========================
+                try
+                {
+                    Console.WriteLine(@"========================
 1. Shape Hierarchy.
 2. Employee Hierarchy.
 3. BankSystem.
 4. Exit.
 ========================");
-                int? choice = UserInput.ReadInt("Enter the choice : ", 1, 4);
-                if (choice == null)
-                {
-                    Console.WriteLine("Exiting App");
-                    break;
+                    int? choice = UserInput.ReadInt("Enter the choice : ", 1, 4);
+                    if (choice == null)
+                    {
+                        Console.WriteLine("Exiting App");
+                        break;
+                    }
+
+                    Application app = (Application)choice;
+                    switch (app)
+                    {
+                        case Application.ShapeHierarchy:
+                            {
+                                shape.ShapeOperations();
+                                break;
+                            }
+
+                        case Application.EmployeeHierarchy:
+                            {
+                                employee.EmployeeOperations();
+                                break;
+                            }
+
+                        case Application.BankSystem:
+                            {
+                                bankSystem.BankOperations();
+                                break;
+                            }
+
+                        case Application.Exit:
+                            {
+                                Console.WriteLine("Exiting");
+                                return;
+                            }
+
+                        default:
+                            {
+                                Output.Error("Enter a valid number");
+                                break;
+                            }
+                    }
                 }
-
-                Application app = (Application)choice;
-                switch (app)
+                catch (Exception exception)
                 {
-                    case Application.ShapeHierarchy:
-                        {
-                            shape.ShapeOperations();
-                            break;
-                        }
-
-                    case Application.EmployeeHierarchy:
-                        {
-                            employee.EmployeeOperations();
-                            break;
-                        }
-
-                    case Application.BankSystem:
-                        {
-                            bankSystem.BankOperations();
-                            break;
-                        }
-
-                    case Application.Exit:
-                        {
-                            Console.WriteLine("Exiting");
-                            return;
-                        }
-
-                    default:
-                        {
-                            Output.Error("Enter a valid number");
-                            break;
-                        }
+                    Console.WriteLine(exception.Message);
                 }
             }
         }
