@@ -50,6 +50,7 @@ namespace InventoryManager.View
             {
                 throw new InvalidOperationException("Invalid entry entered more than 3 times");
             }
+
             if (quantity > 100000)
             {
                 throw new ArgumentOutOfRangeException("Quantity cannot be more than 10 Lakh.");
@@ -107,7 +108,12 @@ namespace InventoryManager.View
             }
 
             index = index - 1;
-            Console.WriteLine("\n====================\n1.Update Name\n2.Update Price\n3.Update Quantity\n4.Exit\n====================");
+            Console.WriteLine(@"====================
+1.Update Name
+2.Update Price
+3.Update Quantity
+4.Exit
+====================");
             int? choice = UserInput.ReadInt("Enter the choice : ", 1, 4);
             if (choice == null)
             {
