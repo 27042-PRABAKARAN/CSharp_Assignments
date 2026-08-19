@@ -5,6 +5,8 @@
     /// </summary>
     public static class UserInput
     {
+        private const int _maxTries = 3;
+
         /// <summary>
         /// This reads the input
         /// </summary>
@@ -12,7 +14,7 @@
         /// <returns> returns string </returns>
         public static decimal? ReadAmount(string? prompt)
         {
-            for (int tried = 1; tried <= 3; tried++)
+            for (int tried = 1; tried <= _maxTries; tried++)
             {
                 Console.Write(prompt);
                 string? price = Console.ReadLine();
@@ -59,7 +61,7 @@
         {
             DateOnly today = DateOnly.FromDateTime(DateTime.Today);
 
-            for (int tried = 1; tried <= 3; tried++)
+            for (int tried = 1; tried <= _maxTries; tried++)
             {
                 Console.Write("Enter date (YYYY-MM-DD), (DD-MM-YYYY) or press Enter for today: ");
 
@@ -70,11 +72,22 @@
                     return today;
                 }
 
+                DateOnly baseDate = new DateOnly(1900, 1, 1);
                 if (DateOnly.TryParse(input, out DateOnly date))
                 {
-                    if (date <= today)
+                    if (date <= today && date >= baseDate)
                     {
                         return date;
+                    }
+
+                    if (date < baseDate)
+                    {
+                        Output.Error("dates before year n1900 are not allowed.");
+                    }
+
+                    if (date > today)
+                    {
+                        Output.Error("dates before year n1900 are not allowed.");
                     }
 
                     Output.Error("Future dates are not allowed.");
@@ -104,7 +117,7 @@
         /// <returns> returns read number </returns>
         public static int? ReadInt(string? prompt, int minRange, int maxRange)
         {
-            for (int tried = 1; tried <= 3; tried++)
+            for (int tried = 1; tried <= _maxTries; tried++)
             {
                 Console.Write(prompt);
                 if (!int.TryParse(Console.ReadLine(), out int number) || number > maxRange || number < minRange)
