@@ -55,11 +55,11 @@ namespace ExceptionHandling
             }
             catch (IndexOutOfRangeException)
             {
-                Console.WriteLine("Tried to access the index out of actual array");
+                throw new Exception("Tried to access the index out of actual array");
             }
             catch (Exception exception)
             {
-                Console.WriteLine(exception.ToString());
+                Console.WriteLine(exception.Message);
             }
             finally
             {
@@ -85,9 +85,9 @@ namespace ExceptionHandling
 
                 Console.WriteLine($"the divided value is {dividend / divisor}");
             }
-            catch (InvalidUserInputException)
+            catch (InvalidUserInputException exception)
             {
-                Console.WriteLine("division by Zero is not possible");
+                Console.WriteLine(exception.Message);
             }
             catch (DivideByZeroException)
             {
@@ -155,10 +155,12 @@ namespace ExceptionHandling
 
         private void UnhandledException(object sender, UnhandledExceptionEventArgs e)
         {
+            Console.WriteLine($"IsTerminating: {e.IsTerminating}");
             if (e.ExceptionObject is Exception exception)
             {
                 Console.WriteLine($"Exception Type: {exception.GetType().Name}");
                 Console.WriteLine($"Message: {exception.Message}");
+                Console.WriteLine($"Stack Trace:\n{exception.StackTrace}");
             }
             else
             {
