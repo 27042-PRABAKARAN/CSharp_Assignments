@@ -128,7 +128,7 @@ namespace ExpenseTracker.View
             }
 
             Console.WriteLine($"All {type} Records:");
-            Output.PrintTable(transactions);
+            Output.PrintTransactionTable(transactions);
         }
 
         /// <summary>
