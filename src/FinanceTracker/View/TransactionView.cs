@@ -1,4 +1,5 @@
-﻿using FinanceTracker.Model;
+﻿using System.Text.Json;
+using FinanceTracker.Model;
 using FinanceTracker.Model.Enums;
 using FinanceTracker.Service;
 
@@ -34,7 +35,9 @@ namespace FinanceTracker.View
 
             while (state)
             {
-                Console.WriteLine($@"
+                try
+                {
+                    Console.WriteLine($@"
 ===========MENU==========
 1. Add an {type}
 2. Delete an {type}
@@ -43,37 +46,50 @@ namespace FinanceTracker.View
 5. Exit
 =========================");
 
-                int? choice = UserInput.ReadInt("Enter your choice: ", 1, 5);
-                if (choice == null)
-                {
-                    return;
+                    int? choice = UserInput.ReadInt("Enter your choice: ", 1, 5);
+                    if (choice == null)
+                    {
+                        return;
+                    }
+
+                    switch ((TransactionOperations)choice)
+                    {
+                        case TransactionOperations.Add:
+                            this.CreateTransaction(type);
+                            UserInput.WaitAndClear();
+                            break;
+
+                        case TransactionOperations.Delete:
+                            this.DeleteTransaction(type);
+                            UserInput.WaitAndClear();
+                            break;
+
+                        case TransactionOperations.Update:
+                            this.UpdateTransaction(type);
+                            UserInput.WaitAndClear();
+                            break;
+
+                        case TransactionOperations.View:
+                            this.ViewAllTransaction(type);
+                            UserInput.WaitAndClear();
+                            break;
+
+                        case TransactionOperations.Exit:
+                            state = false;
+                            break;
+                    }
                 }
-
-                switch ((TransactionOperations)choice)
+                catch (JsonException)
                 {
-                    case TransactionOperations.Add:
-                        this.CreateTransaction(type);
-                        UserInput.WaitAndClear();
-                        break;
-
-                    case TransactionOperations.Delete:
-                        this.DeleteTransaction(type);
-                        UserInput.WaitAndClear();
-                        break;
-
-                    case TransactionOperations.Update:
-                        this.UpdateTransaction(type);
-                        UserInput.WaitAndClear();
-                        break;
-
-                    case TransactionOperations.View:
-                        this.ViewAllTransaction(type);
-                        UserInput.WaitAndClear();
-                        break;
-
-                    case TransactionOperations.Exit:
-                        state = false;
-                        break;
+                    Console.WriteLine("Json data to be loaded is inappropriate");
+                }
+                catch (IOException)
+                {
+                    Console.WriteLine("Cannot access the file location");
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine(exception.Message);
                 }
             }
         }
