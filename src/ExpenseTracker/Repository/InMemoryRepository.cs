@@ -1,8 +1,7 @@
-﻿using System.Transactions;
-using ExpenseTracker.Model;
+﻿using ExpenseTracker.Model;
 using ExpenseTracker.Model.Enums;
 
-namespace ExpenseTracker.Persistence
+namespace ExpenseTracker.Repository
 {
     /// <summary>
     /// In memory Repository

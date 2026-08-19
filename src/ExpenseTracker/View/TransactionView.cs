@@ -302,10 +302,10 @@ namespace ExpenseTracker.View
         /// </returns>
         private string? ReadCategory(TransactionType type)
         {
+            Console.WriteLine($"Enter Category of {type}: ");
             if (type == TransactionType.Income)
             {
-                Console.WriteLine(@"
-1. Salary
+                Console.WriteLine(@"1. Salary
 2. Investment Returns
 3. Bonus
 4. Others");
@@ -319,8 +319,7 @@ namespace ExpenseTracker.View
                 return ((IncomeType)choice.Value).ToString();
             }
 
-            Console.WriteLine(@"
-1. Food
+            Console.WriteLine(@"1. Food
 2. Travel
 3. Emergency
 4. Health");

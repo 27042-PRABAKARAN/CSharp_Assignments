@@ -1,4 +1,4 @@
-﻿using ExpenseTracker.Persistence;
+﻿using ExpenseTracker.Repository;
 
 namespace ExpenseTracker.Service
 {

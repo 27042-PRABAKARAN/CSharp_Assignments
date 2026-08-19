@@ -1,8 +1,6 @@
-﻿using System.Xml.Linq;
-using ExpenseTracker.Model;
-using ExpenseTracker.Model.Enums;
+﻿using ExpenseTracker.Model;
 
-namespace ExpenseTracker.Persistence
+namespace ExpenseTracker.Repository
 {
     /// <summary>
     /// Defines data operations for managing incomes and expenses.
