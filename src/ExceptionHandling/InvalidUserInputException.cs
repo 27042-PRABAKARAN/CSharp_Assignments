@@ -9,13 +9,13 @@ namespace ExceptionHandling
     /// <summary>
     /// Custom Exception created
     /// </summary>
-    internal class UserInputException : Exception
+    internal class InvalidUserInputException : Exception
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="UserInputException"/> class.
+        /// Initializes a new instance of the <see cref="InvalidUserInputException"/> class.
         /// </summary>
         /// <param name="message"> Exception message </param>
-        public UserInputException(string? message)
+        public InvalidUserInputException(string? message)
             : base(message)
         {
         }

@@ -80,12 +80,12 @@ namespace ExceptionHandling
                 double? divisor = UserInput.ReadDouble("Enter divisor: ");
                 if (dividend == null || divisor == null)
                 {
-                    throw new UserInputException("User did not enter proper value");
+                    throw new InvalidUserInputException("User did not enter proper value");
                 }
 
                 Console.WriteLine($"the divided value is {dividend / divisor}");
             }
-            catch (UserInputException)
+            catch (InvalidUserInputException)
             {
                 Console.WriteLine("division by Zero is not possible");
             }
@@ -101,6 +101,68 @@ namespace ExceptionHandling
             {
                 Console.WriteLine("Enter any key exit Task 3");
                 Console.ReadKey();
+            }
+        }
+
+        /// <summary>
+        /// Unhandled exception
+        /// </summary>
+        public void Task4()
+        {
+            AppDomain.CurrentDomain.UnhandledException += this.UnhandledException;
+            Console.WriteLine("Throwing an unhandled exception...");
+            throw new InvalidOperationException("Something went wrong!");
+        }
+
+        /// <summary>
+        /// Unhandled exception
+        /// </summary>
+        public void Task5()
+        {
+            AppDomain.CurrentDomain.UnhandledException += this.UnhandledException;
+            try
+            {
+                Console.WriteLine("Enter 1st Number : ");
+                double? dividend = UserInput.ReadDouble("Enter dividend: ");
+                double? divisor = UserInput.ReadDouble("Enter divisor: ");
+                if (dividend == null || divisor == null)
+                {
+                    throw new InvalidUserInputException("User did not enter proper value");
+                }
+
+                Console.WriteLine($"the divided value is {dividend / divisor}");
+            }
+            catch (InvalidUserInputException)
+            {
+                Console.WriteLine("division by Zero is not possible");
+            }
+            catch (DivideByZeroException)
+            {
+                Console.WriteLine("division by Zero is not possible");
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Invalid entry entered More than given tries");
+            }
+            finally
+            {
+                Console.WriteLine("Division operation is done");
+            }
+
+            Console.WriteLine("Throwing an unhandled exception...");
+            throw new InvalidOperationException("Something went wrong!");
+        }
+
+        private void UnhandledException(object sender, UnhandledExceptionEventArgs e)
+        {
+            if (e.ExceptionObject is Exception exception)
+            {
+                Console.WriteLine($"Exception Type: {exception.GetType().Name}");
+                Console.WriteLine($"Message: {exception.Message}");
+            }
+            else
+            {
+                Console.WriteLine("exception is not thrown");
             }
         }
     }
