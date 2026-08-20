@@ -1,17 +1,71 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using ExceptionHandling.Helper;
-
-namespace ExceptionHandling
+﻿namespace ExceptionHandling
 {
     /// <summary>
     /// Division Exception error
     /// </summary>
-    internal class DivisionException
+    internal class Tasks
     {
+        /// <summary>
+        /// To choose a task to run
+        /// </summary>
+        public void ChooseTask()
+        {
+            Console.WriteLine("Hey User,");
+            bool state = true;
+            while (state)
+            {
+                Console.WriteLine(@"=================
+1. Task - 1
+2. Task - 2
+3. Task - 3
+4. Task - 4
+5. Task - 5
+6. Exit
+=================
+");
+                int? choice = UserInput.ReadChoice("Enter choice : ");
+                if (choice == null)
+                {
+                    Console.WriteLine("Enter Valid Input");
+                    continue;
+                }
+
+                TaskList task = (TaskList)choice;
+                switch (task)
+                {
+                    case TaskList.Task1:
+                        {
+                            this.Task1();
+                            break;
+                        }
+
+                    case TaskList.Task2:
+                        {
+                            this.Task2();
+                            break;
+                        }
+
+                    case TaskList.Task3:
+                        {
+                            this.Task3();
+                            break;
+                        }
+
+                    case TaskList.Task4:
+                        {
+                            this.Task4();
+                            break;
+                        }
+
+                    case TaskList.Task5:
+                        {
+                            this.Task5();
+                            break;
+                        }
+                }
+            }
+        }
+
         /// <summary>
         /// Division by zero exception
         /// </summary>
@@ -20,8 +74,8 @@ namespace ExceptionHandling
             try
             {
                 Console.WriteLine("Enter 1st Number : ");
-                double? dividend = UserInput.ReadDouble("Enter dividend: ");
-                double? divisor = UserInput.ReadDouble("Enter divisor: ");
+                double? dividend = UserInput.ReadInt("Enter dividend: ");
+                double? divisor = UserInput.ReadInt("Enter divisor: ");
                 Console.WriteLine($"the divided value is {dividend / divisor}");
             }
             catch (DivideByZeroException)
@@ -76,8 +130,8 @@ namespace ExceptionHandling
             try
             {
                 Console.WriteLine("Enter 1st Number : ");
-                double? dividend = UserInput.ReadDouble("Enter dividend: ");
-                double? divisor = UserInput.ReadDouble("Enter divisor: ");
+                int? dividend = UserInput.ReadInt("Enter dividend: ");
+                int? divisor = UserInput.ReadInt("Enter divisor: ");
                 if (dividend == null || divisor == null)
                 {
                     throw new InvalidUserInputException("User did not enter proper value");
@@ -123,8 +177,8 @@ namespace ExceptionHandling
             try
             {
                 Console.WriteLine("Enter 1st Number : ");
-                double? dividend = UserInput.ReadDouble("Enter dividend: ");
-                double? divisor = UserInput.ReadDouble("Enter divisor: ");
+                int? dividend = UserInput.ReadInt("Enter dividend: ");
+                int? divisor = UserInput.ReadInt("Enter divisor: ");
                 if (dividend == null || divisor == null)
                 {
                     throw new InvalidUserInputException("User did not enter proper value");

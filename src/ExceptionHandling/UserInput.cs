@@ -1,133 +1,164 @@
-﻿namespace ExceptionHandling.Helper
+﻿namespace ExceptionHandling
 {
     /// <summary>
-    /// Input class for taking inputs
+    /// User input class to read input from users
     /// </summary>
     public static class UserInput
     {
-        /// <summary>
-        /// this reads the input
-        /// </summary>
-        /// <param name="prompt"> the prompt for the input </param>
-        /// <returns> returns string </returns>
-        public static decimal? ReadCapital(string? prompt)
-        {
-            for (int tried = 1; tried <= 3; tried++)
-            {
-                Console.Write(prompt);
-                if (!decimal.TryParse(Console.ReadLine(), out decimal amount) || amount < 5000)
-                {
-                    Output.Error("Invalid Amount. Minimum balance is 5000 Rupees.");
-                }
-                else
-                {
-                    return amount;
-                }
-
-                Output.Error($"{3 - tried} attempts remaining\n");
-            }
-
-            return null;
-        }
+        private const int _maxTries = 3;
 
         /// <summary>
-        /// this reads the input
+        /// This reads the input
         /// </summary>
         /// <param name="prompt"> the prompt for the input </param>
         /// <returns> returns string </returns>
         public static decimal? ReadAmount(string? prompt)
         {
-            for (int tried = 1; tried <= 3; tried++)
+            for (int tried = 1; tried <= _maxTries; tried++)
             {
                 Console.Write(prompt);
-                if (!decimal.TryParse(Console.ReadLine(), out decimal amount) || amount <= 0)
+                string? price = Console.ReadLine();
+                if (price == null)
                 {
-                    Output.Error("Invalid Amount. Please enter a positive number.");
-                }
-                else
-                {
-                    return amount;
+                    ConsolePrinter.Error("Invalid. Please enter a positive number.");
+                    ConsolePrinter.Error($"{3 - tried} attempts remaining\n");
+                    continue;
                 }
 
-                Output.Error($"{3 - tried} attempts remaining\n");
+                if (!decimal.TryParse(price, out decimal amount))
+                {
+                    ConsolePrinter.Error("Invalid. Please enter a valid number.");
+                    ConsolePrinter.Error($"{3 - tried} attempts remaining\n");
+                    continue;
+                }
+
+                if (amount <= 0)
+                {
+                    ConsolePrinter.Error("Invalid. Price must be greater than 0.");
+                    ConsolePrinter.Error($"{3 - tried} attempts remaining\n");
+                    continue;
+                }
+
+                if (amount > 10000000000)
+                {
+                    ConsolePrinter.Error("Invalid. Price cannot exceed 1000 crore.");
+                    ConsolePrinter.Error($"{3 - tried} attempts remaining\n");
+                    continue;
+                }
+
+                return amount;
             }
 
             return null;
         }
 
         /// <summary>
-        /// this reads Double value.
+        /// This reads the Date
+        /// </summary>
+        /// <param name="prompt"> the prompt for the input </param>
+        /// <returns> returns amount </returns>
+        public static DateOnly? ReadDate()
+        {
+            DateOnly today = DateOnly.FromDateTime(DateTime.Today);
+
+            for (int tried = 1; tried <= _maxTries; tried++)
+            {
+                Console.Write("Enter date (YYYY-MM-DD), (DD-MM-YYYY) or press Enter for today: ");
+
+                string? input = Console.ReadLine()?.Trim();
+
+                if (string.IsNullOrEmpty(input))
+                {
+                    return today;
+                }
+
+                DateOnly baseDate = new DateOnly(1900, 1, 1);
+                if (DateOnly.TryParse(input, out DateOnly date))
+                {
+                    if (date <= today && date >= baseDate)
+                    {
+                        return date;
+                    }
+
+                    if (date < baseDate)
+                    {
+                        ConsolePrinter.Error("dates before year 1900 are not allowed.");
+                    }
+
+                    if (date > today)
+                    {
+                        ConsolePrinter.Error("dates before year n1900 are not allowed.");
+                    }
+
+                    ConsolePrinter.Error("Future dates are not allowed.");
+                }
+                else
+                {
+                    ConsolePrinter.Error("Invalid date.");
+                }
+
+                int remaining = 3 - tried;
+
+                if (remaining > 0)
+                {
+                    Console.WriteLine($"{remaining} attempt(s) remaining.\n");
+                }
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// This reads number.
         /// </summary>
         /// <param name="prompt"> to prompt the message </param>
-        /// <returns>long value</returns>
-        public static double? ReadDouble(string? prompt)
+        /// <returns> returns read number </returns>
+        public static int? ReadInt(string? prompt)
         {
-            for (int tried = 1; tried <= 3; tried++)
+            for (int tried = 1; tried <= _maxTries; tried++)
             {
                 Console.Write(prompt);
-                if (!double.TryParse(Console.ReadLine(), out double number))
+                if (!int.TryParse(Console.ReadLine(), out int number))
                 {
-                    Output.Error($"Invalid Number.");
+                    ConsolePrinter.Error($"Invalid Number.");
                 }
                 else
                 {
                     return number;
                 }
 
-                Output.Error($"{3 - tried} attempts remaining\n");
+                ConsolePrinter.Error($"{3 - tried} attempts remaining\n");
             }
 
             return null;
         }
 
         /// <summary>
-        /// this reads salary.
+        /// This reads choice.
         /// </summary>
         /// <param name="prompt"> to prompt the message </param>
         /// <returns> returns read number </returns>
-        public static double? ReadSalary(string? prompt)
+        public static int? ReadChoice(string? prompt)
         {
-            for (int tried = 1; tried <= 3; tried++)
+            Console.Write(prompt);
+            if (!int.TryParse(Console.ReadLine(), out int number))
             {
-                Console.Write(prompt);
-                if (!double.TryParse(Console.ReadLine(), out double salary) || salary <= 0)
-                {
-                    Output.Error($"Invalid Salary. Please enter a Salary more than 0.");
-                }
-                else
-                {
-                    return salary;
-                }
-
-                Output.Error($"{3 - tried} attempts remaining\n");
+                return null;
             }
-
-            return null;
+            else
+            {
+                return number;
+            }
         }
 
         /// <summary>
-        /// this reads Meters.
+        /// To wait until user enters key
         /// </summary>
-        /// <param name="prompt"> to prompt the message </param>
-        /// <returns> returns read number </returns>
-        public static double? ReadMetres(string? prompt)
+        public static void WaitAndClear()
         {
-            for (int tried = 1; tried <= 3; tried++)
-            {
-                Console.Write(prompt);
-                if (!double.TryParse(Console.ReadLine(), out double meters) || meters <= 0)
-                {
-                    Output.Error($"Invalid Entry. meters should be an number more than 0.");
-                }
-                else
-                {
-                    return meters;
-                }
-
-                Output.Error($"{3 - tried} attempts remaining\n");
-            }
-
-            return null;
+            Console.Write("Enter any key to return to menu");
+            Console.ReadKey();
+            Console.Clear();
         }
     }
 }

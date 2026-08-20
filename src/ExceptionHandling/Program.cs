@@ -1,10 +1,14 @@
-﻿namespace Assignments
+﻿namespace ExceptionHandling
 {
+    /// <summary>
+    /// Program class
+    /// </summary>
     internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            
+            Tasks task = new ();
+            task.ChooseTask();
         }
     }
 }
