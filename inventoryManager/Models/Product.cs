@@ -43,5 +43,14 @@
         /// </summary>
         /// <value> stores the quantity </value>
         public long Quantity { get; set; }
+
+        /// <summary>
+        /// To clone the product
+        /// </summary>
+        /// <returns> the cloned product reference</returns>
+        public Product Clone()
+        {
+            return new Product(this.Id, this.Name, this.Price, this.Quantity);
+        }
     }
 }

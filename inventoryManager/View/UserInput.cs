@@ -117,7 +117,7 @@ namespace InventoryManager.View
             for (int tried = 1; tried <= 3; tried++)
             {
                 Console.Write(prompt);
-                if (long.TryParse(Console.ReadLine(), out long quantity))
+                if (long.TryParse(Console.ReadLine(), out long quantity) && quantity >= 0)
                 {
                     if (quantity > 10000000)
                     {
@@ -132,7 +132,7 @@ namespace InventoryManager.View
                 }
                 else
                 {
-                    ConsolePrinter.Error("Invalid. Please enter a positive number.");
+                    ConsolePrinter.Error("Invalid. Please enter a Non negative number.");
                     ConsolePrinter.Error($"{3 - tried} attempts remaining\n");
                     continue;
                 }
@@ -167,7 +167,7 @@ namespace InventoryManager.View
                     continue;
                 }
 
-                if (!isValid(input))
+                if (isValid(input))
                 {
                     ConsolePrinter.Error("Product Id already Exists.");
                     ConsolePrinter.Error($"{3 - tried} attempts remaining\n");

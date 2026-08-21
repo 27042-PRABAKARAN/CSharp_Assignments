@@ -27,7 +27,7 @@ namespace InventoryManager.Repository
         /// <returns> the status of deletion </returns>
         public bool RemoveProduct(string id)
         {
-            Product? product = this.GetProductById(id);
+            Product? product = this._products.FirstOrDefault(product => product.Id == id);
             if (product != null)
             {
                 this._products.Remove(product);
@@ -44,11 +44,7 @@ namespace InventoryManager.Repository
         /// <returns> enumerable list of found elements </returns>
         public List<Product> SearchProducts(string name)
         {
-            return this._products.Where(record => record.Name != null && (record.Name.Contains(name, StringComparison.OrdinalIgnoreCase) || record.Id.Contains(name, StringComparison.OrdinalIgnoreCase))).Select(product => new Product(
-                product.Id,
-                product.Name,
-                product.Price,
-                product.Quantity)).ToList();
+            return this._products.Where(record => record.Name != null && (record.Name.Contains(name, StringComparison.OrdinalIgnoreCase) || record.Id.Contains(name, StringComparison.OrdinalIgnoreCase))).Select(product => product.Clone()).ToList();
         }
 
         /// <summary>
@@ -57,11 +53,7 @@ namespace InventoryManager.Repository
         /// <returns> returns enumerable list of products available </returns>
         public IEnumerable<Product> GetAll()
         {
-            return this._products.Select(p => new Product(
-                p.Id,
-                p.Name,
-                p.Price,
-                p.Quantity)).ToList();
+            return this._products.Select(product => product.Clone());
         }
 
         /// <summary>
@@ -71,7 +63,7 @@ namespace InventoryManager.Repository
         /// <returns> the status of the product update </returns>
         public bool UpdateProduct(Product updateProduct)
         {
-            Product? product = this.GetProductById(updateProduct.Id);
+            Product? product = this._products.FirstOrDefault(product => product.Id == updateProduct.Id);
             if (product != null)
             {
                 product.Name = updateProduct.Name;
@@ -83,9 +75,14 @@ namespace InventoryManager.Repository
             return false;
         }
 
-        private Product? GetProductById(string id)
+        /// <summary>
+        /// To create a cloned copy of found product
+        /// </summary>
+        /// <param name="id"> Id of the product to be found</param>
+        /// <returns>A cloned copy of found product</returns>
+        public Product? GetProductById(string id)
         {
-            return this._products.FirstOrDefault(product => product.Id == id);
+            return this._products.FirstOrDefault(product => product.Id == id)?.Clone();
         }
     }
 }

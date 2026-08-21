@@ -51,11 +51,6 @@ namespace InventoryManager.View
                 throw new InvalidOperationException("Invalid entry entered more than 3 times");
             }
 
-            if (quantity > 100000)
-            {
-                throw new ArgumentOutOfRangeException("Quantity cannot be more than 10 Lakh.");
-            }
-
             this._inventoryServices.CreateProduct(name, id, (decimal)price, (long)quantity);
             ConsolePrinter.Success("Created product successfully");
         }

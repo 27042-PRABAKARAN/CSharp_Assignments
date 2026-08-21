@@ -14,7 +14,6 @@ namespace InventoryManager
         /// <summary>
         /// main function.
         /// </summary>
-        /// <param name="args"> terminal arguments </param>
         public static void Main()
         {
             InventoryRepository repository = new ();

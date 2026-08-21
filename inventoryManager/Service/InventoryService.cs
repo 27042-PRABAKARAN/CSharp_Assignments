@@ -72,7 +72,7 @@ namespace InventoryManager.Service
         /// <returns> status of the update</returns>
         public bool UpdateProduct(string id, long value)
         {
-            Product? product = this.GetProduct(id);
+            Product? product = this._repository.GetProductById(id);
             if (product == null)
             {
                 return false;
@@ -90,7 +90,7 @@ namespace InventoryManager.Service
         /// <returns> status of the update</returns>
         public bool UpdateProduct(string id, decimal value)
         {
-            Product? product = this.GetProduct(id);
+            Product? product = this._repository.GetProductById(id);
             if (product == null)
             {
                 return false;
@@ -108,7 +108,7 @@ namespace InventoryManager.Service
         /// <returns> status of the update</returns>
         public bool UpdateProduct(string id, string value)
         {
-            Product? product = this.GetProduct(id);
+            Product? product = this._repository.GetProductById(id);
             if (product == null)
             {
                 return false;
@@ -134,18 +134,13 @@ namespace InventoryManager.Service
         }
 
         /// <summary>
-        /// to check that the product id already exist.
+        /// Checks if a product with the specified ID already exists.
         /// </summary>
-        /// <param name="id"> the product id</param>
-        /// <returns> true if product of same id exist else returns false</returns>
+        /// <param name="id">The product ID.</param>
+        /// <returns>True if a product with the same ID exists; otherwise, false.</returns>
         public bool IsIdExists(string id)
         {
-            return this.GetProduct(id) == null;
-        }
-
-        private Product? GetProduct(string id)
-        {
-            return this._repository.GetAll().FirstOrDefault(product => product.Id == id);
+            return this._repository.GetProductById(id) != null;
         }
     }
 }
