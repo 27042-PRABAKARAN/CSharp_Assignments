@@ -122,7 +122,7 @@ namespace FinanceTracker.Service
         /// <returns> returns list of transaction </returns>
         private TransactionInfo? GetTransactionById(string id)
         {
-            TransactionInfo? transaction = this.GetAllExpenses().FirstOrDefault(transaction => transaction.Id.Equals(id)); Expand commentComment on line R143Resolved
+            TransactionInfo? transaction = this.GetAllExpenses().FirstOrDefault(transaction => transaction.Id.Equals(id))
             if (transaction == null)
             {
                 transaction = this.GetAllIncomes().FirstOrDefault(transaction => transaction.Id.Equals(id));

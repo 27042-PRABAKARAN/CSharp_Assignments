@@ -73,7 +73,12 @@ namespace FinanceTracker.View
                             loop = false;
                             break;
                         }
-                    default: Console.WriteLine("Enter a valid number between 1 to 4");break;
+
+                    default:
+                        {
+                        Console.WriteLine("Enter a valid number between 1 to 4");
+                        break;
+                        }
                 }
             }
         }
