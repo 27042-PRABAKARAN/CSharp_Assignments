@@ -21,28 +21,28 @@
                 if (price == null)
                 {
                     Output.Error("Invalid. Please enter a positive number.");
-                    Output.Error($"{3 - tried} attempts remaining\n");
+                    Output.Error($"{_maxTries - tried} attempts remaining\n");
                     continue;
                 }
 
                 if (!decimal.TryParse(price, out decimal amount))
                 {
                     Output.Error("Invalid. Please enter a valid number.");
-                    Output.Error($"{3 - tried} attempts remaining\n");
+                    Output.Error($"{_maxTries - tried} attempts remaining\n");
                     continue;
                 }
 
                 if (amount <= 0)
                 {
                     Output.Error("Invalid. Price must be greater than 0.");
-                    Output.Error($"{3 - tried} attempts remaining\n");
+                    Output.Error($"{_maxTries - tried} attempts remaining\n");
                     continue;
                 }
 
                 if (amount > 10000000000)
                 {
                     Output.Error("Invalid. Price cannot exceed 1000 crore.");
-                    Output.Error($"{3 - tried} attempts remaining\n");
+                    Output.Error($"{_maxTries - tried} attempts remaining\n");
                     continue;
                 }
 
@@ -79,25 +79,21 @@
                     {
                         return date;
                     }
-
-                    if (date < baseDate)
+                    else if (date < baseDate)
                     {
-                        Output.Error("dates before year n1900 are not allowed.");
+                        Output.Error("dates before year 1900 are not allowed.");
                     }
-
-                    if (date > today)
+                    else if (date > today)
                     {
-                        Output.Error("dates before year n1900 are not allowed.");
+                        Output.Error("Future dates are not allowed.");
                     }
-
-                    Output.Error("Future dates are not allowed.");
                 }
                 else
                 {
                     Output.Error("Invalid date.");
                 }
 
-                int remaining = 3 - tried;
+                int remaining = _maxTries - tried;
 
                 if (remaining > 0)
                 {
@@ -129,7 +125,7 @@
                     return number;
                 }
 
-                Output.Error($"{3 - tried} attempts remaining\n");
+                Output.Error($"{_maxTries - tried} attempts remaining\n");
             }
 
             return null;
