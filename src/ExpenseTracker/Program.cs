@@ -2,7 +2,7 @@
 using ExpenseTracker.Service;
 using ExpenseTracker.View;
 
-namespace Assignments
+namespace ExpenseTracker
 {
     /// <summary>
     /// Program class

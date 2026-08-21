@@ -73,6 +73,8 @@ Welcome to Finance tracker");
                             loop = false;
                             break;
                         }
+
+                    default: Console.WriteLine("Enter Valid Number from 1 to 4"); break;
                 }
             }
         }

@@ -140,7 +140,13 @@ namespace ExpenseTracker.Service
         /// <returns> returns list of transaction </returns>
         private TransactionInfo? GetTransactionById(string id)
         {
-            return this.GetAllExpenses().FirstOrDefault(transaction => transaction.Id.Equals(id));
+            TransactionInfo? transaction = this.GetAllExpenses().FirstOrDefault(transaction => transaction.Id.Equals(id));
+            if (transaction == null)
+            {
+                transaction = this.GetAllIncomes().FirstOrDefault(transaction => transaction.Id.Equals(id));
+            }
+
+            return transaction;
         }
     }
 }
