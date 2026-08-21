@@ -1,4 +1,6 @@
-﻿namespace ExceptionHandling
+﻿using ExceptionHandling.Enums;
+
+namespace ExceptionHandling
 {
     /// <summary>
     /// Division Exception error
@@ -14,7 +16,9 @@
             bool state = true;
             while (state)
             {
-                Console.WriteLine(@"=================
+                try
+                {
+                    Console.WriteLine(@"=================
 1. Task - 1
 2. Task - 2
 3. Task - 3
@@ -23,45 +27,50 @@
 6. Exit
 =================
 ");
-                int? choice = UserInput.ReadChoice("Enter choice : ");
-                if (choice == null)
-                {
-                    Console.WriteLine("Enter Valid Input");
-                    continue;
+                    int? choice = UserInput.ReadChoice("Enter choice : ");
+                    if (choice == null)
+                    {
+                        Console.WriteLine("Enter Valid Input");
+                        continue;
+                    }
+
+                    TaskList task = (TaskList)choice;
+                    switch (task)
+                    {
+                        case TaskList.Task1:
+                            {
+                                this.Task1();
+                                break;
+                            }
+
+                        case TaskList.Task2:
+                            {
+                                this.Task2();
+                                break;
+                            }
+
+                        case TaskList.Task3:
+                            {
+                                this.Task3();
+                                break;
+                            }
+
+                        case TaskList.Task4:
+                            {
+                                this.Task4();
+                                break;
+                            }
+
+                        case TaskList.Task5:
+                            {
+                                this.Task5();
+                                break;
+                            }
+                    }
                 }
-
-                TaskList task = (TaskList)choice;
-                switch (task)
+                catch (Exception exception)
                 {
-                    case TaskList.Task1:
-                        {
-                            this.Task1();
-                            break;
-                        }
-
-                    case TaskList.Task2:
-                        {
-                            this.Task2();
-                            break;
-                        }
-
-                    case TaskList.Task3:
-                        {
-                            this.Task3();
-                            break;
-                        }
-
-                    case TaskList.Task4:
-                        {
-                            this.Task4();
-                            break;
-                        }
-
-                    case TaskList.Task5:
-                        {
-                            this.Task5();
-                            break;
-                        }
+                    Console.WriteLine("Exception: ", exception.Message);
                 }
             }
         }
@@ -73,9 +82,8 @@
         {
             try
             {
-                Console.WriteLine("Enter 1st Number : ");
-                double? dividend = UserInput.ReadInt("Enter dividend: ");
-                double? divisor = UserInput.ReadInt("Enter divisor: ");
+                int? dividend = UserInput.ReadInt("Enter dividend: ");
+                int? divisor = UserInput.ReadInt("Enter divisor: ");
                 Console.WriteLine($"the divided value is {dividend / divisor}");
             }
             catch (DivideByZeroException)
@@ -88,7 +96,7 @@
             }
             finally
             {
-                Console.WriteLine("Enter any key exit division calculator");
+                Console.WriteLine("Enter any key exit Task1");
                 Console.ReadKey();
             }
         }
@@ -129,7 +137,6 @@
         {
             try
             {
-                Console.WriteLine("Enter 1st Number : ");
                 int? dividend = UserInput.ReadInt("Enter dividend: ");
                 int? divisor = UserInput.ReadInt("Enter divisor: ");
                 if (dividend == null || divisor == null)

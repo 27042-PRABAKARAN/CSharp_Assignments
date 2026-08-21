@@ -1,4 +1,4 @@
-﻿namespace ExceptionHandling
+﻿namespace ExceptionHandling.Enums
 {
     /// <summary>
     /// List of Tasks
@@ -8,7 +8,7 @@
         /// <summary>
         /// Task 1
         /// </summary>
-        Task1,
+        Task1 = 1,
 
         /// <summary>
         /// Task 2
@@ -29,6 +29,5 @@
         /// Task 5
         /// </summary>
         Task5,
-
     }
 }
