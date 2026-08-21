@@ -44,24 +44,6 @@ namespace FinanceTracker.Service
         }
 
         /// <summary>
-        /// To check if the income is empty
-        /// </summary>
-        /// <returns> status of income </returns>
-        public bool IsEmptyIncome()
-        {
-            return this._repository.IsEmptyIncome();
-        }
-
-        /// <summary>
-        /// Check if the expense is empty
-        /// </summary>
-        /// <returns> status of expense </returns>
-        public bool IsEmptyExpense()
-        {
-            return this._repository.IsEmptyExpense();
-        }
-
-        /// <summary>
         /// To fetch all expenses
         /// </summary>
         /// <returns>list of expenses</returns>
@@ -140,7 +122,13 @@ namespace FinanceTracker.Service
         /// <returns> returns list of transaction </returns>
         private TransactionInfo? GetTransactionById(string id)
         {
-            return this.GetAllExpenses().FirstOrDefault(transaction => transaction.Id.Equals(id));
+            TransactionInfo? transaction = this.GetAllExpenses().FirstOrDefault(transaction => transaction.Id.Equals(id)); Expand commentComment on line R143Resolved
+            if (transaction == null)
+            {
+                transaction = this.GetAllIncomes().FirstOrDefault(transaction => transaction.Id.Equals(id));
+            }
+
+            return transaction;
         }
     }
 }

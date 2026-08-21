@@ -34,7 +34,7 @@ namespace FinanceTracker.View
             Console.WriteLine($@"=========Summary========
 Total Income: {income}
 Total Expense: {expense}
-");
+========================");
             Console.WriteLine(this._dashboardServices.GetSummary());
         }
     }

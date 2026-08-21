@@ -5,6 +5,8 @@
     /// </summary>
     public static class UserInput
     {
+        private const int _maxTries = 3;
+
         /// <summary>
         /// This reads the input
         /// </summary>
@@ -12,35 +14,35 @@
         /// <returns> returns string </returns>
         public static decimal? ReadAmount(string? prompt)
         {
-            for (int tried = 1; tried <= 3; tried++)
+            for (int tried = 1; tried <= _maxTries; tried++)
             {
                 Console.Write(prompt);
                 string? price = Console.ReadLine();
                 if (price == null)
                 {
                     Output.Error("Invalid. Please enter a positive number.");
-                    Output.Error($"{3 - tried} attempts remaining\n");
+                    Output.Error($"{_maxTries - tried} attempts remaining\n");
                     continue;
                 }
 
                 if (!decimal.TryParse(price, out decimal amount))
                 {
                     Output.Error("Invalid. Please enter a valid number.");
-                    Output.Error($"{3 - tried} attempts remaining\n");
+                    Output.Error($"{_maxTries - tried} attempts remaining\n");
                     continue;
                 }
 
                 if (amount <= 0)
                 {
                     Output.Error("Invalid. Price must be greater than 0.");
-                    Output.Error($"{3 - tried} attempts remaining\n");
+                    Output.Error($"{_maxTries - tried} attempts remaining\n");
                     continue;
                 }
 
                 if (amount > 10000000000)
                 {
                     Output.Error("Invalid. Price cannot exceed 1000 crore.");
-                    Output.Error($"{3 - tried} attempts remaining\n");
+                    Output.Error($"{_maxTries - tried} attempts remaining\n");
                     continue;
                 }
 
@@ -59,7 +61,7 @@
         {
             DateOnly today = DateOnly.FromDateTime(DateTime.Today);
 
-            for (int tried = 1; tried <= 3; tried++)
+            for (int tried = 1; tried <= _maxTries; tried++)
             {
                 Console.Write("Enter date (YYYY-MM-DD), (DD-MM-YYYY) or press Enter for today: ");
 
@@ -70,21 +72,28 @@
                     return today;
                 }
 
+                DateOnly baseDate = new DateOnly(1900, 1, 1);
                 if (DateOnly.TryParse(input, out DateOnly date))
                 {
-                    if (date <= today)
+                    if (date <= today && date >= baseDate)
                     {
                         return date;
                     }
-
-                    Output.Error("Future dates are not allowed.");
+                    else if (date < baseDate)
+                    {
+                        Output.Error("dates before year 1900 are not allowed.");
+                    }
+                    else if (date > today)
+                    {
+                        Output.Error("Future dates are not allowed.");
+                    }
                 }
                 else
                 {
                     Output.Error("Invalid date.");
                 }
 
-                int remaining = 3 - tried;
+                int remaining = _maxTries - tried;
 
                 if (remaining > 0)
                 {
@@ -104,7 +113,7 @@
         /// <returns> returns read number </returns>
         public static int? ReadInt(string? prompt, int minRange, int maxRange)
         {
-            for (int tried = 1; tried <= 3; tried++)
+            for (int tried = 1; tried <= _maxTries; tried++)
             {
                 Console.Write(prompt);
                 if (!int.TryParse(Console.ReadLine(), out int number) || number > maxRange || number < minRange)
@@ -116,7 +125,7 @@
                     return number;
                 }
 
-                Output.Error($"{3 - tried} attempts remaining\n");
+                Output.Error($"{_maxTries - tried} attempts remaining\n");
             }
 
             return null;
