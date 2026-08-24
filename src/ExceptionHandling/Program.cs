@@ -5,7 +5,7 @@
     /// </summary>
     internal class Program
     {
-        private static void Main(string[] args)
+        private static void Main()
         {
             Tasks task = new ();
             task.ChooseTask();

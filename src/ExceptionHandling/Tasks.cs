@@ -258,8 +258,7 @@ GLOBAL UNHANDLED EXCEPTION HANDLER
         }
 
         /// <summary>
-        /// Pauses the console so that the task output
-        /// can be viewed before returning to the menu.
+        /// Pauses the console so that the task output can be viewed before returning to the menu.
         /// </summary>
         private void Pause()
         {
