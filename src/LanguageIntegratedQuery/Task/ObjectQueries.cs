@@ -1,8 +1,10 @@
 ﻿namespace LanguageIntegratedQuery.Task
 {
+    /// <summary>
+    /// Object Queries
+    /// </summary>
     internal class ObjectQueries
     {
-
         /// <summary>
         /// Task 3
         /// </summary>

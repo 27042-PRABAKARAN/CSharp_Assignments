@@ -2,6 +2,9 @@
 
 namespace LanguageIntegratedQuery.Task
 {
+    /// <summary>
+    /// Basic LINQ
+    /// </summary>
     internal class BasicLINQ
     {
         /// <summary>

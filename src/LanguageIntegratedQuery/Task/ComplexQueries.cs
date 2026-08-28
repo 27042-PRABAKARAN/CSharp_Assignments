@@ -2,6 +2,9 @@
 
 namespace LanguageIntegratedQuery.Task
 {
+    /// <summary>
+    /// ComplexQueries
+    /// </summary>
     internal class ComplexQueries
     {
         /// <summary>
