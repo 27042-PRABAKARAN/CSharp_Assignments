@@ -1,4 +1,5 @@
-﻿using FinanceTracker.Model;
+﻿using FinanceTracker.Logger;
+using FinanceTracker.Model;
 using FinanceTracker.Model.Enums;
 using FinanceTracker.Repository;
 
@@ -10,14 +11,17 @@ namespace FinanceTracker.Service
     internal class TransactionService
     {
         private readonly IRepository _repository;
+        private readonly ILogger _logger;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TransactionService"/> class.
         /// </summary>
         /// <param name="repository"> The instance of the repository</param>
-        public TransactionService(IRepository repository)
+        /// <param name="logger"> The instance of the Logger</param>
+        public TransactionService(IRepository repository, ILogger logger)
         {
             this._repository = repository;
+            this._logger = logger;
         }
 
         /// <summary>
@@ -29,8 +33,9 @@ namespace FinanceTracker.Service
         /// <param name="type"> type of income </param>
         public void CreateTransaction(decimal amount, DateOnly date, string category, TransactionType type)
         {
-            TransactionInfo newExpense = new (amount, Guid.NewGuid().ToString(), date, category, type);
-            this._repository.AddTransaction(newExpense);
+            TransactionInfo newTransaction = new (amount, Guid.NewGuid().ToString(), date, category, type);
+            this._repository.AddTransaction(newTransaction);
+            this._logger.LogInformation($"Created {type.ToString()} Successfully");
         }
 
         /// <summary>

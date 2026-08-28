@@ -1,4 +1,5 @@
-﻿using FinanceTracker.Repository;
+﻿using FinanceTracker.Logger;
+using FinanceTracker.Repository;
 using FinanceTracker.Service;
 using FinanceTracker.View;
 
@@ -15,7 +16,8 @@ namespace FinanceTracker
         public static void Main()
         {
            IRepository repository = new JsonRepository("data.json");
-           TransactionService transactionService = new TransactionService(repository);
+           ILogger logger = new FileLogger("Log.json");
+           TransactionService transactionService = new TransactionService(repository, logger);
            DashboardService dashboardService = new DashboardService(repository);
            TransactionView transactionView = new TransactionView(transactionService);
            DashboardView dashboardView = new DashboardView(dashboardService);
