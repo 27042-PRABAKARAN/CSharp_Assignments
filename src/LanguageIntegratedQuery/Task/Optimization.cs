@@ -3,6 +3,9 @@ using LanguageIntegratedQuery.Models;
 
 namespace LanguageIntegratedQuery.Task
 {
+    /// <summary>
+    /// Optimization
+    /// </summary>
     internal class Optimization
     {
         /// <summary>
