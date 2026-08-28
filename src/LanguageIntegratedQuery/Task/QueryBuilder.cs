@@ -1,7 +1,6 @@
 ﻿using System.Linq.Expressions;
-using LanguageIntegratedQuery.Models.Enums;
 
-namespace LanguageIntegratedQuery
+namespace LanguageIntegratedQuery.Task
 {
     /// <summary>
     /// Provides a fluent interface to build and execute LINQ queries.
@@ -18,7 +17,7 @@ namespace LanguageIntegratedQuery
         public QueryBuilder(IEnumerable<T> data)
         {
             ArgumentNullException.ThrowIfNull(data);
-            this._query = data.AsQueryable();
+            _query = data.AsQueryable();
         }
 
         /// <summary>
@@ -28,7 +27,7 @@ namespace LanguageIntegratedQuery
         /// <returns>The current query builder instance.</returns>
         public QueryBuilder<T> Filter(Expression<Func<T, bool>> condition)
         {
-            this._query = this._query.Where(condition);
+            _query = _query.Where(condition);
             return this;
         }
 
@@ -40,7 +39,7 @@ namespace LanguageIntegratedQuery
         /// <returns>The current query builder instance.</returns>
         public QueryBuilder<T> SortBy<TKey>(Expression<Func<T, TKey>> property)
         {
-            this._query = this._query.OrderBy(property);
+            _query = _query.OrderBy(property);
             return this;
         }
 
@@ -53,12 +52,12 @@ namespace LanguageIntegratedQuery
         /// <exception cref="InvalidOperationException">Thrown if called before a primary sort.</exception>
         public QueryBuilder<T> ThenBy<TKey>(Expression<Func<T, TKey>> property)
         {
-            if (this._query is not IOrderedQueryable<T> orderedQuery)
+            if (_query is not IOrderedQueryable<T> orderedQuery)
             {
                 throw new InvalidOperationException("ThenBy must be used after SortBy.");
             }
 
-            this._query = orderedQuery.ThenBy(property);
+            _query = orderedQuery.ThenBy(property);
             return this;
         }
 
@@ -79,7 +78,7 @@ namespace LanguageIntegratedQuery
             Expression<Func<TOther, TKey>> innerKey,
             Expression<Func<T, TOther, TResult>> resultSelector)
         {
-            var result = this._query.Join(
+            var result = _query.Join(
                 data.AsQueryable(),
                 outerKey,
                 innerKey,
@@ -94,7 +93,7 @@ namespace LanguageIntegratedQuery
         /// <returns>A list of elements matching the query criteria.</returns>
         public List<T> Execute()
         {
-            return this._query.ToList();
+            return _query.ToList();
         }
     }
 }

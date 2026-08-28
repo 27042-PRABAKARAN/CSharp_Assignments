@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace LanguageIntegratedQuery.Models.Enums
+﻿namespace LanguageIntegratedQuery.Models.Enums
 {
     /// <summary>
     /// Filter options
