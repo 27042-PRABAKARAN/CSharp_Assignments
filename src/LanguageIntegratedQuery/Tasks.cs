@@ -40,6 +40,10 @@ namespace LanguageIntegratedQuery
                     this.Task4();
                     break;
 
+                case 5:
+                    this.Task5();
+                    break;
+
                 default:
                     Console.WriteLine("Invalid task.");
                     break;
@@ -144,8 +148,7 @@ namespace LanguageIntegratedQuery
 
             foreach (var item in joinedProducts)
             {
-                Console.WriteLine(
-                    $"{item.Name} - ${item.Price} - Supplier: {item.SupplierName}");
+                Console.WriteLine($"{item.Name} - ${item.Price} - Supplier: {item.SupplierName}");
             }
         }
 
@@ -217,6 +220,45 @@ namespace LanguageIntegratedQuery
 
             Console.WriteLine($"Time Taken : {watch.ElapsedMilliseconds} ms");
         }
+
+        /// <summary>
+        /// Task 5
+        /// </summary>
+        public void Task5()
+        {
+            var filteredProducts = new QueryBuilder<Product>(this._products)
+                .Filter(p => p.Category == "Electronics")
+                .Filter(p => p.Price >= 500)
+                .SortBy(p => p.Price)
+                .ThenBy(p => p.Name)
+                .Execute();
+
+            Console.WriteLine("Filtered and Sorted Products:");
+
+            foreach (var product in filteredProducts)
+            {
+                Console.WriteLine($"{product.Name} {product.Category} {product.Price} ");
+            }
+
+            var joinedProducts = new QueryBuilder<Product>(this._products)
+                .Join(
+                    this._suppliers,
+                    p => p.ProductId,
+                    s => s.ProductId,
+                    (p, s) => new
+                    {
+                        p.Name,
+                        p.Price,
+                        s.SupplierName,
+                    })
+                .Execute();
+
+            Console.WriteLine("\nProducts with Suppliers:");
+
+            foreach (var product in joinedProducts)
+            {
+                Console.WriteLine($"{product.Name} {product.SupplierName} {product.Price} ");
+            }
+        }
     }
 }
-
