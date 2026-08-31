@@ -11,17 +11,14 @@ namespace FinanceTracker.Service
     internal class TransactionService
     {
         private readonly IRepository _repository;
-        private readonly ILogger _logger;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TransactionService"/> class.
         /// </summary>
         /// <param name="repository"> The instance of the repository</param>
-        /// <param name="logger"> The instance of the Logger</param>
-        public TransactionService(IRepository repository, ILogger logger)
+        public TransactionService(IRepository repository)
         {
             this._repository = repository;
-            this._logger = logger;
         }
 
         /// <summary>
@@ -35,7 +32,6 @@ namespace FinanceTracker.Service
         {
             TransactionInfo newTransaction = new (amount, Guid.NewGuid().ToString(), date, category, type);
             this._repository.AddTransaction(newTransaction);
-            this._logger.LogInformation($"Created {type.ToString()} Successfully");
         }
 
         /// <summary>

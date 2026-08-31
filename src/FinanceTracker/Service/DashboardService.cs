@@ -1,4 +1,5 @@
-﻿using FinanceTracker.Repository;
+﻿using FinanceTracker.Logger;
+using FinanceTracker.Repository;
 
 namespace FinanceTracker.Service
 {

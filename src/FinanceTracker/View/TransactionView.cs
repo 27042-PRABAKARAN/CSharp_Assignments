@@ -1,4 +1,5 @@
 ﻿using System.Text.Json;
+using FinanceTracker.Logger;
 using FinanceTracker.Model;
 using FinanceTracker.Model.Enums;
 using FinanceTracker.Service;
@@ -11,6 +12,7 @@ namespace FinanceTracker.View
     internal class TransactionView
     {
         private readonly TransactionService _transactionService;
+        private readonly ILogger _logger;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TransactionView"/> class.
@@ -18,9 +20,13 @@ namespace FinanceTracker.View
         /// <param name="transactionService">
         /// Instance of transaction service.
         /// </param>
-        public TransactionView(TransactionService transactionService)
+        /// <param name="logger">
+        /// Instance of logger.
+        /// </param>
+        public TransactionView(TransactionService transactionService, ILogger logger)
         {
             this._transactionService = transactionService;
+            this._logger = logger;
         }
 
         /// <summary>
@@ -108,23 +114,27 @@ namespace FinanceTracker.View
             decimal? amount = UserInput.ReadAmount("Enter the amount: ");
             if (amount == null)
             {
+                this._logger.LogWarning("Entered invalid amount");
                 return;
             }
 
             DateOnly? date = UserInput.ReadDate();
             if (date == null)
             {
+                this._logger.LogWarning("Entered invalid date");
                 return;
             }
 
             string? category = this.ReadCategory(type);
             if (category == null)
             {
+                this._logger.LogWarning("Entered invalid category");
                 return;
             }
 
             this._transactionService.CreateTransaction(amount.Value, date.Value, category, type);
             Output.Success($"Created {type} Successfully");
+            this._logger.LogInformation($"Created {type} Successfully");
         }
 
         /// <summary>
@@ -140,6 +150,7 @@ namespace FinanceTracker.View
             if (!transactions.Any())
             {
                 Output.Error("There are no records to display.");
+                this._logger.LogWarning("There are no records to display.");
                 return;
             }
 
@@ -159,6 +170,7 @@ namespace FinanceTracker.View
             if (!transactions.Any())
             {
                 Output.Error("There are no records to display.");
+                this._logger.LogWarning("There are no records to display.");
                 return;
             }
 
@@ -167,6 +179,7 @@ namespace FinanceTracker.View
             int? serialNumber = UserInput.ReadInt("Enter S.no: ", 1, transactionList.Count);
             if (serialNumber == null)
             {
+                this._logger.LogWarning("Invalid Choice of record");
                 return;
             }
 
@@ -174,10 +187,12 @@ namespace FinanceTracker.View
             if (this._transactionService.DeleteTransaction(transaction.Id))
             {
                 Output.Success("Deleted Successfully");
+                this._logger.LogInformation($"Deleted {type.ToString()} Successfully");
             }
             else
             {
                 Output.Error("Record not deleted");
+                this._logger.LogError($"Delete {type.ToString()} Failed");
             }
         }
 
@@ -193,6 +208,7 @@ namespace FinanceTracker.View
             if (!transactions.Any())
             {
                 Output.Error("There are no records to display.");
+                this._logger.LogWarning("There are no records to display.");
                 return;
             }
 
@@ -202,6 +218,7 @@ namespace FinanceTracker.View
             int? serialNumber = UserInput.ReadInt("Enter S.no: ", 1, transactionList.Count);
             if (serialNumber == null)
             {
+                this._logger.LogWarning("Invalid Choice of record");
                 return;
             }
 
@@ -213,6 +230,7 @@ namespace FinanceTracker.View
             int? choice = UserInput.ReadInt("Enter choice: ", 1, 3);
             if (choice == null)
             {
+                this._logger.LogWarning("Invalid Choice");
                 return;
             }
 
@@ -243,16 +261,19 @@ namespace FinanceTracker.View
             DateOnly? date = UserInput.ReadDate();
             if (date == null)
             {
+                this._logger.LogWarning("Entered invalid date");
                 return;
             }
 
             if (this._transactionService.UpdateTransactionDate(transactionId, date.Value))
             {
                 Output.Success("Updated Date Successfully");
+                this._logger.LogInformation($"Update Successful");
             }
             else
             {
                 Output.Error("Updated Date Failed");
+                this._logger.LogError($"Update Failed");
             }
         }
 
@@ -267,12 +288,14 @@ namespace FinanceTracker.View
             decimal? amount = UserInput.ReadAmount("Enter new Amount: ");
             if (amount == null)
             {
+                this._logger.LogWarning("Entered invalid amount");
                 return;
             }
 
             if (this._transactionService.UpdateTransactionAmount(transactionId, amount.Value))
             {
                 Output.Success("Updated Amount Successfully");
+                this._logger.LogInformation($"Update Successful");
             }
             else
             {
@@ -294,12 +317,14 @@ namespace FinanceTracker.View
             string? category = this.ReadCategory(type);
             if (category == null)
             {
+                this._logger.LogWarning("Entered invalid category");
                 return;
             }
 
             if (this._transactionService.UpdateTransactionCategory(transactionId, category))
             {
                 Output.Success("Updated Category Successfully");
+                this._logger.LogInformation($"Update Successful");
             }
             else
             {
@@ -329,6 +354,7 @@ namespace FinanceTracker.View
                 int? choice = UserInput.ReadInt("Enter choice: ", 1, 4);
                 if (choice == null)
                 {
+                    this._logger.LogWarning("Entered invalid choice");
                     return null;
                 }
 
@@ -344,6 +370,7 @@ namespace FinanceTracker.View
             int? expenseChoice = UserInput.ReadInt("Enter choice: ", 1, 4);
             if (expenseChoice == null)
             {
+                this._logger.LogWarning("Entered invalid choice");
                 return null;
             }
 
