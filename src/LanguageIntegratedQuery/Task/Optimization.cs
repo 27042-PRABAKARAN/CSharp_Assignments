@@ -4,12 +4,12 @@ using LanguageIntegratedQuery.Models;
 namespace LanguageIntegratedQuery.Task
 {
     /// <summary>
-    /// Optimization
+    /// Demonstrates performance optimization using LINQ
     /// </summary>
     internal class Optimization
     {
         /// <summary>
-        /// Task 4
+        /// FIltering and Ordering using LINQ queries
         /// </summary>
         /// <param name="products"> List of products </param>
         public void Task4(List<Product> products)
@@ -17,7 +17,7 @@ namespace LanguageIntegratedQuery.Task
             Stopwatch watch = new Stopwatch();
             Console.WriteLine(" Selecting the Books category and Sorting it in normal way : ");
             watch.Start();
-            var queriedProducts = products.OrderBy(product => product.Price).Where(product => product.Category == "Books");
+            var queriedProducts = products.OrderBy(product => product.Price).Where(product => product.Category == "Books").ToList();
             watch.Stop();
             Console.WriteLine("\nProducts:");
 
@@ -29,8 +29,8 @@ namespace LanguageIntegratedQuery.Task
             Console.WriteLine($"Time Taken : {watch.ElapsedMilliseconds} ms");
 
             Console.WriteLine(" Selecting the Books category and Sorting it in optimized way : ");
-            watch.Start();
-            var filteredProducts = products.Where(product => product.Category == "Books").OrderBy(product => product.Price);
+            watch.Restart();
+            var filteredProducts = products.Where(product => product.Category == "Books").OrderBy(product => product.Price).ToList();
             watch.Stop();
             Console.WriteLine("\nProducts:");
 

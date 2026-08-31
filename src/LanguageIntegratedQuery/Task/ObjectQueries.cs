@@ -1,19 +1,19 @@
 ﻿namespace LanguageIntegratedQuery.Task
 {
     /// <summary>
-    /// Object Queries
+    /// Demonstrates LINQ Object Queries
     /// </summary>
     internal class ObjectQueries
     {
         /// <summary>
-        /// Task 3
+        /// Task 3 - Finds second highest number and unique pairs that adds up to a target value
         /// </summary>
         /// <param name="numbers"> array of numbers </param>
         public void Task3(int[] numbers)
         {
             var secondHighest = numbers
                 .Distinct()
-                .OrderByDescending(product => product)
+                .OrderByDescending(number => number)
                 .Skip(1)
                 .FirstOrDefault();
 
