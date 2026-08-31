@@ -3,12 +3,12 @@
 namespace LanguageIntegratedQuery.Task
 {
     /// <summary>
-    /// Task 5
+    /// Query Builder fluent API
     /// </summary>
     internal class TestBuilder
     {
         /// <summary>
-        /// Testing query builder
+        /// Filtering Sorting and joining using Query Builder
         /// </summary>
         /// <param name="products"> List of products </param>
         /// <param name="suppliers"> List of Suppliers </param>

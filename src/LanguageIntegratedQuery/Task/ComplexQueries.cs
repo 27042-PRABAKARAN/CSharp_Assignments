@@ -3,24 +3,24 @@
 namespace LanguageIntegratedQuery.Task
 {
     /// <summary>
-    /// ComplexQueries
+    /// Demonstrated Complex Queries - joining and grouping
     /// </summary>
     internal class ComplexQueries
     {
         /// <summary>
-        /// Task 2
+        /// Task 2 - Groups product by category and joins product with suppliers
         /// </summary>
         /// <param name="products"> List of products </param>
-        /// <param name="suppliers"> List of Suppliers</param>
+        /// <param name="suppliers"> List of suppliers</param>
         public void Task2(List<Product> products, List<Supplier> suppliers)
         {
             var groupedProducts = products
                 .GroupBy(product => product.Category)
-                .Select(product => new
+                .Select(group => new
                 {
-                    Category = product.Key,
-                    Count = product.Count(),
-                    MostExpensiveProduct = product.OrderByDescending(record => record.Price).First(),
+                    Category = group.Key,
+                    Count = group.Count(),
+                    MostExpensiveProduct = group.MaxBy(product => product.Price),
                 });
 
             Console.WriteLine("\nProducts By Category:");
@@ -29,8 +29,8 @@ namespace LanguageIntegratedQuery.Task
             {
                 Console.WriteLine(
                     $"{group.Category} - Count: {group.Count} - " +
-                    $"Most Expensive: {group.MostExpensiveProduct.Name} " +
-                    $"(${group.MostExpensiveProduct.Price})");
+                    $"Most Expensive: {group.MostExpensiveProduct?.Name} " +
+                    $"(${group.MostExpensiveProduct?.Price})");
             }
 
             var joinedProducts = products

@@ -3,14 +3,14 @@
 namespace LanguageIntegratedQuery.Task
 {
     /// <summary>
-    /// Basic LINQ
+    /// Demonstrates basic LINQ operations
     /// </summary>
     internal class BasicLINQ
     {
         /// <summary>
-        /// Task 1
+        /// Filters and calculates the average using LINQ
         /// </summary>
-        /// <param name="products"> List of products </param>
+        /// <param name="products">List of products </param>
         public void Task1(List<Product> products)
         {
             var filteredProducts = products
@@ -32,8 +32,8 @@ namespace LanguageIntegratedQuery.Task
                 Console.WriteLine($"{product.Name} - ${product.Price}");
             }
 
-            double averagePrice = sortedProducts
-                .Average(product => (double)product.Price);
+            decimal averagePrice = sortedProducts
+                .Average(product => product.Price);
 
             Console.WriteLine($"\nAverage Price: ${averagePrice:N2}");
         }
