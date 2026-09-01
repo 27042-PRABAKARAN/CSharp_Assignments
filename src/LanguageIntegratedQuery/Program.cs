@@ -18,7 +18,7 @@ namespace LanguageIntegratedQuery
             Optimization optimization = new Optimization();
             TestBuilder testBuilder = new TestBuilder();
             Tasks task = new Tasks(basicLINQ, complex, objectQueries, optimization, testBuilder);
-            task.TaskOperations();
+            task.ExecuteTasks();
         }
     }
 }

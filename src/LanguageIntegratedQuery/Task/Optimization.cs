@@ -9,7 +9,7 @@ namespace LanguageIntegratedQuery.Task
     internal class Optimization
     {
         /// <summary>
-        /// FIltering and Ordering using LINQ queries
+        /// Filtering and Ordering using LINQ queries
         /// </summary>
         /// <param name="products"> List of products </param>
         public void Task4(List<Product> products)

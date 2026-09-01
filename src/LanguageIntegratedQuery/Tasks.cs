@@ -37,7 +37,7 @@ namespace LanguageIntegratedQuery
         /// <summary>
         /// Task Operations
         /// </summary>
-        public void TaskOperations()
+        public void ExecuteTasks()
         {
             bool state = true;
             this.PopulateProducts();

@@ -17,7 +17,7 @@ namespace LanguageIntegratedQuery.Task
         public QueryBuilder(IEnumerable<T> data)
         {
             ArgumentNullException.ThrowIfNull(data);
-            _query = data.AsQueryable();
+            this._query = data.AsQueryable();
         }
 
         /// <summary>
@@ -27,7 +27,7 @@ namespace LanguageIntegratedQuery.Task
         /// <returns>The current query builder instance.</returns>
         public QueryBuilder<T> Filter(Expression<Func<T, bool>> condition)
         {
-            _query = _query.Where(condition);
+            this._query = this._query.Where(condition);
             return this;
         }
 
@@ -39,7 +39,7 @@ namespace LanguageIntegratedQuery.Task
         /// <returns>The current query builder instance.</returns>
         public QueryBuilder<T> SortBy<TKey>(Expression<Func<T, TKey>> property)
         {
-            _query = _query.OrderBy(property);
+            this._query = this._query.OrderBy(property);
             return this;
         }
 
@@ -52,12 +52,12 @@ namespace LanguageIntegratedQuery.Task
         /// <exception cref="InvalidOperationException">Thrown if called before a primary sort.</exception>
         public QueryBuilder<T> ThenBy<TKey>(Expression<Func<T, TKey>> property)
         {
-            if (_query is not IOrderedQueryable<T> orderedQuery)
+            if (this._query is not IOrderedQueryable<T> orderedQuery)
             {
                 throw new InvalidOperationException("ThenBy must be used after SortBy.");
             }
 
-            _query = orderedQuery.ThenBy(property);
+            this._query = orderedQuery.ThenBy(property);
             return this;
         }
 
@@ -78,7 +78,7 @@ namespace LanguageIntegratedQuery.Task
             Expression<Func<TOther, TKey>> innerKey,
             Expression<Func<T, TOther, TResult>> resultSelector)
         {
-            var result = _query.Join(
+            var result = this._query.Join(
                 data.AsQueryable(),
                 outerKey,
                 innerKey,
@@ -93,7 +93,7 @@ namespace LanguageIntegratedQuery.Task
         /// <returns>A list of elements matching the query criteria.</returns>
         public List<T> Execute()
         {
-            return _query.ToList();
+            return this._query.ToList();
         }
     }
 }

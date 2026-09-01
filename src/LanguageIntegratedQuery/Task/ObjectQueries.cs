@@ -22,17 +22,16 @@
             int target = 70;
 
             var pairs = numbers
-                .SelectMany(
-                    (first, index) => numbers
-                        .Skip(index + 1)
-                        .Where(second => first + second == target)
-                        .Select(second => new
-                        {
-                            First = Math.Min(first, second),
-                            Second = Math.Max(first, second),
-                        }))
-                .Distinct()
-                .ToList();
+            .SelectMany((first, index) => numbers
+            .Skip(index + 1)
+            .Where(second => first + second == target)
+            .Select(second => new
+            {
+                First = first,
+                Second = second,
+            }))
+            .Distinct()
+            .ToList();
 
             Console.WriteLine($"\nPairs That Add Up To {target}:");
 
