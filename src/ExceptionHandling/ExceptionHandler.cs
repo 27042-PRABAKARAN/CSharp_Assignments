@@ -29,8 +29,8 @@ TASK MENU
 5. Task 5 - Exception Stack Trace
 6. Exit
 ");
-
-                int? choice = UserInput.ReadChoice("Enter choice: ");
+                 
+                int? choice = UserInput.ReadEnum<TaskList>("Enter choice: ");
 
                 if (choice == null || !Enum.IsDefined(typeof(TaskList), choice))
                 {
