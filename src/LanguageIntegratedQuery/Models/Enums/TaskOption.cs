@@ -8,7 +8,7 @@
         /// <summary>
         /// Task 1
         /// </summary>
-        BasicLINQ,
+        BasicLINQ = 1,
 
         /// <summary>
         /// Task 2

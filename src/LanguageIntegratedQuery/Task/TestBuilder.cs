@@ -27,7 +27,7 @@ TASK 5 - QUERY BUILDER
 
             var filteredProducts = new QueryBuilder<Product>(products)
                 .Filter(p => p.Category == "Electronics")
-                .Filter(p => p.Price, FilterOptions.GreaterThanOrEqualTo, 500m)
+                .Filter(p => p.Price >= 500)
                 .SortBy(p => p.Price)
                 .ThenBy(p => p.Name)
                 .Execute();
