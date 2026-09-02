@@ -1,4 +1,6 @@
-﻿using LanguageIntegratedQuery.Models;
+﻿using LanguageIntegratedQuery.Helper;
+using LanguageIntegratedQuery.Models;
+using LanguageIntegratedQuery.Models.Enums;
 using LanguageIntegratedQuery.Task;
 
 namespace LanguageIntegratedQuery
@@ -50,51 +52,53 @@ namespace LanguageIntegratedQuery
 3. Task 3 (Object Queries)
 4. Task 4 (Optimization)
 5. Task 5 (Test Builder)
+6. Exit app
 ");
 
-                int? task = UserInput.ReadInt("Enter choice: ", 1, 5);
+                int? task = UserInput.ReadInt("Enter choice: ", 1, Enum.GetNames(typeof(TaskOption)).Length);
 
                 switch (task)
                 {
                     case 1:
                         {
-                            this._basicLINQ.Task1(this._products);
+                            this._basicLINQ.ExecuteFiltering(this._products);
                             break;
                         }
 
                     case 2:
                         {
-                            this._complex.Task2(this._products, this._suppliers);
+                            this._complex.ExecuteComplexQueries(this._products, this._suppliers);
                             break;
                         }
 
                     case 3:
                         {
-                            this._objectQueries.Task3(this._numbers);
+                            this._objectQueries.ExecuteObjectQueries(this._numbers);
                             break;
                         }
 
                     case 4:
                         {
-                            this._optimization.Task4(this._products);
+                            this._optimization.ExecuteOptimizationQueries(this._products);
                             break;
                         }
 
                     case 5:
                         {
-                            this._testBuilder.Task5(this._products, this._suppliers);
+                            this._testBuilder.ExecuteQueryBuilder(this._products, this._suppliers);
                             break;
                         }
 
                     case 6:
                         {
+                            Console.WriteLine("Exiting the app");
                             state = false;
                             break;
                         }
 
                     default:
                         {
-                            Console.WriteLine("Invalid task.");
+                            Console.WriteLine("Invalid task number entered.");
                             break;
                         }
                 }
@@ -113,7 +117,7 @@ namespace LanguageIntegratedQuery
             this._products.Add(new Product(Guid.NewGuid(), "Phone", 800, "Electronics"));
             this._products.Add(new Product(Guid.NewGuid(), "Headphones", 300, "Electronics"));
             this._products.Add(new Product(Guid.NewGuid(), "C# Book", 600, "Books"));
-            this._products.Add(new Product(Guid.NewGuid(), "LINQ Book", 750, "Books"));
+            this._products.Add(new Product(Guid.NewGuid(), "Math Book", 750, "Books"));
             this._products.Add(new Product(Guid.NewGuid(), "Keyboard", 150, "Electronics"));
             this._products.Add(new Product(Guid.NewGuid(), "Monitor", 900, "Electronics"));
         }

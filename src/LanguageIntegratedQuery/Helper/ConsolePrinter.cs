@@ -1,4 +1,4 @@
-﻿namespace LanguageIntegratedQuery
+﻿namespace LanguageIntegratedQuery.Helper
 {
     /// <summary>
     /// Display class is used for displaying output

@@ -1,4 +1,4 @@
-﻿namespace LanguageIntegratedQuery
+﻿namespace LanguageIntegratedQuery.Helper
 {
     /// <summary>
     /// Class to get user input

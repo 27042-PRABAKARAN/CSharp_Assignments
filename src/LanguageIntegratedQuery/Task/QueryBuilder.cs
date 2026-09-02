@@ -16,7 +16,6 @@ namespace LanguageIntegratedQuery.Task
         /// <param name="data">The collection of data to query.</param>
         public QueryBuilder(IEnumerable<T> data)
         {
-            ArgumentNullException.ThrowIfNull(data);
             this._query = data.AsQueryable();
         }
 
