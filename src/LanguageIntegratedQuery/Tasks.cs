@@ -58,6 +58,7 @@ namespace LanguageIntegratedQuery
                 int? task = UserInput.ReadEnum<TaskOption>("Enter choice: ");
                 if (task == null)
                 {
+                    Console.Clear();
                     continue;
                 }
 
