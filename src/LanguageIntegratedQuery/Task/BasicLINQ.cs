@@ -52,8 +52,7 @@ TASK 1 - BASIC LINQ OPERATIONS
 
             Console.WriteLine("\nCalculating average price");
 
-            decimal averagePrice = sortedProducts
-                .Average(product => product.Price);
+            decimal averagePrice = sortedProducts.Average(product => product.Price);
 
             Console.WriteLine($"Average Price: ${averagePrice}");
         }

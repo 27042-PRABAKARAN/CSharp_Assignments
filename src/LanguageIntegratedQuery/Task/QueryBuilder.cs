@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using LanguageIntegratedQuery.Models.Enums;
 
 namespace LanguageIntegratedQuery.Task
 {
@@ -27,6 +28,76 @@ namespace LanguageIntegratedQuery.Task
         public QueryBuilder<T> Filter(Expression<Func<T, bool>> condition)
         {
             this._query = this._query.Where(condition);
+            return this;
+        }
+
+        /// <summary>
+        /// Dynamically filters the query based on a specific property, a comparison condition, and a target value.
+        /// </summary>
+        /// <typeparam name="TProperty">The data type of the property being filtered.</typeparam>
+        /// <param name="property">An expression pointing to the entity property (e.g., x => x.Name).</param>
+        /// <param name="condition">The comparison rule to apply (e.g., Contains, GreaterThanOrEqualTo).</param>
+        /// <param name="value">The actual value to compare the property against.</param>
+        /// <returns>The updated QueryBuilder instance for method chaining.</returns>
+        public QueryBuilder<T> Filter<TProperty>(
+    Expression<Func<T, TProperty>> property,
+    FilterOptions condition,
+    TProperty value)
+        {
+            var parameter = property.Parameters[0];
+            var propertyExpression = property.Body;
+            var valueExpression = Expression.Constant(value);
+
+            Expression filterExpression;
+
+            switch (condition)
+            {
+                case FilterOptions.GreaterThanOrEqualTo:
+                    filterExpression = Expression.GreaterThanOrEqual(
+                        propertyExpression,
+                        valueExpression);
+                    break;
+
+                case FilterOptions.LessThanOrEqualTo:
+                    filterExpression = Expression.LessThanOrEqual(
+                        propertyExpression,
+                        valueExpression);
+                    break;
+
+                case FilterOptions.Contains:
+                    filterExpression = Expression.Call(
+                        propertyExpression,
+                        nameof(string.Contains),
+                        null,
+                        valueExpression);
+                    break;
+
+                case FilterOptions.StartsWith:
+                    filterExpression = Expression.Call(
+                        propertyExpression,
+                        nameof(string.StartsWith),
+                        null,
+                        valueExpression);
+                    break;
+
+                case FilterOptions.EndsWith:
+                    filterExpression = Expression.Call(
+                        propertyExpression,
+                        nameof(string.EndsWith),
+                        null,
+                        valueExpression);
+                    break;
+
+                default:
+                    throw new ArgumentException("Invalid filter condition.");
+            }
+
+            var filter = Expression.Lambda<Func<T, bool>>(
+                filterExpression,
+                parameter);
+
+            this._query = this._query.Where(filter);
+
             return this;
         }
 

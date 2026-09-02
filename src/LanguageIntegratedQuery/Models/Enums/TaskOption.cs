@@ -29,5 +29,10 @@
         /// Task 5
         /// </summary>
         QueryBuilder,
+
+        /// <summary>
+        /// Exit
+        /// </summary>
+        Exit,
     }
 }

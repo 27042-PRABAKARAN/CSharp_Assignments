@@ -56,40 +56,44 @@ namespace LanguageIntegratedQuery
 ");
 
                 int? task = UserInput.ReadInt("Enter choice: ", 1, Enum.GetNames(typeof(TaskOption)).Length);
-
-                switch (task)
+                if (task == null)
                 {
-                    case 1:
+                    continue;
+                }
+
+                switch ((TaskOption)task)
+                {
+                    case TaskOption.BasicLINQ:
                         {
                             this._basicLINQ.ExecuteFiltering(this._products);
                             break;
                         }
 
-                    case 2:
+                    case TaskOption.ComplexLINQ:
                         {
                             this._complex.ExecuteComplexQueries(this._products, this._suppliers);
                             break;
                         }
 
-                    case 3:
+                    case TaskOption.ObjectQuery:
                         {
                             this._objectQueries.ExecuteObjectQueries(this._numbers);
                             break;
                         }
 
-                    case 4:
+                    case TaskOption.Optimization:
                         {
                             this._optimization.ExecuteOptimizationQueries(this._products);
                             break;
                         }
 
-                    case 5:
+                    case TaskOption.QueryBuilder:
                         {
                             this._testBuilder.ExecuteQueryBuilder(this._products, this._suppliers);
                             break;
                         }
 
-                    case 6:
+                    case TaskOption.Exit:
                         {
                             Console.WriteLine("Exiting the app");
                             state = false;
