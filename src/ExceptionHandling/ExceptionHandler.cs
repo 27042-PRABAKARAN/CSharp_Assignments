@@ -14,13 +14,13 @@ namespace ExceptionHandling
         {
             bool state = true;
 
-            Console.WriteLine(@"========================================
-ERROR HANDLING
-========================================");
-
             while (state)
             {
-                Console.WriteLine(@"
+                Console.Clear();
+                Console.WriteLine(@"========================================
+ERROR HANDLING
+========================================
+
 TASK MENU
 1. Task 1 - DivideByZeroException
 2. Task 2 - IndexOutOfRangeException
@@ -35,7 +35,7 @@ TASK MENU
                 if (choice == null || !Enum.IsDefined(typeof(TaskList), choice))
                 {
                     Console.WriteLine($"Please enter a number from 1 to {Enum.GetNames(typeof(TaskList)).Length}.");
-                    UserInput.WaitAndClear();
+                    this.Pause();
                     continue;
                 }
 
@@ -43,32 +43,31 @@ TASK MENU
 
                 switch (task)
                 {
-                    case TaskList.Task1:
+                    case TaskList.DivisionByZero:
                         this.HandleDivideByZeroException();
                         break;
 
-                    case TaskList.Task2:
+                    case TaskList.IndexOutOfBound:
                         try
                         {
                             this.HandleIndexOutOfException();
                         }
                         catch (Exception exception)
                         {
-                            Console.WriteLine($"CUSTOM EXXCEPTION - Exception Type : {exception.GetType().Name} Message: {exception.Message}");
+                            Console.WriteLine($"NEW EXCEPTION - Exception Type : {exception.GetType().Name} Message: {exception.Message}");
                         }
 
-                        this.Pause();
                         break;
 
-                    case TaskList.Task3:
+                    case TaskList.CustomException:
                         this.HandleInvalidUserException();
                         break;
 
-                    case TaskList.Task4:
+                    case TaskList.GlobalUnhandledException:
                         this.ThrowUnhandledException();
                         break;
 
-                    case TaskList.Task5:
+                    case TaskList.ExceptionStackTrace:
                         this.TraceStack();
                         break;
 
@@ -78,7 +77,7 @@ TASK MENU
                         break;
                 }
 
-                UserInput.WaitAndClear();
+                this.Pause();
             }
         }
 
@@ -87,21 +86,23 @@ TASK MENU
         /// </summary>
         public void HandleDivideByZeroException()
         {
+            Console.Clear();
             Console.WriteLine(@"========================================
 TASK 1 - DivideByZeroException
 ========================================");
 
             try
             {
-                int? dividend = UserInput.ReadInt("Enter dividend: ");
-
-                int? divisor = UserInput.ReadInt("Enter divisor: ");
-
+                int? dividend = 10;
+                Console.WriteLine($"Dividend is {dividend}");
+                int? divisor = 0;
+                Console.WriteLine($"Divisor is {divisor}");
+                Console.WriteLine("Trying to Divide: ");
                 Console.WriteLine($"Result: {dividend / divisor}");
             }
             catch (DivideByZeroException)
             {
-                Console.WriteLine("Division by zero is not possible.");
+                Console.WriteLine("Exception Caught : Division by zero is not possible.");
             }
             catch (Exception exception)
             {
@@ -111,8 +112,6 @@ TASK 1 - DivideByZeroException
             {
                 Console.WriteLine("FINALLY BLOCK EXECUTED");
             }
-
-            this.Pause();
         }
 
         /// <summary>
@@ -120,6 +119,7 @@ TASK 1 - DivideByZeroException
         /// </summary>
         public void HandleIndexOutOfException()
         {
+            Console.Clear();
             Console.WriteLine(@"========================================
 TASK 2 - IndexOutOfRangeException
 ========================================");
@@ -128,19 +128,19 @@ TASK 2 - IndexOutOfRangeException
             {
                 int[] array = { 10, 20, 30, 40 };
 
-                Console.WriteLine("Array elements:");
+                Console.Write("Array elements: ");
                 for (int i = 0; i < array.Length; i++)
                 {
                     Console.Write(array[i] + " ");
                 }
 
-                Console.WriteLine("Accessing index 4");
+                Console.WriteLine("\nAccessing index 4");
                 Console.WriteLine(array[4]);
             }
             catch (IndexOutOfRangeException exception)
             {
                 Console.WriteLine($"Exception Type : {exception.GetType().Name} Message : {exception.Message}");
-                throw new Exception("Tried to access an index outside the array bounds.", exception);
+                throw new InvalidOperationException("Tried to access an index outside the array bounds.", exception);
             }
         }
 
@@ -149,16 +149,22 @@ TASK 2 - IndexOutOfRangeException
         /// </summary>
         public void HandleInvalidUserException()
         {
+            Console.Clear();
             Console.WriteLine(@"========================================
 TASK 3 - CUSTOM EXCEPTION
 ========================================");
 
             try
             {
-                Console.WriteLine("Enter two integers.");
-                int? dividend = UserInput.ReadInt("Enter dividend: ");
-                int? divisor = UserInput.ReadInt("Enter divisor: ");
-                if (dividend == null || divisor == null)
+                Console.WriteLine("Enter two integers To Divide: ");
+                Console.Write("Enter dividend: ");
+                if (!int.TryParse(Console.ReadLine(), out int dividend))
+                {
+                    throw new InvalidUserInputException("User did not enter a valid integer value.");
+                }
+
+                Console.Write("Enter divisor: ");
+                if (!int.TryParse(Console.ReadLine(), out int divisor))
                 {
                     throw new InvalidUserInputException("User did not enter a valid integer value.");
                 }
@@ -177,8 +183,6 @@ TASK 3 - CUSTOM EXCEPTION
             {
                 Console.WriteLine($"Unexpected exception: {exception.Message}");
             }
-
-            this.Pause();
         }
 
         /// <summary>
@@ -187,11 +191,13 @@ TASK 3 - CUSTOM EXCEPTION
         /// </summary>
         public void ThrowUnhandledException()
         {
+            Console.Clear();
             AppDomain.CurrentDomain.UnhandledException += this.UnhandledException;
             Console.WriteLine(@"========================================
 TASK 4 - GLOBAL UNHANDLED EXCEPTION
 ========================================");
-            throw new InvalidOperationException("Exception thrown");
+            Console.WriteLine("Throwing an Global Unhandled Exception");
+            throw new InvalidOperationException("Exception thrown - Global Unhandled Exception thrown");
         }
 
         /// <summary>
@@ -199,6 +205,7 @@ TASK 4 - GLOBAL UNHANDLED EXCEPTION
         /// </summary>
         public void TraceStack()
         {
+            Console.Clear();
             Console.WriteLine(@"======================================== 
 TASK 5 - EXCEPTION STACK TRACE
 ========================================");
@@ -211,8 +218,6 @@ TASK 5 - EXCEPTION STACK TRACE
                 Console.WriteLine($"Exception Type : {exception.GetType().Name} Message : {exception.Message}");
                 Console.WriteLine($"STACK TRACE {exception.StackTrace}");
             }
-
-            this.Pause();
         }
 
         /// <summary>
@@ -234,6 +239,8 @@ GLOBAL UNHANDLED EXCEPTION HANDLER
             {
                 Console.WriteLine("The unhandled object is not an Exception.");
             }
+
+            this.Pause();
         }
 
         /// <summary>
@@ -241,7 +248,7 @@ GLOBAL UNHANDLED EXCEPTION HANDLER
         /// </summary>
         private void Pause()
         {
-            Console.WriteLine("Press any key to return to the task menu...");
+            Console.WriteLine("Press any key...");
             Console.ReadKey();
             Console.Clear();
         }

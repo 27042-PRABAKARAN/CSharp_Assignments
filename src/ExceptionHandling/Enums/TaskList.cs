@@ -8,27 +8,27 @@
         /// <summary>
         /// Task 1
         /// </summary>
-        Task1 = 1,
+        DivisionByZero = 1,
 
         /// <summary>
         /// Task 2
         /// </summary>
-        Task2,
+        IndexOutOfBound,
 
         /// <summary>
         /// Task 3
         /// </summary>
-        Task3,
+        CustomException,
 
         /// <summary>
         /// Task 4
         /// </summary>
-        Task4,
+        GlobalUnhandledException,
 
         /// <summary>
         /// Task 5
         /// </summary>
-        Task5,
+        ExceptionStackTrace,
 
         /// <summary>
         /// Exit
