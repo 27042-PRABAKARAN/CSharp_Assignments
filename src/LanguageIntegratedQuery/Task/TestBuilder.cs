@@ -8,12 +8,22 @@ namespace LanguageIntegratedQuery.Task
     internal class TestBuilder
     {
         /// <summary>
-        /// Filtering Sorting and joining using Query Builder
+        /// Filtering, sorting and joining using Query Builder
         /// </summary>
-        /// <param name="products"> List of products </param>
-        /// <param name="suppliers"> List of Suppliers </param>
-        public void Task5(List<Product> products, List<Supplier> suppliers)
+        /// <param name="products">List of products</param>
+        /// <param name="suppliers">List of suppliers</param>
+        public void ExecuteQueryBuilder(List<Product> products, List<Supplier> suppliers)
         {
+            Console.Clear();
+            Console.WriteLine(@"========================================
+TASK 5 - QUERY BUILDER
+========================================");
+
+            Console.WriteLine("\nBuilding product query");
+            Console.WriteLine("Applying category filter: Electronics");
+            Console.WriteLine("Applying price filter: >= $500");
+            Console.WriteLine("Sorting by price and then by name");
+
             var filteredProducts = new QueryBuilder<Product>(products)
                 .Filter(p => p.Category == "Electronics")
                 .Filter(p => p.Price >= 500)
@@ -21,12 +31,18 @@ namespace LanguageIntegratedQuery.Task
                 .ThenBy(p => p.Name)
                 .Execute();
 
-            Console.WriteLine("Filtered and Sorted Products:");
+            Console.WriteLine("Query executed successfully.");
+
+            Console.WriteLine("\nFiltered and Sorted Products:");
 
             foreach (var product in filteredProducts)
             {
-                Console.WriteLine($"{product.Name} {product.Category} {product.Price} ");
+                Console.WriteLine(
+                    $"{product.Name} - {product.Category} - ${product.Price:N2}");
             }
+
+            Console.WriteLine("\nBuilding product-supplier join query");
+            Console.WriteLine("Joining products with suppliers using ProductId");
 
             var joinedProducts = new QueryBuilder<Product>(products)
                 .Join(
@@ -41,11 +57,14 @@ namespace LanguageIntegratedQuery.Task
                     })
                 .Execute();
 
+            Console.WriteLine("Join query executed successfully.");
+
             Console.WriteLine("\nProducts with Suppliers:");
 
             foreach (var product in joinedProducts)
             {
-                Console.WriteLine($"{product.Name} {product.SupplierName} {product.Price} ");
+                Console.WriteLine(
+                    $"{product.Name} - {product.SupplierName} - ${product.Price:N2}");
             }
         }
     }

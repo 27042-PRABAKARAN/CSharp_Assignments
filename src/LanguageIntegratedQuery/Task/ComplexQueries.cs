@@ -3,17 +3,24 @@
 namespace LanguageIntegratedQuery.Task
 {
     /// <summary>
-    /// Demonstrated Complex Queries - joining and grouping
+    /// Demonstrates complex queries - joining and grouping
     /// </summary>
     internal class ComplexQueries
     {
         /// <summary>
-        /// Task 2 - Groups product by category and joins product with suppliers
+        /// Task 2 - Groups products by category and joins products with suppliers
         /// </summary>
-        /// <param name="products"> List of products </param>
-        /// <param name="suppliers"> List of suppliers</param>
-        public void Task2(List<Product> products, List<Supplier> suppliers)
+        /// <param name="products">List of products</param>
+        /// <param name="suppliers">List of suppliers</param>
+        public void ExecuteComplexQueries(List<Product> products, List<Supplier> suppliers)
         {
+            Console.Clear();
+            Console.WriteLine(@"========================================
+TASK 2 - COMPLEX LINQ QUERIES
+========================================");
+
+            Console.WriteLine("\nGrouping products by category");
+
             var groupedProducts = products
                 .GroupBy(product => product.Category)
                 .Select(group => new
@@ -33,6 +40,8 @@ namespace LanguageIntegratedQuery.Task
                     $"(${group.MostExpensiveProduct?.Price})");
             }
 
+            Console.WriteLine("\nJoining products with suppliers");
+
             var joinedProducts = products
                 .Join(
                     suppliers,
@@ -49,7 +58,8 @@ namespace LanguageIntegratedQuery.Task
 
             foreach (var item in joinedProducts)
             {
-                Console.WriteLine($"{item.Name} - ${item.Price} - Supplier: {item.SupplierName}");
+                Console.WriteLine(
+                    $"{item.Name} - ${item.Price} - Supplier: {item.SupplierName}");
             }
         }
     }
