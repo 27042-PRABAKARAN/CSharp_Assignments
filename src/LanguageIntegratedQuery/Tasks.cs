@@ -55,7 +55,7 @@ namespace LanguageIntegratedQuery
 6. Exit app
 ");
 
-                int? task = UserInput.ReadInt("Enter choice: ", 1, Enum.GetNames(typeof(TaskOption)).Length);
+                int? task = UserInput.ReadEnum<TaskOption>("Enter choice: ");
                 if (task == null)
                 {
                     continue;
