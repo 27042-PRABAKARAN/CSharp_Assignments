@@ -5,7 +5,7 @@ namespace ExceptionHandling
     /// <summary>
     /// Contains all exception handling assignment tasks.
     /// </summary>
-    internal class Tasks
+    internal class ExceptionHandler
     {
         /// <summary>
         /// Displays the menu and allows the user to select a task.
@@ -32,19 +32,10 @@ TASK MENU
 
                 int? choice = UserInput.ReadChoice("Enter choice: ");
 
-                if (choice == null)
+                if (choice == null || !Enum.IsDefined(typeof(TaskList), choice))
                 {
-                    Console.WriteLine(
-                        "Please enter a valid number.");
-
-                    continue;
-                }
-
-                if (!Enum.IsDefined(typeof(TaskList), choice))
-                {
-                    Console.WriteLine(
-                        "Please select a number from 1 to 6.");
-
+                    Console.WriteLine($"Please enter a number from 1 to {Enum.GetNames(typeof(TaskList)).Length}.");
+                    UserInput.WaitAndClear();
                     continue;
                 }
 
@@ -53,13 +44,13 @@ TASK MENU
                 switch (task)
                 {
                     case TaskList.Task1:
-                        this.Task1();
+                        this.HandleDivideByZeroException();
                         break;
 
                     case TaskList.Task2:
                         try
                         {
-                            this.Task2();
+                            this.HandleIndexOutOfException();
                         }
                         catch (Exception exception)
                         {
@@ -70,15 +61,15 @@ TASK MENU
                         break;
 
                     case TaskList.Task3:
-                        this.Task3();
+                        this.HandleInvalidUserException();
                         break;
 
                     case TaskList.Task4:
-                        this.Task4();
+                        this.ThrowUnhandledException();
                         break;
 
                     case TaskList.Task5:
-                        this.Task5();
+                        this.TraceStack();
                         break;
 
                     case TaskList.Exit:
@@ -86,30 +77,27 @@ TASK MENU
                         Console.WriteLine("Exiting application");
                         break;
                 }
+
+                UserInput.WaitAndClear();
             }
         }
 
         /// <summary>
         /// Task 1: Demonstrates try, catch and finally using DivideByZeroException.
         /// </summary>
-        public void Task1()
+        public void HandleDivideByZeroException()
         {
-            Console.Clear();
-
-            Console.WriteLine("========================================");
-            Console.WriteLine(" TASK 1 - DivideByZeroException");
-            Console.WriteLine("========================================");
+            Console.WriteLine(@"========================================
+TASK 1 - DivideByZeroException
+========================================");
 
             try
             {
-                int? dividend =
-                    UserInput.ReadInt("Enter dividend: ");
+                int? dividend = UserInput.ReadInt("Enter dividend: ");
 
-                int? divisor =
-                    UserInput.ReadInt("Enter divisor: ");
+                int? divisor = UserInput.ReadInt("Enter divisor: ");
 
-                Console.WriteLine(
-                    $"Result: {dividend / divisor}");
+                Console.WriteLine($"Result: {dividend / divisor}");
             }
             catch (DivideByZeroException)
             {
@@ -121,7 +109,7 @@ TASK MENU
             }
             finally
             {
-                Console.WriteLine("FINALLY BLOCK");
+                Console.WriteLine("FINALLY BLOCK EXECUTED");
             }
 
             this.Pause();
@@ -130,14 +118,11 @@ TASK MENU
         /// <summary>
         /// Task 2: Demonstrates catching an IndexOutOfRangeException and throwing a new exception with a custom message.
         /// </summary>
-        public void Task2()
+        public void HandleIndexOutOfException()
         {
-            Console.Clear();
-
-            Console.WriteLine("========================================");
-            Console.WriteLine(" TASK 2 - IndexOutOfRangeException");
-            Console.WriteLine("========================================");
-            Console.WriteLine();
+            Console.WriteLine(@"========================================
+TASK 2 - IndexOutOfRangeException
+========================================");
 
             try
             {
@@ -162,9 +147,8 @@ TASK MENU
         /// <summary>
         /// Task 3:Demonstrates creating, throwing and catching a custom InvalidUserInputException.
         /// </summary>
-        public void Task3()
+        public void HandleInvalidUserException()
         {
-            Console.Clear();
             Console.WriteLine(@"========================================
 TASK 3 - CUSTOM EXCEPTION
 ========================================");
@@ -199,14 +183,10 @@ TASK 3 - CUSTOM EXCEPTION
 
         /// <summary>
         /// Task 4:
-        /// Demonstrates global unhandled exception handling
-        /// using AppDomain.UnhandledException.
-        ///
-        /// This exception is intentionally NOT caught.
+        /// Demonstrates global unhandled exception handling using AppDomain.UnhandledException.
         /// </summary>
-        public void Task4()
+        public void ThrowUnhandledException()
         {
-            Console.Clear();
             AppDomain.CurrentDomain.UnhandledException += this.UnhandledException;
             Console.WriteLine(@"========================================
 TASK 4 - GLOBAL UNHANDLED EXCEPTION
@@ -217,9 +197,8 @@ TASK 4 - GLOBAL UNHANDLED EXCEPTION
         /// <summary>
         /// Task 5:catching an exception and printing its stack trace.
         /// </summary>
-        public void Task5()
+        public void TraceStack()
         {
-            Console.Clear();
             Console.WriteLine(@"======================================== 
 TASK 5 - EXCEPTION STACK TRACE
 ========================================");

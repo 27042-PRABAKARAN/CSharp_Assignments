@@ -7,7 +7,7 @@
     {
         private static void Main()
         {
-            Tasks task = new ();
+            ExceptionHandler task = new ();
             task.ChooseTask();
         }
     }
