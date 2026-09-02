@@ -8,26 +8,26 @@
         /// <summary>
         /// Task 1
         /// </summary>
-        Task1,
+        BasicLINQ,
 
         /// <summary>
         /// Task 2
         /// </summary>
-        Task2,
+        ComplexLINQ,
 
         /// <summary>
         /// Task 3
         /// </summary>
-        Task3,
+        ObjectQuery,
 
         /// <summary>
         /// Task 4
         /// </summary>
-        Task4,
+        Optimization,
 
         /// <summary>
         /// Task 5
         /// </summary>
-        Task5,
+        QueryBuilder,
     }
 }
