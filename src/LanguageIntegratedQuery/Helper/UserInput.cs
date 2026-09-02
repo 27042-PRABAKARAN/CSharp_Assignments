@@ -6,26 +6,26 @@
     internal class UserInput
     {
         /// <summary>
-        /// this reads number.
+        /// Prompts the user to enter a number corresponding to an enum value.
         /// </summary>
-        /// <param name="prompt"> to prompt the message </param>
-        /// <param name="minRange"> the minimum range  </param>
-        /// <param name="maxRange"> the maximum range </param>
-        /// <returns> returns read number </returns>
-        public static int? ReadInt(string prompt, int minRange, int maxRange)
+        /// <typeparam name="T">The enum type to validate against.</typeparam>
+        /// <param name="prompt">The message displayed to the user.</param>
+        /// <returns>The entered number if valid; otherwise, null.</returns>
+        public static int? ReadEnum<T>(string prompt)
+            where T : Enum
         {
+            int maxRange = Enum.GetNames(typeof(T)).Length;
+
             for (int tried = 1; tried <= 3; tried++)
             {
                 Console.Write(prompt);
-                if (!int.TryParse(Console.ReadLine(), out int number) || number > maxRange || number < minRange)
-                {
-                    ConsolePrinter.Error($"Invalid Number. Please enter a number between {minRange} to {maxRange}.");
-                }
-                else
+
+                if (int.TryParse(Console.ReadLine(), out int number) && number >= 1 && number <= maxRange)
                 {
                     return number;
                 }
 
+                ConsolePrinter.Error($"Invalid Number. Please enter a number between 1 to {maxRange}.");
                 ConsolePrinter.Error($"{3 - tried} attempts remaining\n");
             }
 
