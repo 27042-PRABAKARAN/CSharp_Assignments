@@ -27,7 +27,7 @@ TASK 3 - LINQ OBJECT QUERIES
             Console.WriteLine("Second highest number found.");
             Console.WriteLine($"Second Highest Number: {secondHighest}");
 
-            int target = 70;
+            int target = secondHighest;
 
             Console.WriteLine($"\nFinding unique pairs that add up to {target}");
 

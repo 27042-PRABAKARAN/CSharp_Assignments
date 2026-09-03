@@ -6,27 +6,27 @@
     internal enum TaskOption
     {
         /// <summary>
-        /// Task 1
+        /// Basic LINQ queries - filtering and selecting
         /// </summary>
         BasicLINQ = 1,
 
         /// <summary>
-        /// Task 2
+        /// Complex LINQ queries - Joining and Grouping
         /// </summary>
         ComplexLINQ,
 
         /// <summary>
-        /// Task 3
+        /// Object Queries - Queries on arrays object
         /// </summary>
         ObjectQuery,
 
         /// <summary>
-        /// Task 4
+        /// Query Optimization
         /// </summary>
         Optimization,
 
         /// <summary>
-        /// Task 5
+        /// Query builder - Fluent API
         /// </summary>
         QueryBuilder,
 
