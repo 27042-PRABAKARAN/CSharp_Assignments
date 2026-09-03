@@ -58,8 +58,7 @@ TASK 2 - COMPLEX LINQ QUERIES
 
             foreach (var item in joinedProducts)
             {
-                Console.WriteLine(
-                    $"{item.Name} - ${item.Price} - Supplier: {item.SupplierName}");
+                Console.WriteLine($"{item.Name} - ${item.Price} - Supplier: {item.SupplierName}");
             }
         }
     }

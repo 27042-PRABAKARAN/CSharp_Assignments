@@ -64,8 +64,7 @@ TASK 5 - QUERY BUILDER
 
             foreach (var product in joinedProducts)
             {
-                Console.WriteLine(
-                    $"{product.Name} - {product.SupplierName} - ${product.Price:N2}");
+                Console.WriteLine($"{product.Name} - {product.SupplierName} - ${product.Price:N2}");
             }
         }
     }
