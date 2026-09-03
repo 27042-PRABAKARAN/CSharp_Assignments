@@ -10,7 +10,7 @@ namespace ExceptionHandling
         /// <summary>
         /// Displays the menu and allows the user to select a task.
         /// </summary>
-        public void ChooseTask()
+        public void ExecuteExceptions()
         {
             bool state = true;
 
@@ -29,13 +29,10 @@ TASK MENU
 5. Task 5 - Exception Stack Trace
 6. Exit
 ");
-                 
                 int? choice = UserInput.ReadEnum<TaskList>("Enter choice: ");
-
-                if (choice == null || !Enum.IsDefined(typeof(TaskList), choice))
+                if (choice == null)
                 {
-                    Console.WriteLine($"Please enter a number from 1 to {Enum.GetNames(typeof(TaskList)).Length}.");
-                    this.Pause();
+                    UserInput.WaitAndClear();
                     continue;
                 }
 
@@ -77,7 +74,7 @@ TASK MENU
                         break;
                 }
 
-                this.Pause();
+                UserInput.WaitAndClear();
             }
         }
 
@@ -211,13 +208,22 @@ TASK 5 - EXCEPTION STACK TRACE
 ========================================");
             try
             {
-                throw new InvalidOperationException("Exception thrown");
+                this.ExceptionThrower();
             }
             catch (InvalidOperationException exception)
             {
                 Console.WriteLine($"Exception Type : {exception.GetType().Name} Message : {exception.Message}");
                 Console.WriteLine($"STACK TRACE {exception.StackTrace}");
             }
+        }
+
+        /// <summary>
+        /// Throws an invalid operation exception with a custom message
+        /// </summary>
+        /// <exception cref="InvalidOperationException"> Throws an invalid operation exception</exception>
+        public void ExceptionThrower()
+        {
+            throw new InvalidOperationException("Exception thrown");
         }
 
         /// <summary>
@@ -229,7 +235,6 @@ TASK 5 - EXCEPTION STACK TRACE
 GLOBAL UNHANDLED EXCEPTION HANDLER
 ========================================");
             Console.WriteLine($"IsTerminating : {e.IsTerminating}");
-
             if (e.ExceptionObject is Exception exception)
             {
                 Console.WriteLine($"Exception Type: {exception.GetType().Name} Message : {exception.Message}");
@@ -240,17 +245,7 @@ GLOBAL UNHANDLED EXCEPTION HANDLER
                 Console.WriteLine("The unhandled object is not an Exception.");
             }
 
-            this.Pause();
-        }
-
-        /// <summary>
-        /// Pauses the console so that the task output can be viewed before returning to the menu.
-        /// </summary>
-        private void Pause()
-        {
-            Console.WriteLine("Press any key...");
-            Console.ReadKey();
-            Console.Clear();
+            UserInput.WaitAndClear();
         }
     }
 }

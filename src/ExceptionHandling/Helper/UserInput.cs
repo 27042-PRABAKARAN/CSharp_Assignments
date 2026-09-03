@@ -15,19 +15,14 @@
             where T : Enum
         {
             int maxRange = Enum.GetNames(typeof(T)).Length;
+            Console.Write(prompt);
 
-            for (int tried = 1; tried <= 3; tried++)
+            if (int.TryParse(Console.ReadLine(), out int number) && number >= 1 && number <= maxRange)
             {
-                Console.Write(prompt);
-
-                if (int.TryParse(Console.ReadLine(), out int number) && number >= 1 && number <= maxRange)
-                {
-                    return number;
-                }
-
-                ConsolePrinter.Error($"Invalid Number. Please enter a number between 1 to {maxRange}.");
-                ConsolePrinter.Error($"{3 - tried} attempts remaining\n");
+                return number;
             }
+
+            ConsolePrinter.Error($"Invalid Number. Please enter a number between 1 to {maxRange}.");
 
             return null;
         }

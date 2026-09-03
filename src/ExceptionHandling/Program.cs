@@ -1,14 +1,14 @@
 ﻿namespace ExceptionHandling
 {
     /// <summary>
-    /// Program class
+    /// The main entry point for the application.
     /// </summary>
     internal class Program
     {
         private static void Main()
         {
-            ExceptionHandler task = new ();
-            task.ChooseTask();
+            ExceptionHandler exceptionHandler = new ();
+            exceptionHandler.ExecuteExceptions();
         }
     }
 }
