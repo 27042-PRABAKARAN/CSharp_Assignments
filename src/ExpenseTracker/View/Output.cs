@@ -34,7 +34,7 @@ namespace ExpenseTracker.View
         /// To display as tables.
         /// </summary>
         /// <param name="transactions"> the list to be printed as tables </param>
-        internal static void PrintTransactionTable(IEnumerable<TransactionInfo> transactions)
+        internal static void PrintTable(IEnumerable<TransactionInfo> transactions)
         {
             Console.WriteLine();
             var table = new ConsoleTable("S.no", "TransactionId", "Transaction Date", "Transaction Type", "Transaction Amount", "Category");

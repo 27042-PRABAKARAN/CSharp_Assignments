@@ -1,4 +1,5 @@
-﻿using ExpenseTracker.Model;
+﻿using ExpenseTracker.Logger;
+using ExpenseTracker.Model;
 using ExpenseTracker.Model.Enums;
 using ExpenseTracker.Repository;
 
@@ -29,8 +30,8 @@ namespace ExpenseTracker.Service
         /// <param name="type"> type of income </param>
         public void CreateTransaction(decimal amount, DateOnly date, string category, TransactionType type)
         {
-            TransactionInfo newExpense = new (amount, Guid.NewGuid().ToString(), date, category, type);
-            this._repository.AddTransaction(newExpense);
+            TransactionInfo newTransaction = new (amount, Guid.NewGuid().ToString(), date, category, type);
+            this._repository.AddTransaction(newTransaction);
         }
 
         /// <summary>
@@ -41,24 +42,6 @@ namespace ExpenseTracker.Service
         public bool DeleteTransaction(string id)
         {
             return this._repository.DeleteTransaction(id);
-        }
-
-        /// <summary>
-        /// To check if the income is empty
-        /// </summary>
-        /// <returns> status of income </returns>
-        public bool IsEmptyIncome()
-        {
-            return this._repository.IsEmptyIncome();
-        }
-
-        /// <summary>
-        /// Check if the expense is empty
-        /// </summary>
-        /// <returns> status of expense </returns>
-        public bool IsEmptyExpense()
-        {
-            return this._repository.IsEmptyExpense();
         }
 
         /// <summary>

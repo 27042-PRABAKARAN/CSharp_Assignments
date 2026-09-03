@@ -26,8 +26,8 @@ namespace ExpenseTracker.View
         /// </summary>
         public void FinanceOperations()
         {
-            Console.WriteLine(@"Hey User,
-Welcome to Finance tracker");
+            Console.WriteLine("Hey User,");
+            Console.WriteLine("Welcome to Finance tracker");
             bool loop = true;
             while (loop)
             {
@@ -74,7 +74,11 @@ Welcome to Finance tracker");
                             break;
                         }
 
-                    default: Console.WriteLine("Enter Valid Number from 1 to 4"); break;
+                    default:
+                        {
+                        Console.WriteLine("Enter a valid number between 1 to 4");
+                        break;
+                        }
                 }
             }
         }

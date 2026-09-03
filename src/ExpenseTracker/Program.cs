@@ -1,4 +1,5 @@
-﻿using ExpenseTracker.Repository;
+﻿using ExpenseTracker.Logger;
+using ExpenseTracker.Repository;
 using ExpenseTracker.Service;
 using ExpenseTracker.View;
 
@@ -14,11 +15,12 @@ namespace ExpenseTracker
         /// </summary>
         public static void Main()
         {
-           InMemoryRepository repository = new InMemoryRepository();
+           IRepository repository = new JsonRepository("data.json");
+           ILogger logger = new FileLogger("Log.txt");
            TransactionService transactionService = new TransactionService(repository);
            DashboardService dashboardService = new DashboardService(repository);
-           TransactionView transactionView = new TransactionView(transactionService);
-           DashboardView dashboardView = new DashboardView(dashboardService);
+           TransactionView transactionView = new TransactionView(transactionService, logger);
+           DashboardView dashboardView = new DashboardView(dashboardService, logger);
            FinanceView view = new FinanceView(transactionView, dashboardView);
            view.FinanceOperations();
         }

@@ -1,4 +1,6 @@
-﻿using ExpenseTracker.Model;
+﻿using System.Text.Json;
+using ExpenseTracker.Logger;
+using ExpenseTracker.Model;
 using ExpenseTracker.Model.Enums;
 using ExpenseTracker.Service;
 
@@ -10,6 +12,7 @@ namespace ExpenseTracker.View
     internal class TransactionView
     {
         private readonly TransactionService _transactionService;
+        private readonly ILogger _logger;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="TransactionView"/> class.
@@ -17,9 +20,13 @@ namespace ExpenseTracker.View
         /// <param name="transactionService">
         /// Instance of transaction service.
         /// </param>
-        public TransactionView(TransactionService transactionService)
+        /// <param name="logger">
+        /// Instance of logger.
+        /// </param>
+        public TransactionView(TransactionService transactionService, ILogger logger)
         {
             this._transactionService = transactionService;
+            this._logger = logger;
         }
 
         /// <summary>
@@ -34,7 +41,9 @@ namespace ExpenseTracker.View
 
             while (state)
             {
-                Console.WriteLine($@"
+                try
+                {
+                    Console.WriteLine($@"
 ===========MENU==========
 1. Add an {type}
 2. Delete an {type}
@@ -43,37 +52,50 @@ namespace ExpenseTracker.View
 5. Exit
 =========================");
 
-                int? choice = UserInput.ReadInt("Enter your choice: ", 1, 5);
-                if (choice == null)
-                {
-                    return;
+                    int? choice = UserInput.ReadInt("Enter your choice: ", 1, 5);
+                    if (choice == null)
+                    {
+                        return;
+                    }
+
+                    switch ((TransactionOperations)choice)
+                    {
+                        case TransactionOperations.Add:
+                            this.CreateTransaction(type);
+                            UserInput.WaitAndClear();
+                            break;
+
+                        case TransactionOperations.Delete:
+                            this.DeleteTransaction(type);
+                            UserInput.WaitAndClear();
+                            break;
+
+                        case TransactionOperations.Update:
+                            this.UpdateTransaction(type);
+                            UserInput.WaitAndClear();
+                            break;
+
+                        case TransactionOperations.View:
+                            this.ViewAllTransaction(type);
+                            UserInput.WaitAndClear();
+                            break;
+
+                        case TransactionOperations.Exit:
+                            state = false;
+                            break;
+                    }
                 }
-
-                switch ((TransactionOperations)choice)
+                catch (JsonException)
                 {
-                    case TransactionOperations.Add:
-                        this.CreateTransaction(type);
-                        UserInput.WaitAndClear();
-                        break;
-
-                    case TransactionOperations.Delete:
-                        this.DeleteTransaction(type);
-                        UserInput.WaitAndClear();
-                        break;
-
-                    case TransactionOperations.Update:
-                        this.UpdateTransaction(type);
-                        UserInput.WaitAndClear();
-                        break;
-
-                    case TransactionOperations.View:
-                        this.ViewAllTransaction(type);
-                        UserInput.WaitAndClear();
-                        break;
-
-                    case TransactionOperations.Exit:
-                        state = false;
-                        break;
+                    Console.WriteLine("Json data to be loaded is inappropriate");
+                }
+                catch (IOException)
+                {
+                    Console.WriteLine("Cannot access the file location");
+                }
+                catch (Exception exception)
+                {
+                    Console.WriteLine(exception.Message);
                 }
             }
         }
@@ -92,23 +114,27 @@ namespace ExpenseTracker.View
             decimal? amount = UserInput.ReadAmount("Enter the amount: ");
             if (amount == null)
             {
+                this._logger.LogWarning("Entered invalid amount");
                 return;
             }
 
             DateOnly? date = UserInput.ReadDate();
             if (date == null)
             {
+                this._logger.LogWarning("Entered invalid date");
                 return;
             }
 
             string? category = this.ReadCategory(type);
             if (category == null)
             {
+                this._logger.LogWarning("Entered invalid category");
                 return;
             }
 
             this._transactionService.CreateTransaction(amount.Value, date.Value, category, type);
             Output.Success($"Created {type} Successfully");
+            this._logger.LogInformation($"Created {type} Successfully");
         }
 
         /// <summary>
@@ -124,11 +150,12 @@ namespace ExpenseTracker.View
             if (!transactions.Any())
             {
                 Output.Error("There are no records to display.");
+                this._logger.LogWarning("There are no records to display.");
                 return;
             }
 
             Console.WriteLine($"All {type} Records:");
-            Output.PrintTransactionTable(transactions);
+            Output.PrintTable(transactions);
         }
 
         /// <summary>
@@ -143,6 +170,7 @@ namespace ExpenseTracker.View
             if (!transactions.Any())
             {
                 Output.Error("There are no records to display.");
+                this._logger.LogWarning("There are no records to display.");
                 return;
             }
 
@@ -151,6 +179,7 @@ namespace ExpenseTracker.View
             int? serialNumber = UserInput.ReadInt("Enter S.no: ", 1, transactionList.Count);
             if (serialNumber == null)
             {
+                this._logger.LogWarning("Invalid Choice of record");
                 return;
             }
 
@@ -158,10 +187,12 @@ namespace ExpenseTracker.View
             if (this._transactionService.DeleteTransaction(transaction.Id))
             {
                 Output.Success("Deleted Successfully");
+                this._logger.LogInformation($"Deleted {type.ToString()} Successfully");
             }
             else
             {
                 Output.Error("Record not deleted");
+                this._logger.LogError($"Delete {type.ToString()} Failed");
             }
         }
 
@@ -177,6 +208,7 @@ namespace ExpenseTracker.View
             if (!transactions.Any())
             {
                 Output.Error("There are no records to display.");
+                this._logger.LogWarning("There are no records to display.");
                 return;
             }
 
@@ -186,6 +218,7 @@ namespace ExpenseTracker.View
             int? serialNumber = UserInput.ReadInt("Enter S.no: ", 1, transactionList.Count);
             if (serialNumber == null)
             {
+                this._logger.LogWarning("Invalid Choice of record");
                 return;
             }
 
@@ -197,6 +230,7 @@ namespace ExpenseTracker.View
             int? choice = UserInput.ReadInt("Enter choice: ", 1, 3);
             if (choice == null)
             {
+                this._logger.LogWarning("Invalid Choice");
                 return;
             }
 
@@ -227,16 +261,19 @@ namespace ExpenseTracker.View
             DateOnly? date = UserInput.ReadDate();
             if (date == null)
             {
+                this._logger.LogWarning("Entered invalid date");
                 return;
             }
 
             if (this._transactionService.UpdateTransactionDate(transactionId, date.Value))
             {
                 Output.Success("Updated Date Successfully");
+                this._logger.LogInformation($"Update Successful");
             }
             else
             {
                 Output.Error("Updated Date Failed");
+                this._logger.LogError($"Update Failed");
             }
         }
 
@@ -251,12 +288,14 @@ namespace ExpenseTracker.View
             decimal? amount = UserInput.ReadAmount("Enter new Amount: ");
             if (amount == null)
             {
+                this._logger.LogWarning("Entered invalid amount");
                 return;
             }
 
             if (this._transactionService.UpdateTransactionAmount(transactionId, amount.Value))
             {
                 Output.Success("Updated Amount Successfully");
+                this._logger.LogInformation($"Update Successful");
             }
             else
             {
@@ -278,12 +317,14 @@ namespace ExpenseTracker.View
             string? category = this.ReadCategory(type);
             if (category == null)
             {
+                this._logger.LogWarning("Entered invalid category");
                 return;
             }
 
             if (this._transactionService.UpdateTransactionCategory(transactionId, category))
             {
                 Output.Success("Updated Category Successfully");
+                this._logger.LogInformation($"Update Successful");
             }
             else
             {
@@ -302,10 +343,10 @@ namespace ExpenseTracker.View
         /// </returns>
         private string? ReadCategory(TransactionType type)
         {
-            Console.WriteLine($"Enter Category of {type}: ");
             if (type == TransactionType.Income)
             {
-                Console.WriteLine(@"1. Salary
+                Console.WriteLine(@"
+1. Salary
 2. Investment Returns
 3. Bonus
 4. Others");
@@ -313,13 +354,15 @@ namespace ExpenseTracker.View
                 int? choice = UserInput.ReadInt("Enter choice: ", 1, 4);
                 if (choice == null)
                 {
+                    this._logger.LogWarning("Entered invalid choice");
                     return null;
                 }
 
                 return ((IncomeType)choice.Value).ToString();
             }
 
-            Console.WriteLine(@"1. Food
+            Console.WriteLine(@"
+1. Food
 2. Travel
 3. Emergency
 4. Health");
@@ -327,6 +370,7 @@ namespace ExpenseTracker.View
             int? expenseChoice = UserInput.ReadInt("Enter choice: ", 1, 4);
             if (expenseChoice == null)
             {
+                this._logger.LogWarning("Entered invalid choice");
                 return null;
             }
 

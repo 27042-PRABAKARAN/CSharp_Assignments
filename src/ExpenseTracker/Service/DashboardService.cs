@@ -1,4 +1,5 @@
-﻿using ExpenseTracker.Repository;
+﻿using ExpenseTracker.Logger;
+using ExpenseTracker.Repository;
 
 namespace ExpenseTracker.Service
 {

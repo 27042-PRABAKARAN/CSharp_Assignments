@@ -1,4 +1,5 @@
-﻿using ExpenseTracker.Service;
+﻿using ExpenseTracker.Logger;
+using ExpenseTracker.Service;
 
 namespace ExpenseTracker.View
 {
@@ -8,14 +9,17 @@ namespace ExpenseTracker.View
     internal class DashboardView
     {
         private readonly DashboardService _dashboardServices;
+        private readonly ILogger _logger;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DashboardView"/> class.
         /// </summary>
         /// <param name="dashboardService"> instance of dashboard service </param>
-        public DashboardView(DashboardService dashboardService)
+        /// <param name="logger"> instance of logger </param>
+        public DashboardView(DashboardService dashboardService, ILogger logger)
         {
             this._dashboardServices = dashboardService;
+            this._logger = logger;
         }
 
         /// <summary>
@@ -34,8 +38,9 @@ namespace ExpenseTracker.View
             Console.WriteLine($@"=========Summary========
 Total Income: {income}
 Total Expense: {expense}
-");
+========================");
             Console.WriteLine(this._dashboardServices.GetSummary());
+            this._logger.LogInformation($"Summary Generated Successfully");
         }
     }
 }
