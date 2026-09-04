@@ -5,15 +5,15 @@ namespace Calculator
     /// <summary>
     /// Manages the application workflow and coordinates arithmetic operations with user input.
     /// </summary>
-    internal class Math
+    internal class Calculator
     {
         private readonly MathUtils _mathUtils;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="Math"/> class.
+        /// Initializes a new instance of the <see cref="Calculator"/> class.
         /// </summary>
         /// <param name="mathUtils"> instance of math utility</param>
-        public Math(MathUtils mathUtils)
+        public Calculator(MathUtils mathUtils)
         {
             this._mathUtils = mathUtils;
         }
@@ -89,19 +89,19 @@ namespace Calculator
         /// </summary>
         public void Add()
         {
-            double? num1 = UserInput.ReadDouble("Enter first number: ");
+            int? num1 = UserInput.ReadInt("Enter first number: ");
             if (num1 == null)
             {
                 return;
             }
 
-            double? num2 = UserInput.ReadDouble("Enter second number: ");
+            int? num2 = UserInput.ReadInt("Enter second number: ");
             if (num2 == null)
             {
                 return;
             }
 
-            double result = this._mathUtils.Add((double)num1, (double)num2);
+            int result = this._mathUtils.Add((int)num1, (int) num2);
             Console.WriteLine($"Result: {num1} + {num2} = {result}\n");
         }
 
@@ -110,19 +110,19 @@ namespace Calculator
         /// </summary>
         public void Subtract()
         {
-            double? num1 = UserInput.ReadDouble("Enter first number: ");
+            int? num1 = UserInput.ReadInt("Enter first number: ");
             if (num1 == null)
             {
                 return;
             }
 
-            double? num2 = UserInput.ReadDouble("Enter second number: ");
+            int? num2 = UserInput.ReadInt("Enter second number: ");
             if (num2 == null)
             {
                 return;
             }
 
-            double result = this._mathUtils.Subtract((double)num1, (double)num2);
+            int result = this._mathUtils.Subtract((int)num1, (int)num2);
             Console.WriteLine($"Result: {num1} - {num2} = {result}\n");
         }
 
@@ -131,19 +131,19 @@ namespace Calculator
         /// </summary>
         public void Multiply()
         {
-            double? num1 = UserInput.ReadDouble("Enter first number: ");
+            int? num1 = UserInput.ReadInt("Enter first number: ");
             if (num1 == null)
             {
                 return;
             }
 
-            double? num2 = UserInput.ReadDouble("Enter second number: ");
+            int? num2 = UserInput.ReadInt("Enter second number: ");
             if (num2 == null)
             {
                 return;
             }
 
-            double result = this._mathUtils.Multiply((double)num1, (double)num2);
+            int result = this._mathUtils.Multiply((int)num1, (int)num2);
             Console.WriteLine($"Result: {num1} * {num2} = {result}\n");
         }
 
@@ -152,13 +152,13 @@ namespace Calculator
         /// </summary>
         public void Divide()
         {
-            double? num1 = UserInput.ReadDouble("Enter dividend (first number): ");
+            int? num1 = UserInput.ReadInt("Enter dividend (first number): ");
             if (num1 == null)
             {
                 return;
             }
 
-            double? num2 = UserInput.ReadDouble("Enter divisor (second number): ");
+            int? num2 = UserInput.ReadInt("Enter divisor (second number): ");
             if (num2 == null)
             {
                 return;
@@ -166,7 +166,7 @@ namespace Calculator
 
             try
             {
-                double result = this._mathUtils.Divide((double)num1, (double)num2);
+                int result = this._mathUtils.Divide((int)num1, (int)num2);
                 Console.WriteLine($"Result: {num1} / {num2} = {result}\n");
             }
             catch (DivideByZeroException)

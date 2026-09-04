@@ -10,7 +10,7 @@ namespace Calculator
         private static void Main()
         {
             MathUtils mathUtils = new MathUtils();
-            Math math = new Math(mathUtils);
+            Calculator math = new Calculator(mathUtils);
             math.ExecuteOperations();
         }
     }

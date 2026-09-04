@@ -11,7 +11,7 @@
         /// <param name="firstNumber">The first value to add.</param>
         /// <param name="secondNumber">The second value to add.</param>
         /// <returns>The sum of the two numbers.</returns>
-        public double Add(double firstNumber, double secondNumber)
+        public int Add(int firstNumber, int secondNumber)
         {
             return firstNumber + secondNumber;
         }
@@ -22,7 +22,7 @@
         /// <param name="firstNumber">The base value.</param>
         /// <param name="secondNumber">The value to subtract from the base value.</param>
         /// <returns>The difference between the two numbers.</returns>
-        public double Subtract(double firstNumber, double secondNumber)
+        public int Subtract(int firstNumber, int secondNumber)
         {
             return firstNumber - secondNumber;
         }
@@ -33,7 +33,7 @@
         /// <param name="firstNumber">The first value to multiply.</param>
         /// <param name="secondNumber">The second value to multiply.</param>
         /// <returns>The product of the two numbers.</returns>
-        public double Multiply(double firstNumber, double secondNumber)
+        public int Multiply(int firstNumber, int secondNumber)
         {
             return firstNumber * secondNumber;
         }
@@ -45,7 +45,7 @@
         /// <param name="secondNumber">The number to divide by (divisor).</param>
         /// <returns>The result of the division.</returns>
         /// <exception cref="DivideByZeroException">Thrown when the second number is zero.</exception>
-        public double Divide(double firstNumber, double secondNumber)
+        public int Divide(int firstNumber, int secondNumber)
         {
             if (secondNumber == 0)
             {
