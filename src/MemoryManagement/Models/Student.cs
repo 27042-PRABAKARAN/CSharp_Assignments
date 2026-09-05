@@ -8,6 +8,13 @@
         /// <summary>
         /// Initializes a new instance of the <see cref="Student"/> class.
         /// </summary>
+        public Student()
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Student"/> class.
+        /// </summary>
         /// <param name="name"> name of the student </param>
         /// <param name="age"> age of the student </param>
         public Student(string name, int age)
@@ -22,7 +29,7 @@
         /// <value>
         /// Name of the student
         /// </value>
-        public string Name { get; set; }
+        public string Name { get; set; } = string.Empty;
 
         /// <summary>
         /// Gets or sets Age of the student

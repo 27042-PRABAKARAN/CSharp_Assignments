@@ -21,12 +21,13 @@ namespace MemoryManagement
             Console.WriteLine(@"===========================================
 Reference and Value
 ===========================================");
-            Employee employee = new Employee("Arun", "Coimbatore");
-            Student student = new Student("Prabu", 20);
+            Employee employee = new Employee("Old Name", "Old Place");
+            Student student = new Student("Old Name", 0);
             this.UpdateEmployee(employee);
             this.UpdateStudent(student);
             Console.WriteLine(employee.Name);
             Console.WriteLine(student.Name);
+            UserInput.WaitAndClear();
         }
 
         /// <summary>

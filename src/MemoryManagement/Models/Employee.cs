@@ -1,15 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace MemoryManagement.Models
+﻿namespace MemoryManagement.Models
 {
     /// <summary>
     /// Employee model
     /// </summary>
-    internal struct Employee
+    internal ref struct Employee
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Employee"/> struct.
