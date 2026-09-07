@@ -1,7 +1,7 @@
-﻿using System.Text.RegularExpressions;
-
-namespace MemoryManagement
+﻿namespace MemoryManagement
 {
+    using System.Text.RegularExpressions;
+
     /// <summary>
     /// User input class to read input from users
     /// </summary>
@@ -165,24 +165,19 @@ namespace MemoryManagement
         /// <typeparam name="T">The enum type to validate against.</typeparam>
         /// <param name="prompt">The message displayed to the user.</param>
         /// <returns>The entered number if valid; otherwise, null.</returns>
-        public static int? ReadEnum<T>(string prompt)
-            where T : Enum
+        public static T? ReadEnum<T>(string prompt)
+            where T : struct, Enum
         {
             int maxRange = Enum.GetNames(typeof(T)).Length;
 
-            for (int tried = 1; tried <= 3; tried++)
+            Console.Write(prompt);
+
+            if (int.TryParse(Console.ReadLine(), out int number) && number >= 1 && number <= maxRange)
             {
-                Console.Write(prompt);
-
-                if (int.TryParse(Console.ReadLine(), out int number) && number >= 1 && number <= maxRange)
-                {
-                    return number;
-                }
-
-                ConsolePrinter.Error($"Invalid Number. Please enter a number between 1 to {maxRange}.");
-                ConsolePrinter.Error($"{3 - tried} attempts remaining\n");
+                return (T)Enum.ToObject(typeof(T), number);
             }
 
+            ConsolePrinter.Error($"Invalid Number. Please enter a number between 1 to {maxRange}.");
             return null;
         }
 

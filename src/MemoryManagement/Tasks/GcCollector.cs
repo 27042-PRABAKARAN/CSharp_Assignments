@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MemoryManagement.Models;
-
-namespace MemoryManagement.Tasks
+﻿namespace MemoryManagement.Tasks
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using MemoryManagement.Models;
+
     /// <summary>
     /// Forcing garbage collector to remove unreferenced objects
     /// </summary>
@@ -18,7 +15,7 @@ namespace MemoryManagement.Tasks
         /// <summary>
         /// Force executes garbage collector
         /// </summary>
-        public void ExecuteGarbageCollected()
+        public void ExecuteGarbageCollector()
         {
             Process currentProcess = Process.GetCurrentProcess();
             Console.WriteLine($"Initial Managed Memory: {GC.GetTotalMemory(false) / 1024 / 1024:F2} MB");

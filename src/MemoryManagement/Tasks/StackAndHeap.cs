@@ -1,6 +1,4 @@
-﻿using System.Runtime;
-
-namespace MemoryManagement.Tasks
+﻿namespace MemoryManagement.Tasks
 {
     /// <summary>
     /// Stack and heap memory allocations

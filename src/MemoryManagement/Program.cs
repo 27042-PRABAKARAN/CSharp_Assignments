@@ -1,17 +1,19 @@
-﻿using MemoryManagement.Models;
-using MemoryManagement.Tasks;
+﻿using MemoryManagement.Tasks;
 
-namespace Assignments
+namespace MemoryManagement;
+
+/// <summary>
+/// The main entry point of the application
+/// </summary>
+internal class Program
 {
-    /// <summary>
-    /// The main entry point of the application
-    /// </summary>
-    internal class Program
+    private static void Main(string[] args)
     {
-        private static void Main(string[] args)
-        {
-            FileHandler fileHandler = new FileHandler();
-            fileHandler.ExecuteFileHandler();
-        }
+        GcCollector gcCollector = new ();
+        FileHandler fileHandler = new ();
+        ReferenceAndValueType referenceAndValueType = new ();
+        StackAndHeap stackAndHeap = new ();
+        MemoryHandler memoryHandler = new (referenceAndValueType, fileHandler, gcCollector, stackAndHeap);
+        memoryHandler.ExecuteMemoryOperation();
     }
 }
