@@ -101,7 +101,7 @@ namespace Calculator
                 return;
             }
 
-            int result = this._mathUtils.Add((int)num1, (int) num2);
+            int result = this._mathUtils.Add((int)num1, (int)num2);
             Console.WriteLine($"Result: {num1} + {num2} = {result}\n");
         }
 
