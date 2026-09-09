@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagementSystem", "src\ass
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionHandling", "src\ExceptionHandling\ExceptionHandling.csproj", "{921C4CC6-11FB-4C7F-8B9A-3D90690BEDB9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MemoryHandler", "src\MemoryHandler\MemoryHandler.csproj", "{836ECF97-C6E0-4849-A2F0-A4C9606CBA2C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,6 +37,10 @@ Global
 		{921C4CC6-11FB-4C7F-8B9A-3D90690BEDB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{921C4CC6-11FB-4C7F-8B9A-3D90690BEDB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{921C4CC6-11FB-4C7F-8B9A-3D90690BEDB9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{836ECF97-C6E0-4849-A2F0-A4C9606CBA2C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{836ECF97-C6E0-4849-A2F0-A4C9606CBA2C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{836ECF97-C6E0-4849-A2F0-A4C9606CBA2C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{836ECF97-C6E0-4849-A2F0-A4C9606CBA2C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -45,6 +51,7 @@ Global
 		{5E0A8F8E-10BB-458B-921E-A6C8B8F51166} = {DCAA095E-2796-41FA-A1D0-1134E29309E7}
 		{6B97AA6A-ECD3-A3E9-3E03-F824651F6CB7} = {DCAA095E-2796-41FA-A1D0-1134E29309E7}
 		{921C4CC6-11FB-4C7F-8B9A-3D90690BEDB9} = {DCAA095E-2796-41FA-A1D0-1134E29309E7}
+		{836ECF97-C6E0-4849-A2F0-A4C9606CBA2C} = {DCAA095E-2796-41FA-A1D0-1134E29309E7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D4CECB66-8E11-49D9-AA1E-464EE0231450}
