@@ -146,7 +146,7 @@ namespace ExpenseTracker.View
         private void ViewAllTransaction(TransactionType type)
         {
             Console.Clear();
-            IEnumerable<TransactionInfo> transactions = this.GetTransactions(type);
+            IEnumerable<Transaction> transactions = this.GetTransactions(type);
             if (!transactions.Any())
             {
                 Output.Error("There are no records to display.");
@@ -166,7 +166,7 @@ namespace ExpenseTracker.View
         /// </param>
         private void DeleteTransaction(TransactionType type)
         {
-            IEnumerable<TransactionInfo> transactions = this.GetTransactions(type);
+            IEnumerable<Transaction> transactions = this.GetTransactions(type);
             if (!transactions.Any())
             {
                 Output.Error("There are no records to display.");
@@ -175,7 +175,7 @@ namespace ExpenseTracker.View
             }
 
             this.ViewAllTransaction(type);
-            List<TransactionInfo> transactionList = this.GetTransactions(type).ToList();
+            List<Transaction> transactionList = this.GetTransactions(type).ToList();
             int? serialNumber = UserInput.ReadInt("Enter S.no: ", 1, transactionList.Count);
             if (serialNumber == null)
             {
@@ -183,7 +183,7 @@ namespace ExpenseTracker.View
                 return;
             }
 
-            TransactionInfo transaction = transactionList[serialNumber.Value - 1];
+            Transaction transaction = transactionList[serialNumber.Value - 1];
             if (this._transactionService.DeleteTransaction(transaction.Id))
             {
                 Output.Success("Deleted Successfully");
@@ -204,7 +204,7 @@ namespace ExpenseTracker.View
         /// </param>
         private void UpdateTransaction(TransactionType type)
         {
-            IEnumerable<TransactionInfo> transactions = this.GetTransactions(type);
+            IEnumerable<Transaction> transactions = this.GetTransactions(type);
             if (!transactions.Any())
             {
                 Output.Error("There are no records to display.");
@@ -213,7 +213,7 @@ namespace ExpenseTracker.View
             }
 
             this.ViewAllTransaction(type);
-            List<TransactionInfo> transactionList = this.GetTransactions(type).ToList();
+            List<Transaction> transactionList = this.GetTransactions(type).ToList();
 
             int? serialNumber = UserInput.ReadInt("Enter S.no: ", 1, transactionList.Count);
             if (serialNumber == null)
@@ -222,7 +222,7 @@ namespace ExpenseTracker.View
                 return;
             }
 
-            TransactionInfo transaction = transactionList[serialNumber.Value - 1];
+            Transaction transaction = transactionList[serialNumber.Value - 1];
             Console.WriteLine(@"1. Update Date
 2. Update Amount
 3. Update Category");
@@ -386,7 +386,7 @@ namespace ExpenseTracker.View
         /// <returns>
         /// Transactions belonging to the specified type.
         /// </returns>
-        private IEnumerable<TransactionInfo> GetTransactions(TransactionType type)
+        private IEnumerable<Transaction> GetTransactions(TransactionType type)
         {
             if (type == TransactionType.Income)
             {

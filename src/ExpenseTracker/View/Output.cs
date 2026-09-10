@@ -34,12 +34,12 @@ namespace ExpenseTracker.View
         /// To display as tables.
         /// </summary>
         /// <param name="transactions"> the list to be printed as tables </param>
-        internal static void PrintTable(IEnumerable<TransactionInfo> transactions)
+        internal static void PrintTable(IEnumerable<Transaction> transactions)
         {
             Console.WriteLine();
             var table = new ConsoleTable("S.no", "TransactionId", "Transaction Date", "Transaction Type", "Transaction Amount", "Category");
             int i = 0;
-            foreach (TransactionInfo transaction in transactions)
+            foreach (Transaction transaction in transactions)
             {
                 table.AddRow(++i, transaction.Id, transaction.Date, transaction.Type.ToString(), transaction.Amount, transaction.Category);
             }

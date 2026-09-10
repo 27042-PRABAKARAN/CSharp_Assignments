@@ -11,7 +11,7 @@ namespace ExpenseTracker.Repository
         /// To add a transaction
         /// </summary>
         /// <param name="transaction"> the transaction </param>
-        public void AddTransaction(TransactionInfo transaction);
+        public void AddTransaction(Transaction transaction);
 
         /// <summary>
         /// To remove the transaction.
@@ -24,20 +24,20 @@ namespace ExpenseTracker.Repository
         /// To get all the transaction
         /// </summary>
         /// <returns> list of transactions </returns>
-        public IEnumerable<TransactionInfo> GetAllIncomes();
+        public IEnumerable<Transaction> GetAllIncomes();
 
         /// <summary>
         /// To get all the transaction
         /// </summary>
         /// <returns> list of transactions </returns>
-        public IEnumerable<TransactionInfo> GetAllExpenses();
+        public IEnumerable<Transaction> GetAllExpenses();
 
         /// <summary>
         /// To update the income record
         /// </summary>
         /// <param name="incomeRecord"> the updated record</param>
         /// <returns> status of update </returns>
-        public bool UpdateTransaction(TransactionInfo incomeRecord);
+        public bool UpdateTransaction(Transaction incomeRecord);
 
         /// <summary>
         /// To check empty Income list

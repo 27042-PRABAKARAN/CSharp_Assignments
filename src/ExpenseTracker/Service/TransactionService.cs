@@ -30,7 +30,7 @@ namespace ExpenseTracker.Service
         /// <param name="type"> type of income </param>
         public void CreateTransaction(decimal amount, DateOnly date, string category, TransactionType type)
         {
-            TransactionInfo newTransaction = new (amount, Guid.NewGuid().ToString(), date, category, type);
+            Transaction newTransaction = new (amount, Guid.NewGuid().ToString(), date, category, type);
             this._repository.AddTransaction(newTransaction);
         }
 
@@ -48,7 +48,7 @@ namespace ExpenseTracker.Service
         /// To fetch all expenses
         /// </summary>
         /// <returns>list of expenses</returns>
-        public IEnumerable<TransactionInfo> GetAllExpenses()
+        public IEnumerable<Transaction> GetAllExpenses()
         {
             return this._repository.GetAllExpenses();
         }
@@ -57,7 +57,7 @@ namespace ExpenseTracker.Service
         /// To fetch all expenses
         /// </summary>
         /// <returns>list of expenses</returns>
-        public IEnumerable<TransactionInfo> GetAllIncomes()
+        public IEnumerable<Transaction> GetAllIncomes()
         {
             return this._repository.GetAllIncomes();
         }
@@ -70,14 +70,14 @@ namespace ExpenseTracker.Service
         /// <returns> status of update </returns>
         public bool UpdateTransactionAmount(string id, decimal amount)
         {
-            TransactionInfo? updateRecord = this.GetTransactionById(id);
+            Transaction? updateRecord = this.GetTransactionById(id);
             if (updateRecord == null)
             {
                 return false;
             }
 
             updateRecord.Amount = amount;
-            return this._repository.UpdateTransaction((TransactionInfo)updateRecord);
+            return this._repository.UpdateTransaction((Transaction)updateRecord);
         }
 
         /// <summary>
@@ -88,14 +88,14 @@ namespace ExpenseTracker.Service
         /// <returns> status of update </returns>
         public bool UpdateTransactionDate(string id, DateOnly date)
         {
-            TransactionInfo? updateRecord = this.GetTransactionById(id);
+            Transaction? updateRecord = this.GetTransactionById(id);
             if (updateRecord == null)
             {
                 return false;
             }
 
             updateRecord.Date = date;
-            return this._repository.UpdateTransaction((TransactionInfo)updateRecord);
+            return this._repository.UpdateTransaction((Transaction)updateRecord);
         }
 
         /// <summary>
@@ -106,14 +106,14 @@ namespace ExpenseTracker.Service
         /// <returns> status of update </returns>
         public bool UpdateTransactionCategory(string id, string category)
         {
-            TransactionInfo? updateRecord = this.GetTransactionById(id);
+            Transaction? updateRecord = this.GetTransactionById(id);
             if (updateRecord == null)
             {
                 return false;
             }
 
             updateRecord.Category = category;
-            return this._repository.UpdateTransaction((TransactionInfo)updateRecord);
+            return this._repository.UpdateTransaction((Transaction)updateRecord);
         }
 
         /// <summary>
@@ -121,9 +121,9 @@ namespace ExpenseTracker.Service
         /// </summary>
         /// <param name="id"> id of the transaction </param>
         /// <returns> returns list of transaction </returns>
-        private TransactionInfo? GetTransactionById(string id)
+        private Transaction? GetTransactionById(string id)
         {
-            TransactionInfo? transaction = this.GetAllExpenses().FirstOrDefault(transaction => transaction.Id.Equals(id));
+            Transaction? transaction = this.GetAllExpenses().FirstOrDefault(transaction => transaction.Id.Equals(id));
             if (transaction == null)
             {
                 transaction = this.GetAllIncomes().FirstOrDefault(transaction => transaction.Id.Equals(id));

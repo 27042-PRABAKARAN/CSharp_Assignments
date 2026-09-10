@@ -5,17 +5,17 @@ namespace ExpenseTracker.Model
     /// <summary>
     /// Transaction abstract class
     /// </summary>
-    internal class TransactionInfo
+    internal class Transaction
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="TransactionInfo"/> class.
+        /// Initializes a new instance of the <see cref="Transaction"/> class.
         /// </summary>
         /// <param name="amount"> amount of transaction </param>
         /// <param name="id"> id of transaction</param>
         /// <param name="date">date of transaction</param>
         /// <param name="category"> category of transaction</param>
         /// <param name="type">type transaction</param>
-        public TransactionInfo(decimal amount, string id, DateOnly date, string category, TransactionType type)
+        public Transaction(decimal amount, string id, DateOnly date, string category, TransactionType type)
         {
             this.Amount = amount;
             this.Category = category;
@@ -66,9 +66,9 @@ namespace ExpenseTracker.Model
         /// To clone the object
         /// </summary>
         /// <returns>returns the cloned object</returns>
-        public TransactionInfo Clone()
+        public Transaction Clone()
         {
-            return new TransactionInfo(this.Amount, this.Id, this.Date, this.Category, this.Type);
+            return new Transaction(this.Amount, this.Id, this.Date, this.Category, this.Type);
         }
     }
 }

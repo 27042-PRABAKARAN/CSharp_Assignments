@@ -12,13 +12,13 @@ namespace ExpenseTracker.Repository
         /// <summary>
         /// List of transactions
         /// </summary>
-        private readonly List<TransactionInfo> _transactions = new ();
+        private readonly List<Transaction> _transactions = new ();
 
         /// <summary>
         /// To add a transaction
         /// </summary>
         /// <param name="transaction"> the transaction </param>
-        public void AddTransaction(TransactionInfo transaction)
+        public void AddTransaction(Transaction transaction)
         {
             this._transactions.Add(transaction);
         }
@@ -30,7 +30,7 @@ namespace ExpenseTracker.Repository
         /// <returns>returns status of deleting</returns>
         public bool DeleteTransaction(string id)
         {
-            TransactionInfo? deleteTransaction = this.GetTransactionById(id);
+            Transaction? deleteTransaction = this.GetTransactionById(id);
             if (deleteTransaction != null)
             {
                 this._transactions.Remove(deleteTransaction);
@@ -44,7 +44,7 @@ namespace ExpenseTracker.Repository
         /// To get all the transaction
         /// </summary>
         /// <returns> list of transactions </returns>
-        public IEnumerable<TransactionInfo> GetAllIncomes()
+        public IEnumerable<Transaction> GetAllIncomes()
         {
             return this._transactions.Where(transaction => transaction.Type == TransactionType.Income).Select(transaction => transaction.Clone()).ToList();
         }
@@ -53,7 +53,7 @@ namespace ExpenseTracker.Repository
         /// To get all the transaction
         /// </summary>
         /// <returns> list of transactions </returns>
-        public IEnumerable<TransactionInfo> GetAllExpenses()
+        public IEnumerable<Transaction> GetAllExpenses()
         {
             return this._transactions.Where(transaction => transaction.Type == TransactionType.Expense).Select(transaction => transaction.Clone()).ToList();
         }
@@ -63,9 +63,9 @@ namespace ExpenseTracker.Repository
         /// </summary>
         /// <param name="incomeRecord"> the updated record</param>
         /// <returns> status of update </returns>
-        public bool UpdateTransaction(TransactionInfo incomeRecord)
+        public bool UpdateTransaction(Transaction incomeRecord)
         {
-            TransactionInfo? updateRecord = this.GetTransactionById(incomeRecord.Id);
+            Transaction? updateRecord = this.GetTransactionById(incomeRecord.Id);
             if (updateRecord == null)
             {
                 return false;
@@ -118,7 +118,7 @@ namespace ExpenseTracker.Repository
         /// </summary>
         /// <param name="id"> id of the transaction </param>
         /// <returns> returns list of transaction </returns>
-        private TransactionInfo? GetTransactionById(string id)
+        private Transaction? GetTransactionById(string id)
         {
             return this._transactions.Find(transaction => transaction.Id.Equals(id));
         }
