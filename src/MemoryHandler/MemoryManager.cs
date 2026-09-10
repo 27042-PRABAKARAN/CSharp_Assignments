@@ -6,7 +6,6 @@
     internal class MemoryManager
     {
         private readonly int _max;
-        private List<int[]> _memory = new List<int[]>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MemoryManager"/> class.
@@ -22,9 +21,9 @@
         /// </summary>
         public void AddMemory()
         {
-            while (this._memory.Count <= this._max)
+            for (int i = 1; i < this._max; i++)
             {
-                this._memory.Add(new int[1000]);
+                int[] newArray = new int[100000];
                 Console.WriteLine($"Current Memory Usage: {GC.GetAllocatedBytesForCurrentThread() / 1024 / 1024}Mb");
                 Thread.Sleep(10);
             }
