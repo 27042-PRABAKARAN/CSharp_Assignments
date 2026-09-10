@@ -3,10 +3,10 @@
     /// <summary>
     /// Manages memory without hitting exception
     /// </summary>
-    internal class MemoryManager : IDisposable
+    internal class MemoryManager
     {
         private readonly int _max;
-        private List<int[]>? _memory = new List<int[]>();
+        private List<int[]> _memory = new List<int[]>();
 
         /// <summary>
         /// Initializes a new instance of the <see cref="MemoryManager"/> class.
@@ -22,24 +22,12 @@
         /// </summary>
         public void AddMemory()
         {
-            while (this._memory != null)
+            while (this._memory.Count <= this._max)
             {
                 this._memory.Add(new int[1000]);
-                if (this._memory.Count > this._max)
-                {
-                    return;
-                }
-
                 Console.WriteLine($"Current Memory Usage: {GC.GetAllocatedBytesForCurrentThread() / 1024 / 1024}Mb");
                 Thread.Sleep(10);
             }
-        }
-
-        /// <inheritdoc/>
-        public void Dispose()
-        {
-            this._memory = null;
-            GC.Collect();
         }
     }
 }

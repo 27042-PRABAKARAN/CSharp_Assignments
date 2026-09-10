@@ -7,7 +7,10 @@
     {
         private static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            ExplodeMemory explodeMemory = new ExplodeMemory();
+            MemoryManager memoryManager = new MemoryManager(100);
+            MemoryHandler memoryHandler = new MemoryHandler(explodeMemory, memoryManager);
+            memoryHandler.ExecuteMemoryOperations();
         }
     }
 }
