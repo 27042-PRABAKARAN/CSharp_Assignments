@@ -5,27 +5,28 @@
     /// </summary>
     internal class MemoryManager
     {
-        private readonly int _max;
+        private const int _maxItems = 100;
+        private readonly List<int[]> _memory = new ();
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="MemoryManager"/> class.
-        /// </summary>
-        /// <param name="maxData">Maximum Limit to be stored in the list.</param>
-        public MemoryManager(int maxData)
-        {
-            this._max = maxData;
-        }
-
-        /// <summary>
-        /// Adds on memory and adds it to a list.
+        /// Adds memory while maintaining a fixed maximum
+        /// number of retained arrays.
         /// </summary>
         public void AddMemory()
         {
-            for (int i = 1; i < this._max; i++)
+            while (true)
             {
-                int[] newArray = new int[100000];
-                Console.WriteLine($"Current Memory Usage: {GC.GetAllocatedBytesForCurrentThread() / 1024 / 1024}Mb");
-                Thread.Sleep(10);
+                if (this._memory.Count >= _maxItems)
+                {
+                    this._memory.RemoveAt(0);
+                }
+
+                this._memory.Add(new int[100000]);
+
+                Console.WriteLine(
+                    $"Arrays retained: {this._memory.Count}");
+
+                Thread.Sleep(5);
             }
         }
     }

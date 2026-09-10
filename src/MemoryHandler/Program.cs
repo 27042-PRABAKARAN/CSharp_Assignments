@@ -8,7 +8,7 @@
         private static void Main(string[] args)
         {
             ExplodeMemory explodeMemory = new ExplodeMemory();
-            MemoryManager memoryManager = new MemoryManager(100);
+            MemoryManager memoryManager = new MemoryManager();
             MemoryHandler memoryHandler = new MemoryHandler(explodeMemory, memoryManager);
             memoryHandler.ExecuteMemoryOperations();
         }
