@@ -1,6 +1,4 @@
-﻿using System.Data.SqlTypes;
-
-namespace Collections
+﻿namespace Collections
 {
     /// <summary>
     /// Represents a generic wrapper around List

@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Collections
+﻿namespace Collections
 {
     /// <summary>
     /// A generic wrapper class for managing dictionary.
