@@ -14,7 +14,7 @@
         /// <param name="item">The object to add to the queue.</param>
         public void Enqueue(T item)
         {
-            _queue.Enqueue(item);
+            this._queue.Enqueue(item);
         }
 
         /// <summary>
@@ -22,9 +22,9 @@
         /// </summary>
         public void Dequeue()
         {
-            if (_queue.Count > 0)
+            if (this._queue.Count > 0)
             {
-                _queue.Dequeue();
+                this._queue.Dequeue();
             }
             else
             {
@@ -37,7 +37,7 @@
         /// </summary>
         public void DisplayAll()
         {
-            foreach (T item in _queue)
+            foreach (T item in this._queue)
             {
                 Console.WriteLine(item);
             }

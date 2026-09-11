@@ -17,7 +17,7 @@
         /// <param name="value">The value of the element to add.</param>
         public void Add(TKey key, TValue value)
         {
-            _dictionary.Add(key, value);
+            this._dictionary.Add(key, value);
         }
 
         /// <summary>
@@ -27,7 +27,7 @@
         /// <returns>True if the item was found and removed; otherwise, false.</returns>
         public bool Remove(TKey key)
         {
-            return _dictionary.Remove(key);
+            return this._dictionary.Remove(key);
         }
 
         /// <summary>
@@ -35,9 +35,9 @@
         /// </summary>
         public void DisplayAll()
         {
-            foreach (TKey name in _dictionary.Keys)
+            foreach (TKey name in this._dictionary.Keys)
             {
-                Console.WriteLine($"{name} : {_dictionary[name]}");
+                Console.WriteLine($"{name} : {this._dictionary[name]}");
             }
         }
     }

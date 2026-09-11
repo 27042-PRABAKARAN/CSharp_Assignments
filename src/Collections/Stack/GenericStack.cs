@@ -14,7 +14,7 @@
         /// <param name="item">The object to push onto the stack.</param>
         public void Push(T item)
         {
-            _stack.Push(item);
+            this._stack.Push(item);
         }
 
         /// <summary>
@@ -24,9 +24,9 @@
         /// <exception cref="InvalidOperationException">Thrown when the stack is empty.</exception>
         public T Pop()
         {
-            if (_stack.Count != 0)
+            if (this._stack.Count != 0)
             {
-                return _stack.Pop();
+                return this._stack.Pop();
             }
             else
             {
@@ -40,7 +40,7 @@
         /// <returns>The number of elements in the stack.</returns>
         public int Count()
         {
-            return _stack.Count;
+            return this._stack.Count;
         }
     }
 }

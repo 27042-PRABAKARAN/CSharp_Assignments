@@ -21,7 +21,7 @@
             books.Remove("Harry potter - philosopher stone");
             Console.WriteLine("Removed the book Harry potter - philosopher stone");
             books.DisplayAll();
-            List<string> filteredBooks = books.Find("Harry");
+            IReadOnlyList<string> filteredBooks = books.Find("Harry");
             Console.WriteLine($"Found {filteredBooks.Count} books containing 'Harry':");
             foreach (string book in filteredBooks)
             {

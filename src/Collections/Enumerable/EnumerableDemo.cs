@@ -39,6 +39,7 @@ namespace Collections.Enumerable
             {
                 sum += number;
             }
+
             return sum;
         }
 
