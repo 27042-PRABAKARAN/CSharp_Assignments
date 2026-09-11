@@ -1,4 +1,4 @@
-﻿namespace Collections
+﻿namespace Collections.List
 {
     /// <summary>
     /// Represents a generic wrapper around List
