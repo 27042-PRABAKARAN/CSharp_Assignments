@@ -6,7 +6,7 @@
     /// <typeparam name="T">Specifies the type of elements in the stack.</typeparam>
     internal class GenericStack<T>
     {
-        private Stack<T> _stack = new Stack<T>();
+        private Stack<T> _stack = new ();
 
         /// <summary>
         /// Inserts an item to the stack.

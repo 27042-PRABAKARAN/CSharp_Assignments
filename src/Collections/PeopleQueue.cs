@@ -1,16 +1,16 @@
 ﻿namespace Collections
 {
     /// <summary>
-    /// Demonstrates the usage of a generic queue collection using string representations of people.
+    /// Demonstrates the usage of a generic queue.
     /// </summary>
     internal class PeopleQueue
     {
         /// <summary>
-        /// Enqueues five people into a generic queue, displays them, dequeues three people, and shows the updated queue.
+        /// Enqueues peoples into a generic queue, displays them, dequeues people, and shows the updated queue.
         /// </summary>
         public void ExecutePeopleQueue()
         {
-            GenericQueue<string> queue = new();
+            GenericQueue<string> queue = new ();
             Console.WriteLine("Adding 5 Persons ");
             queue.Enqueue("Person - 1");
             queue.Enqueue("Person - 2");

@@ -6,7 +6,7 @@
     /// <typeparam name="T">Specifies the type of elements in the queue.</typeparam>
     internal class GenericQueue<T>
     {
-        private readonly Queue<T> _queue = new Queue<T>();
+        private readonly Queue<T> _queue = new ();
 
         /// <summary>
         /// Adds an item to the queue.

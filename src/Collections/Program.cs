@@ -7,7 +7,7 @@
     {
         private static void Main()
         {
-            StudentDictionary studentDictionary = new();
+            StudentDictionary studentDictionary = new ();
             studentDictionary.ExecuteDictionary();
             Console.ReadKey();
         }
