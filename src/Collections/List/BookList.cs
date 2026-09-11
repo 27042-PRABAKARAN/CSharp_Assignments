@@ -1,4 +1,4 @@
-﻿namespace Collections
+﻿namespace Collections.List
 {
     /// <summary>
     /// To Store and manipulate Book list

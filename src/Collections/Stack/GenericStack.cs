@@ -1,4 +1,4 @@
-﻿namespace Collections
+﻿namespace Collections.Stack
 {
     /// <summary>
     /// Represents a generic stack.
@@ -14,7 +14,7 @@
         /// <param name="item">The object to push onto the stack.</param>
         public void Push(T item)
         {
-            this._stack.Push(item);
+            _stack.Push(item);
         }
 
         /// <summary>
@@ -24,9 +24,9 @@
         /// <exception cref="InvalidOperationException">Thrown when the stack is empty.</exception>
         public T Pop()
         {
-            if (this._stack.Count != 0)
+            if (_stack.Count != 0)
             {
-                return this._stack.Pop();
+                return _stack.Pop();
             }
             else
             {
@@ -40,7 +40,7 @@
         /// <returns>The number of elements in the stack.</returns>
         public int Count()
         {
-            return this._stack.Count;
+            return _stack.Count;
         }
     }
 }

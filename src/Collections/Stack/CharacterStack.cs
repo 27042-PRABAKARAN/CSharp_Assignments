@@ -1,4 +1,4 @@
-﻿namespace Collections
+﻿namespace Collections.Stack
 {
     /// <summary>
     /// Demonstrates the usage of a generic stack collection.

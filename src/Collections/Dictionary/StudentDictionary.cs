@@ -1,4 +1,4 @@
-﻿namespace Collections
+﻿namespace Collections.Dictionary
 {
     /// <summary>
     /// Provides functionality to demonstrate dictionary operations

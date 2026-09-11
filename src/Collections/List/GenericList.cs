@@ -43,7 +43,7 @@
         /// </summary>
         /// <param name="item">Item to find in list</param>
         /// <returns>A new <see cref="List{T}"/> containing elements that has been found.</returns>
-        public List<T> Find(T item)
+        public IReadOnlyList<T> Find(T item)
         {
             return this._list.FindAll(record => record != null && ((dynamic)record).Contains(item));
         }

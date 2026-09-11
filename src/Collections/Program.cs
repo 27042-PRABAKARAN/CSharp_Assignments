@@ -1,4 +1,6 @@
-﻿namespace Collections
+﻿using Collections.Dictionary;
+
+namespace Collections
 {
     /// <summary>
     /// Main entry point of the applications

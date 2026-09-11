@@ -1,4 +1,4 @@
-﻿namespace Collections
+﻿namespace Collections.Queue
 {
     /// <summary>
     /// Demonstrates the usage of a generic queue.

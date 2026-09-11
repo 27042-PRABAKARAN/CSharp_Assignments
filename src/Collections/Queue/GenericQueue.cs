@@ -1,4 +1,4 @@
-﻿namespace Collections
+﻿namespace Collections.Queue
 {
     /// <summary>
     /// Represents a generic Queue
@@ -14,7 +14,7 @@
         /// <param name="item">The object to add to the queue.</param>
         public void Enqueue(T item)
         {
-            this._queue.Enqueue(item);
+            _queue.Enqueue(item);
         }
 
         /// <summary>
@@ -22,9 +22,9 @@
         /// </summary>
         public void Dequeue()
         {
-            if (this._queue.Count > 0)
+            if (_queue.Count > 0)
             {
-                this._queue.Dequeue();
+                _queue.Dequeue();
             }
             else
             {
@@ -37,7 +37,7 @@
         /// </summary>
         public void DisplayAll()
         {
-            foreach (T item in this._queue)
+            foreach (T item in _queue)
             {
                 Console.WriteLine(item);
             }
