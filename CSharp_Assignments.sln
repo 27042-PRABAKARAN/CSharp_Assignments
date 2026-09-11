@@ -11,7 +11,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "unit", "unit", "{C778E127-C
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "acceptance", "acceptance", "{93EBAE55-A8BA-40FF-93AA-7D9E4359B6B9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryManager", "inventoryManager\InventoryManager.csproj", "{AFA0C59B-B786-4F04-857A-12684D06EC7E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InventoryManager", "src\inventoryManager\InventoryManager.csproj", "{AFA0C59B-B786-4F04-857A-12684D06EC7E}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment1", "src\assignment1\Assignment1.csproj", "{5E0A8F8E-10BB-458B-921E-A6C8B8F51166}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManagementSystem", "src\assignment2\ManagementSystem.csproj", "{6B97AA6A-ECD3-A3E9-3E03-F824651F6CB7}"
@@ -19,6 +20,8 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionHandling", "src\ExceptionHandling\ExceptionHandling.csproj", "{921C4CC6-11FB-4C7F-8B9A-3D90690BEDB9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanguageIntegratedQuery", "src\LanguageIntegratedQuery\LanguageIntegratedQuery.csproj", "{C4D7F0EF-F30E-4373-94A9-DA639025FF84}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExpenseTracker", "src\ExpenseTracker\ExpenseTracker.csproj", "{7B1D899E-C4AF-4F22-A008-B49FB6F68005}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -46,6 +49,10 @@ Global
 		{C4D7F0EF-F30E-4373-94A9-DA639025FF84}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4D7F0EF-F30E-4373-94A9-DA639025FF84}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4D7F0EF-F30E-4373-94A9-DA639025FF84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7B1D899E-C4AF-4F22-A008-B49FB6F68005}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7B1D899E-C4AF-4F22-A008-B49FB6F68005}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7B1D899E-C4AF-4F22-A008-B49FB6F68005}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7B1D899E-C4AF-4F22-A008-B49FB6F68005}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -53,10 +60,12 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{C778E127-C02C-4A37-8E85-3D86DCC063DC} = {06861454-9561-492A-9F93-A33B6F7AE3AB}
 		{93EBAE55-A8BA-40FF-93AA-7D9E4359B6B9} = {06861454-9561-492A-9F93-A33B6F7AE3AB}
+		{AFA0C59B-B786-4F04-857A-12684D06EC7E} = {DCAA095E-2796-41FA-A1D0-1134E29309E7}
 		{5E0A8F8E-10BB-458B-921E-A6C8B8F51166} = {DCAA095E-2796-41FA-A1D0-1134E29309E7}
 		{6B97AA6A-ECD3-A3E9-3E03-F824651F6CB7} = {DCAA095E-2796-41FA-A1D0-1134E29309E7}
 		{921C4CC6-11FB-4C7F-8B9A-3D90690BEDB9} = {DCAA095E-2796-41FA-A1D0-1134E29309E7}
 		{C4D7F0EF-F30E-4373-94A9-DA639025FF84} = {DCAA095E-2796-41FA-A1D0-1134E29309E7}
+		{7B1D899E-C4AF-4F22-A008-B49FB6F68005} = {DCAA095E-2796-41FA-A1D0-1134E29309E7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {D4CECB66-8E11-49D9-AA1E-464EE0231450}
