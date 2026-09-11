@@ -19,8 +19,8 @@ namespace ExpenseTracker
            DashboardService dashboardService = new DashboardService(repository);
            TransactionView transactionView = new TransactionView(transactionService);
            DashboardView dashboardView = new DashboardView(dashboardService);
-           FinanceView view = new FinanceView(transactionView, dashboardView);
-           view.FinanceOperations();
+           FinanceView FinanceView = new FinanceView(transactionView, dashboardView);
+           FinanceView.FinanceOperations();
         }
     }
 }

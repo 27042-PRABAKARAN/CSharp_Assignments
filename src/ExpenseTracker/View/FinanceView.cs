@@ -28,8 +28,8 @@ namespace ExpenseTracker.View
         {
             Console.WriteLine(@"Hey User,
 Welcome to Finance tracker");
-            bool loop = true;
-            while (loop)
+            bool state = true;
+            while (state)
             {
                 Console.WriteLine(@"===========MENU==========
 1. Income Options
@@ -70,7 +70,7 @@ Welcome to Finance tracker");
 
                     case TransactionOptions.Exit:
                         {
-                            loop = false;
+                            state = false;
                             break;
                         }
 
