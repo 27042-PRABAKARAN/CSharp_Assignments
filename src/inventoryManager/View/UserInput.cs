@@ -94,7 +94,7 @@ namespace InventoryManager.View
                 }
                 else if (!Regex.IsMatch(input, @"^[A-Za-z0-9 ]+$"))
                 {
-                    ConsolePrinter.Error("Name cannot contain special characters."); 
+                    ConsolePrinter.Error("Name cannot contain special characters.");
                 }
                 else
                 {

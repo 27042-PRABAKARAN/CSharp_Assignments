@@ -37,7 +37,7 @@ namespace ExpenseTracker.View
             decimal expense = this._dashboardServices.GetTotalExpense();
             Console.WriteLine($@"=========Summary========
 Total Income: {income}
-Total Expense: {expense}
+Total Expense: {expense}");
         }
     }
 }
