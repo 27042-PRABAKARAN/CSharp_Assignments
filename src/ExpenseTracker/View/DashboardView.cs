@@ -38,9 +38,6 @@ namespace ExpenseTracker.View
             Console.WriteLine($@"=========Summary========
 Total Income: {income}
 Total Expense: {expense}
-========================");
-            Console.WriteLine(this._dashboardServices.GetSummary());
-            this._logger.LogInformation($"Summary Generated Successfully");
         }
     }
 }
