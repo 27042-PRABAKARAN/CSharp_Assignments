@@ -1,4 +1,4 @@
-﻿namespace FileHandling
+﻿namespace FileHandling.Tasks
 {
     /// <summary>
     /// Users logging

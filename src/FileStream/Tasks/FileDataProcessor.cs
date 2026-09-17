@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Text;
 
-namespace FileHandling
+namespace FileHandling.Tasks
 {
     /// <summary>
     /// File Data process are being carried out

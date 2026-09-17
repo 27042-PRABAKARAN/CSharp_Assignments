@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace FileHandling
+namespace FileHandling.Tasks
 {
     /// <summary>
     /// Logs messages to file

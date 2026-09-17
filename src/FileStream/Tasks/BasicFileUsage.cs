@@ -1,6 +1,6 @@
 ﻿using System.Text;
 
-namespace FileHandling
+namespace FileHandling.Tasks
 {
     /// <summary>
     /// Basic File read and write operation

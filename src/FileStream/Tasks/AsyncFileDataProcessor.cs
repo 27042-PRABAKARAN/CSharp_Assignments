@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Text;
 
-namespace FileHandling
+namespace FileHandling.Tasks
 {
     /// <summary>
     /// Processing File data asynchronously
@@ -13,10 +13,14 @@ namespace FileHandling
         private string _thirdBookPath = "thirdBook.txt";
         private int _chunkSize = 1024 * 1024;
 
+        /// <summary>
+        /// Executes File Data processing asynchronously
+        /// </summary>
+        /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task ExecuteAsyncFileDataProcessor()
         {
             Task generateFirstFile = this.GenerateLargeData(this._firstBookPath);
-            Task generateSecondFile = this.GenerateLargeData(this._firstBookPath);
+            Task generateSecondFile = this.GenerateLargeData(this._secondBookPath);
             Task generateThirdFile = this.GenerateLargeData(this._thirdBookPath);
             await Task.WhenAll(generateFirstFile, generateSecondFile, generateThirdFile);
             Stopwatch stopwatch = new ();
@@ -61,6 +65,12 @@ namespace FileHandling
             Console.WriteLine("Completed Generating large file with data");
         }
 
+        /// <summary>
+        /// Processing files asynchronously
+        /// </summary>
+        /// <param name="inputPath">File path of input file</param>
+        /// <param name="outputPath">File path of output file</param>
+        /// <returns> current task</returns>
         public async Task ProcessFileAsync(string inputPath, string outputPath)
         {
             Console.WriteLine("Started Processing");
