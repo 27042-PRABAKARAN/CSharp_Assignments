@@ -1,4 +1,4 @@
-﻿namespace FilleHandling
+﻿namespace FileHandling
 {
     /// <summary>
     /// Display class is used for displaying output

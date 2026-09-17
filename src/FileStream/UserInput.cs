@@ -1,4 +1,4 @@
-﻿namespace FilleHandling
+﻿namespace FileHandling
 {
     /// <summary>
     /// User input class to read input from users

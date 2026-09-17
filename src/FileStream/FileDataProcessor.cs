@@ -1,9 +1,7 @@
-﻿using System;
-using System.Diagnostics;
-using System.IO;
+﻿using System.Diagnostics;
 using System.Text;
 
-namespace FilleHandling
+namespace FileHandling
 {
     /// <summary>
     /// File Data process are being carried out
@@ -23,7 +21,7 @@ namespace FilleHandling
             Stopwatch stopwatch = new Stopwatch();
             Console.WriteLine("Chunking file stream reading processing and writing");
             stopwatch.Start();
-            this.ReadWithFileStream(_inputFilePath, _outputFilePath);
+            this.ReadWithFileStream(_inputFilePath);
             stopwatch.Stop();
             Console.WriteLine($"Reading using File Stream: {stopwatch.ElapsedMilliseconds} ms");
             Console.WriteLine("BufferedStream Reading started");
@@ -45,17 +43,17 @@ namespace FilleHandling
         /// <param name="sizeInMb"> size of the file</param>
         public void GenerateLargeFile(string filePath, int sizeInMb)
         {
-            Console.WriteLine($"Creating a ~{sizeInMb}MB file.");
+            Console.WriteLine($"Creating a {sizeInMb}MB file.");
             string text = "Very Large File is being created\n";
             byte[] blockBytes = Encoding.UTF8.GetBytes(text);
 
-            using (FileStream fs = new FileStream(filePath, FileMode.Create, FileAccess.Write))
+            using (FileStream fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
             {
                 long bytes = (long)sizeInMb * 1024 * 1024;
                 long written = 0;
                 while (written < bytes)
                 {
-                    fs.Write(blockBytes, 0, blockBytes.Length);
+                    fileStream.Write(blockBytes, 0, blockBytes.Length);
                     written += blockBytes.Length;
                 }
             }
@@ -67,13 +65,11 @@ namespace FilleHandling
         /// to read with file stream
         /// </summary>
         /// <param name="inputPath"> the file path of the input file</param>
-        /// <param name="outputPath"> the file path of the Output file </param>
-        public void ReadWithFileStream(string inputPath, string outputPath)
+        public void ReadWithFileStream(string inputPath)
         {
             byte[] buffer = new byte[_chunkSize];
 
             using (FileStream inputFile = new FileStream(inputPath, FileMode.Open, FileAccess.Read))
-            using (FileStream outputFile = new FileStream(outputPath, FileMode.Create, FileAccess.Write))
             {
                 int bytesRead;
                 while ((bytesRead = inputFile.Read(buffer, 0, _chunkSize)) > 0)

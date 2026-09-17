@@ -1,11 +1,15 @@
-﻿namespace FilleHandling
+﻿namespace FileHandling
 {
     internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
             FileDataProcessor fileDataProcessor = new FileDataProcessor();
-            TaskManager taskManager = new TaskManager(fileDataProcessor);
+
+            AsyncFileDataProcessor asyncFileDataProcessor = new ();
+            BasicFileUsage basicFileUsage = new BasicFileUsage();
+            Persons users = new ();
+            TaskManager taskManager = new TaskManager(fileDataProcessor, asyncFileDataProcessor, basicFileUsage, users);
             taskManager.ExecuteTask();
         }
     }

@@ -1,14 +1,20 @@
-﻿using FilleHandling.Enums;
+﻿using FileHandling.Enums;
 
-namespace FilleHandling
+namespace FileHandling
 {
     internal class TaskManager
     {
         private readonly FileDataProcessor _fileDataProcessor;
+        private readonly AsyncFileDataProcessor _asyncFileDataProcessor;
+        private readonly BasicFileUsage _basicFileUsage;
+        private readonly Persons _users;
 
-        public TaskManager(FileDataProcessor fileDataProcessor)
+        public TaskManager(FileDataProcessor fileDataProcessor, AsyncFileDataProcessor asyncFileDataProcessor, BasicFileUsage basicFileUsage, Persons users)
         {
             this._fileDataProcessor = fileDataProcessor;
+            this._asyncFileDataProcessor = asyncFileDataProcessor;
+            this._basicFileUsage = basicFileUsage;
+            this._users = users;
         }
 
         public void ExecuteTask()
@@ -23,7 +29,31 @@ namespace FilleHandling
                         this._fileDataProcessor.ExecuteDataProcessor();
                         break;
                     }
+
+                case TaskOptions.AsyncFileDataProcessor:
+                    {
+                        this._asyncFileDataProcessor.ExecuteAsyncFileDataProcessor().GetAwaiter().GetResult();
+                        break;
+                    }
+
+                case TaskOptions.BasicFileOperations:
+                    {
+                        this._basicFileUsage.ExecuteBasicFileUsage();
+                        break;
+                    }
+
+                case TaskOptions.Logger:
+                    {
+                        this._users.Run().GetAwaiter().GetResult();
+                        break;
+                    }
+
+                case TaskOptions.Exit:
+                    {
+                        break;
+                    }
             }
+
             UserInput.WaitAndClear();
         }
     }
