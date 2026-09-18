@@ -23,14 +23,17 @@ namespace FileHandling.Tasks
             Task generateSecondFile = this.GenerateLargeData(this._secondBookPath);
             Task generateThirdFile = this.GenerateLargeData(this._thirdBookPath);
             await Task.WhenAll(generateFirstFile, generateSecondFile, generateThirdFile);
+
             Stopwatch stopwatch = new ();
             stopwatch.Start();
+
             Task processFirstFile = this.ProcessFileAsync(this._firstBookPath, "Output1.txt");
             Task processSecondFile = this.ProcessFileAsync(this._secondBookPath, "Output2.txt");
             Task processThirdFile = this.ProcessFileAsync(this._thirdBookPath, "Output3.txt");
             await Task.WhenAll(processFirstFile, processSecondFile, processThirdFile);
+
             stopwatch.Stop();
-            Console.WriteLine($"Processed 3 files asynchronously, time taken {stopwatch.ElapsedMilliseconds}");
+            Console.WriteLine($"Processed 3 files asynchronously, time taken {stopwatch.ElapsedMilliseconds} ms");
         }
 
         /// <summary>
@@ -40,7 +43,7 @@ namespace FileHandling.Tasks
         /// <returns>A <see cref="Task"/> representing the asynchronous operation.</returns>
         public async Task GenerateLargeData(string filePath)
         {
-            Console.WriteLine("Generating large file");
+            Console.WriteLine($"Generating large file: {filePath}");
             int targetChunkSize = 1024 * 1024;
             byte[] baseData = Encoding.UTF8.GetBytes("This is the data for book.\n");
             byte[] largeChunk = new byte[targetChunkSize];
@@ -62,7 +65,7 @@ namespace FileHandling.Tasks
                 }
             }
 
-            Console.WriteLine("Completed Generating large file with data");
+            Console.WriteLine($"Completed Generating: {filePath}");
         }
 
         /// <summary>
@@ -73,23 +76,21 @@ namespace FileHandling.Tasks
         /// <returns> current task</returns>
         public async Task ProcessFileAsync(string inputPath, string outputPath)
         {
-            Console.WriteLine("Started Processing");
-            byte[] buffer = new byte[1024];
-            await using (FileStream readFileStream = new (inputPath, FileMode.Open, FileAccess.Read, FileShare.Read, bufferSize: this._chunkSize, options: FileOptions.Asynchronous))
+            Console.WriteLine($"Started Processing: {inputPath}");
+            char[] buffer = new char[this._chunkSize];
+
+            using (StreamReader reader = new StreamReader(inputPath, Encoding.UTF8, true, bufferSize: this._chunkSize))
+            using (StreamWriter writer = new StreamWriter(outputPath, false, Encoding.UTF8, bufferSize: this._chunkSize))
             {
-                await using (FileStream writeFileStream = new FileStream(outputPath, FileMode.Create, FileAccess.Write, FileShare.None, bufferSize: this._chunkSize, options: FileOptions.Asynchronous))
+                int charsRead;
+                while ((charsRead = await reader.ReadAsync(buffer, 0, buffer.Length)) > 0)
                 {
-                    int bytesRead = 0;
-                    while ((bytesRead = await readFileStream.ReadAsync(buffer.AsMemory(0, buffer.Length))) > 0)
-                    {
-                        string chunk = Encoding.UTF8.GetString(buffer, 0, bytesRead);
-                        byte[] processedText = Encoding.UTF8.GetBytes(this.ConvertUpperCase(chunk));
-                        await writeFileStream.WriteAsync(processedText.AsMemory());
-                    }
+                    string upperText = new string(buffer, 0, charsRead).ToUpperInvariant();
+                    await writer.WriteAsync(upperText);
                 }
             }
 
-            Console.WriteLine("Completed reading processing and writing the text asynchronously");
+            Console.WriteLine($"Completed processing: {inputPath}");
         }
 
         /// <summary>

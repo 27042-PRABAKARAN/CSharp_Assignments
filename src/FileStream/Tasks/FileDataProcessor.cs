@@ -17,7 +17,7 @@ namespace FileHandling.Tasks
         /// </summary>
         public void ExecuteDataProcessor()
         {
-            this.GenerateLargeFile(_inputFilePath, 1024);
+            this.GenerateLargeData(_inputFilePath);
             Stopwatch stopwatch = new Stopwatch();
             Console.WriteLine("Chunking file stream reading processing and writing");
             stopwatch.Start();
@@ -40,25 +40,31 @@ namespace FileHandling.Tasks
         /// Generates a large sized file
         /// </summary>
         /// <param name="filePath"> file path</param>
-        /// <param name="sizeInMb"> size of the file</param>
-        public void GenerateLargeFile(string filePath, int sizeInMb)
+        public void GenerateLargeData(string filePath)
         {
-            Console.WriteLine($"Creating a {sizeInMb}MB file.");
-            string text = "Very Large File is being created\n";
-            byte[] blockBytes = Encoding.UTF8.GetBytes(text);
+            Console.WriteLine("Generating large file");
+            int targetChunkSize = 1024 * 1024;
+            byte[] baseData = Encoding.UTF8.GetBytes("This is the data for book.\n");
+            byte[] largeChunk = new byte[targetChunkSize];
+
+            for (int i = 0; i < largeChunk.Length; i += baseData.Length)
+            {
+                int bytesToCopy = Math.Min(baseData.Length, largeChunk.Length - i);
+                Buffer.BlockCopy(baseData, 0, largeChunk, i, bytesToCopy);
+            }
 
             using (FileStream fileStream = new FileStream(filePath, FileMode.Create, FileAccess.Write))
             {
-                long bytes = (long)sizeInMb * 1024 * 1024;
+                long bytes = 1024L * 1024 * 1024;
                 long written = 0;
                 while (written < bytes)
                 {
-                    fileStream.Write(blockBytes, 0, blockBytes.Length);
-                    written += blockBytes.Length;
+                    fileStream.Write(largeChunk);
+                    written += largeChunk.Length;
                 }
             }
 
-            Console.WriteLine("Large file created successfully.");
+            Console.WriteLine("Completed Generating large file with data");
         }
 
         /// <summary>

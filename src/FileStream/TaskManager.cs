@@ -37,7 +37,12 @@ namespace FileHandling
             while (state)
             {
                 Console.WriteLine(@"=================================
-1. Task 1 - File Data Processor");
+1. Task 1 - File Data Processor
+2. Task 2 - File Data Processing Asynchronously
+3. Task 3 - Basic Stream usage
+4. Task 4 - Asynchronous File Logging
+5. Task 5 - Exit
+=================================");
                 TaskOptions? option = UserInput.ReadEnum<TaskOptions>("Enter a choice: ");
                 switch (option)
                 {
@@ -67,12 +72,13 @@ namespace FileHandling
 
                     case TaskOptions.Exit:
                         {
+                            state = false;
                             break;
                         }
                 }
-            }
 
-            UserInput.WaitAndClear();
+                UserInput.WaitAndClear();
+            }
         }
     }
 }
