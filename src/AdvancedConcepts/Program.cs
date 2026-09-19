@@ -1,10 +1,17 @@
-﻿namespace Assignments
+﻿using AdvancedConcepts.Tasks;
+
+namespace AdvancedConcepts
 {
+    /// <summary>
+    /// the main entry point of the application
+    /// </summary>
     internal class Program
     {
-        static void Main(string[] args)
+        private static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            PatternMatching patternMatching = new PatternMatching();
+            patternMatching.ExecutePatternMatching();
+            Console.ReadLine();
         }
     }
 }

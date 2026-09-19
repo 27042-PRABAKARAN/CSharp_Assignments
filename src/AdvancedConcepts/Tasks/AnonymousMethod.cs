@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace AdvancedConcepts.Tasks
+﻿namespace AdvancedConcepts.Tasks
 {
+    /// <summary>
+    /// Represents a task that demonstrates the usage of anonymous methods and lambda expressions in C#.
+    /// </summary>
     internal class AnonymousMethod
     {
+        /// <summary>
+        /// Executes the demonstration by sorting an integer array using an anonymous comparison lambda expression.
+        /// </summary>
         public void ExecuteAnonymousMethod()
         {
             int[] numbers = { 54, 12, 15, 25, 35, 44, 0, 1 };

@@ -1,7 +1,13 @@
 ﻿namespace AdvancedConcepts.Tasks
 {
+    /// <summary>
+    /// Demonstrates the operational differences between implicitly typed variables (var) and dynamically typed variables (dynamic) in C#.
+    /// </summary>
     internal class Types
     {
+        /// <summary>
+        /// Executes the type demonstration by showing compile-time type safety with 'var' and runtime type mutability with 'dynamic'.
+        /// </summary>
         public void ExecuteTypes()
         {
             var variable = "This is a string";
