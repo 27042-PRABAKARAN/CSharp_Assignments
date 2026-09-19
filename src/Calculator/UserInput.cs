@@ -1,0 +1,64 @@
+﻿namespace Calculator
+{
+    /// <summary>
+    /// User input class to read input from users
+    /// </summary>
+    public static class UserInput
+    {
+        private const int MaxTries = 3;
+
+        /// <summary>
+        /// This reads number.
+        /// </summary>
+        /// <param name="prompt"> to prompt the message </param>
+        /// <returns> returns read number </returns>
+        public static int? ReadInt(string prompt)
+        {
+            for (int tried = 0; tried < MaxTries; tried++)
+            {
+                Console.Write($"{prompt} ({MaxTries - tried} Attempts Remaining) ");
+
+                if (int.TryParse(Console.ReadLine(), out int number))
+                {
+                    return number;
+                }
+
+                ConsolePrinter.Error("Invalid Number.");
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Prompts the user to enter a number corresponding to an enum value.
+        /// </summary>
+        /// <typeparam name="T">The enum type to validate against.</typeparam>
+        /// <param name="prompt">The message displayed to the user.</param>
+        /// <returns>The entered number if valid; otherwise, null.</returns>
+        public static T? ReadEnum<T>(string prompt)
+            where T : struct, Enum
+        {
+            int maxRange = Enum.GetNames(typeof(T)).Length;
+
+            Console.Write(prompt);
+
+            if (int.TryParse(Console.ReadLine(), out int number) && number >= 1 && number <= maxRange)
+            {
+                return (T)Enum.ToObject(typeof(T), number);
+            }
+
+            ConsolePrinter.Error($"Invalid Number. Please enter a number between 1 to {maxRange}.");
+            return null;
+        }
+
+        /// <summary>
+        /// To wait until user enters key
+        /// </summary>
+        public static void WaitAndClear()
+        {
+            Console.Write("Enter any key to return to menu");
+            Console.ReadKey();
+            Console.Clear();
+        }
+    }
+}
