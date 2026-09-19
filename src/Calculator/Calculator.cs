@@ -7,171 +7,98 @@ namespace Calculator
     /// </summary>
     internal class Calculator
     {
-        private readonly MathUtils _mathUtils;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Calculator"/> class.
-        /// </summary>
-        /// <param name="mathUtils"> instance of math utility</param>
-        public Calculator(MathUtils mathUtils)
-        {
-            this._mathUtils = mathUtils;
-        }
-
         /// <summary>
         /// displays the menu, processes user selection, and executes the chosen calculation.
         /// </summary>
         public void ExecuteOperations()
         {
-            bool state = true;
-            while (state == true)
+            CalculatorOptions choice;
+
+            do
             {
                 Console.WriteLine(@"=================================
 1. Add Numbers.
 2. Subtract Numbers.
-3, Multiply Numbers.
+3. Multiply Numbers.
 4. Divide Numbers.
 5. Exit
-=================================
-");
-                int? choice = UserInput.ReadChoice("Enter Choice: ");
-                if (choice == null)
+=================================");
+
+                CalculatorOptions? input = UserInput.ReadEnum<CalculatorOptions>("Enter Choice: ");
+                if (input == null)
                 {
                     ConsolePrinter.Error("Enter a valid choice");
+                    UserInput.WaitAndClear();
+                    choice = default;
                     continue;
                 }
 
-                switch ((CalculatorOptions)choice)
+                choice = (CalculatorOptions)input;
+
+                switch (choice)
                 {
                     case CalculatorOptions.Add:
-                        {
-                            this.Add();
-                            break;
-                        }
+                        this.Execute("+", MathUtils.Add);
+                        break;
 
                     case CalculatorOptions.Subtract:
-                        {
-                            this.Subtract();
-                            break;
-                        }
+                        this.Execute("-", MathUtils.Subtract);
+                        break;
 
                     case CalculatorOptions.Multiply:
-                        {
-                            this.Multiply();
-                            break;
-                        }
+                        this.Execute("*", MathUtils.Multiply);
+                        break;
 
                     case CalculatorOptions.Divide:
-                        {
-                            this.Divide();
-                            break;
-                        }
+                        this.Execute("/", MathUtils.Divide);
+                        break;
 
                     case CalculatorOptions.Exit:
-                        {
-                            state = false;
-                            break;
-                        }
+                        break;
 
                     default:
-                        {
-                            ConsolePrinter.Error("Enter valid choice");
-                            break;
-                        }
+                        ConsolePrinter.Error("Enter valid choice");
+                        break;
                 }
 
                 UserInput.WaitAndClear();
             }
+            while (choice != CalculatorOptions.Exit);
         }
 
         /// <summary>
-        /// Computes the sum
+        /// To Execute appropriate operation
         /// </summary>
-        public void Add()
+        /// <param name="symbol"> symbol of the operation to be performed</param>
+        /// <param name="operation"> the operation to be performed</param>
+        private void Execute<T>(string symbol, Func<int, int, T> operation)
         {
             int? num1 = UserInput.ReadInt("Enter first number: ");
             if (num1 == null)
             {
+                ConsolePrinter.Error("Operation cancelled.");
                 return;
             }
 
             int? num2 = UserInput.ReadInt("Enter second number: ");
             if (num2 == null)
             {
-                return;
-            }
-
-            int result = this._mathUtils.Add((int)num1, (int)num2);
-            Console.WriteLine($"Result: {num1} + {num2} = {result}\n");
-        }
-
-        /// <summary>
-        /// Computes the difference.
-        /// </summary>
-        public void Subtract()
-        {
-            int? num1 = UserInput.ReadInt("Enter first number: ");
-            if (num1 == null)
-            {
-                return;
-            }
-
-            int? num2 = UserInput.ReadInt("Enter second number: ");
-            if (num2 == null)
-            {
-                return;
-            }
-
-            int result = this._mathUtils.Subtract((int)num1, (int)num2);
-            Console.WriteLine($"Result: {num1} - {num2} = {result}\n");
-        }
-
-        /// <summary>
-        /// Computes the product
-        /// </summary>
-        public void Multiply()
-        {
-            int? num1 = UserInput.ReadInt("Enter first number: ");
-            if (num1 == null)
-            {
-                return;
-            }
-
-            int? num2 = UserInput.ReadInt("Enter second number: ");
-            if (num2 == null)
-            {
-                return;
-            }
-
-            int result = this._mathUtils.Multiply((int)num1, (int)num2);
-            Console.WriteLine($"Result: {num1} * {num2} = {result}\n");
-        }
-
-        /// <summary>
-        /// Computes the quotient
-        /// </summary>
-        public void Divide()
-        {
-            int? num1 = UserInput.ReadInt("Enter dividend (first number): ");
-            if (num1 == null)
-            {
-                return;
-            }
-
-            int? num2 = UserInput.ReadInt("Enter divisor (second number): ");
-            if (num2 == null)
-            {
+                ConsolePrinter.Error("Operation cancelled.");
                 return;
             }
 
             try
             {
-                int result = this._mathUtils.Divide((int)num1, (int)num2);
-                Console.WriteLine($"Result: {num1} / {num2} = {result}\n");
+                T result = operation((int)num1, (int)num2);
+                ConsolePrinter.Success($"Result: {num1} {symbol} {num2} = {result}\n");
             }
             catch (DivideByZeroException)
             {
                 ConsolePrinter.Error("Error: Cannot divide by zero.\n");
+            }
+            catch (OverflowException)
+            {
+                ConsolePrinter.Error("Error: Value was not in range of int 32");
             }
         }
     }

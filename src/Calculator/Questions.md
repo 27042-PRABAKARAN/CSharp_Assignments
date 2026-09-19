@@ -42,7 +42,7 @@ Garbage Collector manages the memory of Managed Code and collects de-referenced 
 ### Common Type System:  
 Common Type System defines how the data is defined and managed in the Common Language Runtime. 
 
-It helps the Cross-Language integration by providing complete implementation of programming languages. 
+It sets a common framework of types and rules that all .NET languages share. This is why different languages work so well together; a System.Int32 is exactly the same whether you are using C#, F#, or VB.NET.
 
 It provides libraries with primitive datatypes which help in application development. 
 
@@ -56,6 +56,7 @@ GAC is a System wide Repository
 
 GAC is Strongly named – assembly identity includes name, versioning, culture and public key token 
 
+ GAC does not exist in modern .NET (.NET Core, .NET 5+). projects target net6.0, assembly resolution happens locally per-application using deps.json and NuGet, completely avoiding the need for a system-wide cache.
  
 
 # 5. Explain the difference between value types and reference types in C#. 
@@ -86,6 +87,8 @@ Managed Heap has 3 generation
 - Automatic Memory Management 
 - Optimized allocation 
 - Prevents memory leaks 
+
+### Limitation of GC are 
 - Non-deterministic– exact time of collection is not predictable 
 
  

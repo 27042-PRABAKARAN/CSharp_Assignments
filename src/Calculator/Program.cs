@@ -9,9 +9,8 @@ namespace Calculator
     {
         private static void Main()
         {
-            MathUtils mathUtils = new MathUtils();
-            Calculator math = new Calculator(mathUtils);
-            math.ExecuteOperations();
+            Calculator calculator = new Calculator();
+            calculator.ExecuteOperations();
         }
     }
 }

@@ -5,49 +5,50 @@
     /// </summary>
     public static class UserInput
     {
-        private const int _maxTries = 3;
+        private const int MaxTries = 3;
 
         /// <summary>
         /// This reads number.
         /// </summary>
         /// <param name="prompt"> to prompt the message </param>
         /// <returns> returns read number </returns>
-        public static int? ReadInt(string? prompt)
+        public static int? ReadInt(string prompt)
         {
-            for (int tried = 1; tried <= _maxTries; tried++)
+            for (int tried = 0; tried < MaxTries; tried++)
             {
-                Console.Write(prompt);
-                if (!int.TryParse(Console.ReadLine(), out int number))
-                {
-                    ConsolePrinter.Error($"Invalid Number.");
-                }
-                else
+                Console.Write($"{prompt} ({MaxTries - tried} Attempts Remaining) ");
+
+                if (int.TryParse(Console.ReadLine(), out int number))
                 {
                     return number;
                 }
 
-                ConsolePrinter.Error($"{_maxTries - tried} attempts remaining\n");
+                ConsolePrinter.Error("Invalid Number.");
             }
 
             return null;
         }
 
         /// <summary>
-        /// This reads choice.
+        /// Prompts the user to enter a number corresponding to an enum value.
         /// </summary>
-        /// <param name="prompt"> to prompt the message </param>
-        /// <returns> returns read number </returns>
-        public static int? ReadChoice(string? prompt)
+        /// <typeparam name="T">The enum type to validate against.</typeparam>
+        /// <param name="prompt">The message displayed to the user.</param>
+        /// <returns>The entered number if valid; otherwise, null.</returns>
+        public static T? ReadEnum<T>(string prompt)
+            where T : struct, Enum
         {
+            int maxRange = Enum.GetNames(typeof(T)).Length;
+
             Console.Write(prompt);
-            if (!int.TryParse(Console.ReadLine(), out int number))
+
+            if (int.TryParse(Console.ReadLine(), out int number) && number >= 1 && number <= maxRange)
             {
-                return null;
+                return (T)Enum.ToObject(typeof(T), number);
             }
-            else
-            {
-                return number;
-            }
+
+            ConsolePrinter.Error($"Invalid Number. Please enter a number between 1 to {maxRange}.");
+            return null;
         }
 
         /// <summary>
