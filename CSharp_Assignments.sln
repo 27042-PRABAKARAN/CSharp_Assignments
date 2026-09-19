@@ -19,6 +19,7 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Calculator", "src\Calculator\Calculator.csproj", "{B8C921DD-CE11-47DD-96CB-1726FBCDAA14}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CalculatorUtility", "src\CalculatorUtility\CalculatorUtility.csproj", "{A2CF313F-1296-45D3-B3A0-012A58363D5F}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExceptionHandling", "src\ExceptionHandling\ExceptionHandling.csproj", "{921C4CC6-11FB-4C7F-8B9A-3D90690BEDB9}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LanguageIntegratedQuery", "src\LanguageIntegratedQuery\LanguageIntegratedQuery.csproj", "{C4D7F0EF-F30E-4373-94A9-DA639025FF84}"

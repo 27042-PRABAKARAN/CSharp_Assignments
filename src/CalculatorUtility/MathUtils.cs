@@ -13,7 +13,7 @@
         /// <returns>The sum of the two numbers.</returns>
         public static int Add(int firstNumber, int secondNumber)
         {
-            return firstNumber + secondNumber;
+            return checked(firstNumber + secondNumber);
         }
 
         /// <summary>
@@ -47,11 +47,6 @@
         /// <exception cref="DivideByZeroException">Thrown when the second number is zero.</exception>
         public static double Divide(int firstNumber, int secondNumber)
         {
-            if (secondNumber == 0)
-            {
-                throw new DivideByZeroException();
-            }
-
             return (double)firstNumber / secondNumber;
         }
     }
