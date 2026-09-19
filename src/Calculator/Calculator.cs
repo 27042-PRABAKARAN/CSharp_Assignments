@@ -98,7 +98,7 @@ namespace Calculator
             }
             catch (OverflowException)
             {
-                ConsolePrinter.Error("Error: Value was not in range of int 32");
+                ConsolePrinter.Error("Error: Value was not in range");
             }
         }
     }
