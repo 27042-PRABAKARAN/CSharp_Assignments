@@ -9,9 +9,15 @@ namespace AdvancedConcepts
     {
         private static void Main(string[] args)
         {
+            Events events = new Events();
+            Types types = new Types();
+            AnonymousMethod anonymousMethod = new AnonymousMethod();
+            Delegates delegates = new Delegates();
+            Queries queries = new Queries();
+            Records records = new Records();
             PatternMatching patternMatching = new PatternMatching();
-            patternMatching.ExecutePatternMatching();
-            Console.ReadLine();
+            App app = new App(events, types, anonymousMethod, delegates, queries, records, patternMatching);
+            app.Execute();
         }
     }
 }

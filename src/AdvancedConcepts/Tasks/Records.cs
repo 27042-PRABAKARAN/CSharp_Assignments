@@ -16,7 +16,7 @@
         /// <summary>
         /// Demonstrates record task functionality by comparing instances for value equality and utilizing the 'with' expression.
         /// </summary>
-        internal void HandleTask6()
+        internal void ExecuteRecord()
         {
             Book book1 = new Book("The Alchemist", "Paulo Coelho", "978-0061122415");
             Book book2 = new Book("Clean Code", "Robert C. Martin", "978-0132350884");
