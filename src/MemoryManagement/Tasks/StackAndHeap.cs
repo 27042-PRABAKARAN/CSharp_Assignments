@@ -40,7 +40,7 @@
         }
 
         /// <summary>
-        /// increases stack memory
+        /// creates many values in stack memory
         /// </summary>
         private void CalculateValueTypes()
         {
