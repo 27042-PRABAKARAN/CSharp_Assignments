@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace Collections.Enumerable
+﻿namespace Collections.Enumerable
 {
     /// <summary>
     /// Demonstrates the usage of IEnumerable and IReadOnlyDictionary.
