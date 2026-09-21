@@ -1,14 +1,12 @@
 ﻿namespace MemoryManagement
 {
-    using System;
-
     /// <summary>
-    /// Display class is used for displaying output
+    /// ConsolePrinter Provides method for displaying different output
     /// </summary>
     internal static class ConsolePrinter
     {
         /// <summary>
-        /// to print the message in red
+        /// Displays an error message
         /// </summary>
         /// <param name="message">the message that has to be printed in red</param>
         public static void Error(string message)
@@ -19,7 +17,7 @@
         }
 
         /// <summary>
-        /// to print the message in Green
+        /// Displays a success message
         /// </summary>
         /// <param name="message">the message that has to be printed in Green</param>
         public static void Success(string message)

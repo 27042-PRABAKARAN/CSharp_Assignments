@@ -40,7 +40,7 @@ namespace MemoryManagement
 1. Task 1 - ValueType Vs ReferenceType
 2. Task 2 - Stack Memory vs Heap memory
 3. Task 3 - Manual Garbage collection
-4. Task 4 - Using KeyWord
+4. Task 4 - IDisposable and using statement
 5. Exit
 =====================================");
                 TaskOptions? option = UserInput.ReadEnum<TaskOptions>("Enter the choice: ");

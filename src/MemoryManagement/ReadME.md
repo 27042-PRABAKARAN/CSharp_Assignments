@@ -109,7 +109,7 @@ The application creates a large number of `Student` objects inside a loop.
 ```csharp
 for (int i = 0; i < 100_000; i++)
 {
-    Student student = new Student();
+    Student student = new Student(name, 20);
 }
 ```
  

@@ -42,14 +42,42 @@
         /// <summary>
         /// increases stack memory
         /// </summary>
-        public void CalculateValueTypes()
+        private void CalculateValueTypes()
         {
-            int[] integerArray = { 100, 200, 300, 400, 500 };
-            double[] doubleArray = { 10.50, 20.75, 30.12, 40.88, 50.34 };
-            decimal[] decimalArray = { 1000.50m, 2000.75m, 3000.25m };
-            double result = integerArray.Sum() * doubleArray.Sum();
-            decimal total = (decimal)result + decimalArray.Sum();
-            Console.WriteLine($"Final Value Type Output: {total}");
+            int breakfastCost = 50;
+            int lunchCost = 100;
+            int dinnerCost = 120;
+            int snacksCost = 40;
+            int teaCost = 20;
+
+            int busFare = 30;
+            int trainFare = 45;
+            int autoFare = 80;
+            int petrolCost = 200;
+            int parkingFee = 30;
+
+            int groceryCost = 150;
+            int mobileRecharge = 100;
+            int electricityBill = 500;
+            int waterBill = 100;
+
+            int totalDailyExpenses =
+                breakfastCost +
+                lunchCost +
+                dinnerCost +
+                snacksCost +
+                teaCost +
+                busFare +
+                trainFare +
+                autoFare +
+                petrolCost +
+                parkingFee +
+                groceryCost +
+                mobileRecharge +
+                electricityBill +
+                waterBill;
+
+            Console.WriteLine($"Total Expenses: ₹{totalDailyExpenses}");
         }
     }
 }

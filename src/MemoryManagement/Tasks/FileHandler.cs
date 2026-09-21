@@ -1,14 +1,12 @@
 ﻿namespace MemoryManagement.Tasks
 {
-    using System;
-
     /// <summary>
-    /// File data handler
+    /// Demonstrates writing and reading from file
     /// </summary>
     internal class FileHandler
     {
         /// <summary>
-        /// //// /// To see automatic dispose method calling
+        /// To see automatic dispose method calling
         /// </summary>
         public void ExecuteFileHandler()
         {

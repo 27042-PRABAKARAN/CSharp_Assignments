@@ -1,15 +1,14 @@
-﻿namespace MemoryManagement
-{
-    using System;
-    using MemoryManagement.Models;
+﻿using MemoryManagement.Models;
 
+namespace MemoryManagement
+{
     /// <summary>
     /// Reference and value type
     /// </summary>
     internal class ReferenceAndValueType
     {
         /// <summary>
-        /// Task 1 - To Execute and Verify that The value type should remain unchanged after the method call
+        /// To Execute and Verify that The value type should remain unchanged after the method call
         /// whereas the reference type should reflect the changes made within the method.
         /// </summary>
         public void ExecuteReferenceAndValueTypes()
@@ -19,29 +18,23 @@ Reference and Value
 ===========================================");
             Employee employee = new Employee("Old Name", "Old Place");
             Student student = new Student("Old Name", 0);
-            this.UpdateEmployee(employee);
-            this.UpdateStudent(student);
-            Console.WriteLine(employee.Name);
-            Console.WriteLine(student.Name);
+            Console.WriteLine("value type before update: ", employee.Name);
+            Console.WriteLine("reference type before update: " + student.Name);
+            this.UpdateName(student, employee);
+            Console.WriteLine("value type value is not updated : ", employee.Name);
+            Console.WriteLine("reference type value is updated : " + student.Name);
             UserInput.WaitAndClear();
         }
 
         /// <summary>
-        /// Update the name of the Employee
+        /// Update the name of given instance
         /// </summary>
-        /// <param name="employee"> instance of the employee </param>
-        public void UpdateEmployee(Employee employee)
-        {
-            employee.Name = "New Name";
-        }
-
-        /// <summary>
-        /// Update the name of the student
-        /// </summary>
-        /// <param name="student"> instance of the student </param>
-        public void UpdateStudent(Student student)
+        /// <param name="student"> instance of student </param>
+        /// <param name="employee"> instance of employee </param>
+        public void UpdateName(Student student, Employee employee)
         {
             student.Name = "New Name";
+            employee.Name = "New Name";
         }
     }
 }

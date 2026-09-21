@@ -1,7 +1,5 @@
 ﻿namespace MemoryManagement
 {
-    using System.Text.RegularExpressions;
-
     /// <summary>
     /// User input class to read input from users
     /// </summary>

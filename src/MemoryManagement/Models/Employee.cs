@@ -1,9 +1,9 @@
 ﻿namespace MemoryManagement.Models
 {
     /// <summary>
-    /// Employee model
+    /// Represents an employee with name and complany name
     /// </summary>
-    internal ref struct Employee
+    internal struct Employee
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="Employee"/> struct.

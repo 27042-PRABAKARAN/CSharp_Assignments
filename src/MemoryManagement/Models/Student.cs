@@ -1,7 +1,7 @@
 ﻿namespace MemoryManagement.Models
 {
     /// <summary>
-    /// Student model
+    /// Represents student with name and age
     /// </summary>
     internal class Student
     {
