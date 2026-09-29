@@ -35,7 +35,7 @@
                     continue;
                 }
 
-                string[] scaleSequence = sequence.ToUpper().Split(',');
+                string[] scaleSequence = sequence.Split(',');
                 foreach (string scale in scaleSequence)
                 {
                     bool isAvailable = this._frequencies.TryGetValue(scale, out var frequencies);
@@ -50,8 +50,8 @@
                 }
 
                 Console.WriteLine("Enter E to exit and any other key to do again");
-                ConsoleKeyInfo inputkey = Console.ReadKey();
-                if (inputkey.Key == ConsoleKey.E)
+                ConsoleKeyInfo inputKey = Console.ReadKey();
+                if (inputKey.Key == ConsoleKey.E)
                 {
                     state = false;
                 }
