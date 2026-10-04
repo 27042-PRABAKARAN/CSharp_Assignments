@@ -7,7 +7,7 @@ namespace MultiThreading
     /// </summary>
     internal class Program
     {
-        private static void Main(string[] args)
+        private static async Task Main(string[] args)
         {
             //DownloadContent downloadContent = new DownloadContent();
             //downloadContent.Execute().GetAwaiter().GetResult();
@@ -24,9 +24,11 @@ namespace MultiThreading
             //ChainOperator chainOperator = new ChainOperator();
             //chainOperator.Execute().Wait();
 
-            DeadlockSimulator deadlock = new DeadlockSimulator();
-            deadlock.Execute();
+            //DeadlockSimulator deadlock = new DeadlockSimulator();
+            //deadlock.Execute();
 
+            AwaitConfigure awaitConfigure = new AwaitConfigure();
+            awaitConfigure.Execute().Wait();
         }
     }
 }
