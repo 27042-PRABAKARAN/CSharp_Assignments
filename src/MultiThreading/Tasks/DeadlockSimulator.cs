@@ -32,6 +32,10 @@ Enter choice: ";
             {
                 this.PerformWithoutDeadlock();
             }
+            else
+            {
+                Console.WriteLine("Not a valid choice.");
+            }
         }
 
         private void PerformWithoutDeadlock()

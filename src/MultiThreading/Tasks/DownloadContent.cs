@@ -31,11 +31,6 @@
             {
                 Console.WriteLine($"An error occurred during the download: {e.Message}");
             }
-            finally
-            {
-                Console.WriteLine("\nPress any key to exit.");
-                Console.ReadKey();
-            }
         }
 
         /// <summary>

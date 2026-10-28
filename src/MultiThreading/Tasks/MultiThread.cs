@@ -28,7 +28,6 @@
             Console.WriteLine($"Maximum value in array:       {this._maxResult}");
             Console.WriteLine($"Combined value (Sum + Max):    {this._sumResult + this._maxResult}");
             Console.WriteLine("==================================================");
-            Console.ReadKey();
         }
 
         /// <summary>

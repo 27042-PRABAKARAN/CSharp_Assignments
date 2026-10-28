@@ -11,11 +11,10 @@
         /// <returns>The task representing the asynchronous operation.</returns>
         public async Task Execute()
         {
-            string header = $@"
+            Console.WriteLine(@"
 =====================================
           Await Configure
-=====================================";
-            Console.WriteLine(header);
+=====================================");
             Console.WriteLine($"Main method - Thread ID: {Thread.CurrentThread.ManagedThreadId}");
 
             int squaredValue = await this.AwaiterMethodAsync();

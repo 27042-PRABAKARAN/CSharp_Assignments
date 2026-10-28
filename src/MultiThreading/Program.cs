@@ -7,28 +7,70 @@ namespace MultiThreading
     /// </summary>
     internal class Program
     {
-        private static async Task Main(string[] args)
+        private static void Main(string[] args)
         {
-            //DownloadContent downloadContent = new DownloadContent();
-            //downloadContent.Execute().GetAwaiter().GetResult();
+            var downloadContent = new DownloadContent();
+            var taskException = new TaskException();
+            var multiThread = new MultiThread();
+            var taskParallelLibrary = new TaskParallelLibrary();
+            var chainOperator = new ChainOperator();
+            var deadlockSimulator = new DeadlockSimulator();
+            var awaitConfigure = new AwaitConfigure();
 
-            //TaskException taskException = new TaskException();
-            //taskException.Execute().GetAwaiter().GetResult();
+            bool state = true;
+            while (state)
+            {
+                Console.Clear();
+                Console.WriteLine("========================================");
+                Console.WriteLine("    SELECT A TASK TO EXECUTE            ");
+                Console.WriteLine("========================================");
 
-            //MultiThread runner = new MultiThread();
-            //runner.Execute();
+                string[] enumNames = Enum.GetNames(typeof(TaskOptions));
+                for (int i = 0; i < enumNames.Length; i++)
+                {
+                    Console.WriteLine($" [{i + 1}] {enumNames[i]}");
+                }
 
-            //TaskParallelLibrary taskParallelLibrary = new TaskParallelLibrary();
-            //taskParallelLibrary.Execute();
+                Console.WriteLine("========================================");
 
-            //ChainOperator chainOperator = new ChainOperator();
-            //chainOperator.Execute().Wait();
+                TaskOptions? selectedOption = UserInput.ReadEnum<TaskOptions>("Enter a choice: ");
 
-            //DeadlockSimulator deadlock = new DeadlockSimulator();
-            //deadlock.Execute();
+                switch (selectedOption)
+                {
+                    case TaskOptions.DownloadContent:
+                        downloadContent.Execute().GetAwaiter().GetResult();
+                        break;
 
-            AwaitConfigure awaitConfigure = new AwaitConfigure();
-            awaitConfigure.Execute().Wait();
+                    case TaskOptions.TaskException:
+                        taskException.Execute().GetAwaiter().GetResult();
+                        break;
+
+                    case TaskOptions.MultiThread:
+                        multiThread.Execute();
+                        break;
+
+                    case TaskOptions.TaskParallelLibrary:
+                        taskParallelLibrary.Execute();
+                        break;
+
+                    case TaskOptions.ChainOperator:
+                        chainOperator.Execute().Wait();
+                        break;
+
+                    case TaskOptions.DeadlockSimulator:
+                        deadlockSimulator.Execute();
+                        break;
+
+                    case TaskOptions.AwaitConfigure:
+                        awaitConfigure.Execute().Wait();
+                        break;
+                    case TaskOptions.Exit:
+                        state = false;
+                        break;
+                }
+
+                UserInput.WaitAndClear();
+            }
         }
     }
 }

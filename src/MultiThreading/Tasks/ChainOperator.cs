@@ -13,11 +13,10 @@ namespace MultiThreading.Tasks
         /// <returns>The task representing the asynchronous operation.</returns>
         public async Task Execute()
         {
-            string header = $@"
+            Console.Write(@"
 =====================================
     Multi-layered async/await
-=====================================";
-            Console.Write(header);
+=====================================");
 
             int result = await this.JsonParserAsync();
             Console.WriteLine($"Result of json parser: {result}");
