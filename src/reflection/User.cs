@@ -1,0 +1,37 @@
+﻿namespace Reflection
+{
+    /// <summary>Represents a user account with basic profile data.</summary>
+    internal class User
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="User"/> class.</summary>
+        /// <param name="username">The profile name of the user.</param>
+        /// <param name="age">The age of the user.</param>
+        /// <param name="isAdmin">The administrator status flag.</param>
+        public User(string username, int age, bool isAdmin)
+        {
+            this.Username = username;
+            this.Age = age;
+            this.IsAdmin = isAdmin;
+        }
+
+        /// <summary>Gets or sets the profile name of the user.</summary>
+        /// <value>
+        /// The profile name of the user.
+        /// </value>
+        public string Username { get; set; }
+
+        /// <summary>Gets or sets the age of the user.</summary>
+        /// <value>
+        /// The age of the user.
+        /// </value>
+        public int Age { get; set; }
+
+        /// <summary>Gets or sets a value indicating whether the user has administrator privileges.</summary>
+        /// <value>
+        /// A value indicating whether the user has administrator privileges.
+        /// </value>
+        public bool IsAdmin { get; set; }
+
+    }
+}
