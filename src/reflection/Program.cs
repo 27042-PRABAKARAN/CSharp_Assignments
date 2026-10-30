@@ -31,38 +31,45 @@
             //Console.WriteLine("\nPress any key to exit...");
             //Console.ReadKey();
 
-            Console.WriteLine("\n--- Task 4: Generating Dynamic Type at Runtime ---");
+            //Console.WriteLine("\n--- Task 4: Generating Dynamic Type at Runtime ---");
+            //if (DynamicTypeBuilder.BuildCustomType() is Type runtimeType)
+            //{
+            //    Console.WriteLine($"Successfully baked type: {runtimeType.FullName}");
+            //    object? dynamicInstance = Activator.CreateInstance(runtimeType);
 
-            // Unpack the type cleanly using pattern matching to avoid null reference warnings
-            if (DynamicTypeBuilder.BuildCustomType() is Type runtimeType)
+            //    if (dynamicInstance != null)
+            //    {
+            //        Console.WriteLine("Setting dynamic property value...");
+            //        runtimeType.GetProperty("CustomStatus")?.SetValue(dynamicInstance, "Runtime Generation Active!");
+
+            //        Console.WriteLine("Invoking dynamically built method:");
+            //        runtimeType.GetMethod("PrintStatus")?.Invoke(dynamicInstance, null);
+            //    }
+            //    else
+            //    {
+            //        Console.WriteLine("Warning: Could not create an instance of the dynamic type.");
+            //    }
+            //}
+            //else
+            //{
+            //    Console.WriteLine("Warning: The dynamic type builder returned null.");
+            //}
+            //Console.WriteLine("\nPress any key to exit...");
+            //Console.ReadKey();
+
+            Console.WriteLine("\n--- Task 5: Running Dynamic Image Plugin System ---");
+            string pluginPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Plugins");
+            if (!Directory.Exists(pluginPath))
             {
-                Console.WriteLine($"Successfully baked type: {runtimeType.FullName}");
-
-                // Instantiate the object dynamically
-                object? dynamicInstance = Activator.CreateInstance(runtimeType);
-
-                if (dynamicInstance != null)
-                {
-                    Console.WriteLine("Setting dynamic property value...");
-                    runtimeType.GetProperty("CustomStatus")?.SetValue(dynamicInstance, "Runtime Generation Active!");
-
-                    Console.WriteLine("Invoking dynamically built method:");
-                    runtimeType.GetMethod("PrintStatus")?.Invoke(dynamicInstance, null);
-                }
-                else
-                {
-                    Console.WriteLine("Warning: Could not create an instance of the dynamic type.");
-                }
-            }
-            else
-            {
-                Console.WriteLine("Warning: The dynamic type builder returned null.");
+                Directory.CreateDirectory(pluginPath);
             }
 
+            string mockUserImage = "gallery_upload_vacation.jpg";
+            Console.WriteLine($"Place your compiled plugin .dll files into: {pluginPath}");
+            Console.WriteLine("Running media pipeline diagnostics...");
+            ImagePluginEngine.DiscoverAndProcess(pluginPath, mockUserImage);
             Console.WriteLine("\nPress any key to exit...");
             Console.ReadKey();
-
-
         }
     }
 }
