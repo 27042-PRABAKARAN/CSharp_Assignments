@@ -22,13 +22,9 @@
             //DynamicObjectInspector.InspectObject(testUser);
             //Console.ReadLine();
 
-            Console.WriteLine("\n--- RUNNING TASK 3: DYNAMIC METHOD INVOCATION ---");
-
-            // 1. Invoke a void method that prints directly to the console
             Console.WriteLine("Invoking 'SayHello'...");
             DynamicMethodInvoker.InvokeMethod(testUser, "SayHello");
 
-            // 2. Invoke a method that computes and returns a string back to the program
             Console.WriteLine("\nInvoking 'GetProfileSummary'...");
             DynamicMethodInvoker.InvokeMethod(testUser, "GetProfileSummary");
 
