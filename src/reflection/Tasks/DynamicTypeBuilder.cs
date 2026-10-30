@@ -1,7 +1,7 @@
 ﻿using System.Reflection;
 using System.Reflection.Emit;
 
-namespace Reflection
+namespace Reflection.Tasks
 {
     /// <summary>
     /// Dynamically constructs types at runtime using reflection emit.

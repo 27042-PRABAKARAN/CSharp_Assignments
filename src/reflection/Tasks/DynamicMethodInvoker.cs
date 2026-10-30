@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Reflection
+namespace Reflection.Tasks
 {
     /// <summary>
     /// Dynamically invokes method during runtime

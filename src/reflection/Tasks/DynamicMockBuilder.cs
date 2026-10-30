@@ -2,7 +2,7 @@
 using System.Reflection;
 using System.Reflection.Emit;
 
-namespace Reflection
+namespace Reflection.Tasks
 {
     /// <summary>
     /// Generates dynamic mock implementations of interfaces at runtime for testing purposes.

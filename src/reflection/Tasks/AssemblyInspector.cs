@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 
-namespace Reflection
+namespace Reflection.Tasks
 {
     /// <summary>
     /// Provides utility methods to inspect and log metadata from .NET assemblies.

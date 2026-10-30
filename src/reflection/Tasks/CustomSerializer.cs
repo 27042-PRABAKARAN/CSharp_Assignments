@@ -2,7 +2,7 @@
 using System.Reflection.Emit;
 using System.Text;
 
-namespace Reflection
+namespace Reflection.Tasks
 {
     /// <summary>
     /// Implements simple serialization via traditional Reflection and high-performance Reflection.Emit.

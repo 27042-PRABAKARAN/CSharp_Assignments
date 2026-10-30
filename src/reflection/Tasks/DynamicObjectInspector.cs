@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Reflection;
 
-namespace Reflection
+namespace Reflection.Tasks
 {
     /// <summary>
     /// Provides utility methods to dynamically inspect and modify object properties at runtime.

@@ -1,4 +1,4 @@
-﻿namespace Reflection
+﻿namespace Reflection.Interfaces
 {
     /// <summary>
     /// Defines the contract for dynamic image processing engines.

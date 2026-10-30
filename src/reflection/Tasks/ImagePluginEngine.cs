@@ -1,8 +1,9 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
+using Reflection.Interfaces;
 
-namespace Reflection
+namespace Reflection.Tasks
 {
     /// <summary>
     /// Scans, loads, and executes dynamic image processing plugins at runtime.
