@@ -31,8 +31,7 @@ namespace Reflection.Tasks
             string mockTypeName = $"Mock{interfaceType.Name}";
             TypeBuilder typeBuilder = moduleBuilder.DefineType(
                 mockTypeName,
-                TypeAttributes.Public | TypeAttributes.Class
-            );
+                TypeAttributes.Public | TypeAttributes.Class);
 
             typeBuilder.AddInterfaceImplementation(interfaceType);
             MethodInfo[] methods = interfaceType.GetMethods();
@@ -51,8 +50,7 @@ namespace Reflection.Tasks
                     method.Name,
                     methodAttributes,
                     method.ReturnType,
-                    parameterTypes
-                );
+                    parameterTypes);
 
                 ILGenerator il = methodBuilder.GetILGenerator();
 

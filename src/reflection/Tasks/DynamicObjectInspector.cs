@@ -32,6 +32,7 @@ namespace Reflection.Tasks
                 Console.WriteLine("No properties found on this object.");
                 return;
             }
+
             foreach (PropertyInfo prop in properties)
             {
                 try
@@ -71,7 +72,7 @@ namespace Reflection.Tasks
             }
 
             Type type = obj.GetType();
-            PropertyInfo? prop = type.GetProperty(propertyName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance |BindingFlags.IgnoreCase);
+            PropertyInfo? prop = type.GetProperty(propertyName, BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.IgnoreCase);
 
             if (prop == null)
             {

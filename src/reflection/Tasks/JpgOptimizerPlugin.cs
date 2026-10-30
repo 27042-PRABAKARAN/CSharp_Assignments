@@ -32,12 +32,12 @@ namespace Reflection.Tasks
             }
 
             string extension = Path.GetExtension(fileName);
-            bool isJpg = extension.Equals(SupportedExtension, StringComparison.OrdinalIgnoreCase);
+            bool isJpg = extension.Equals(this.SupportedExtension, StringComparison.OrdinalIgnoreCase);
             bool isJpeg = extension.Equals(".jpeg", StringComparison.OrdinalIgnoreCase);
 
             if (!isJpg && !isJpeg)
             {
-                Console.WriteLine($"   [Skip] {Name} cannot handle {extension} files.");
+                Console.WriteLine($"   [Skip] {this.Name} cannot handle {extension} files.");
                 return false;
             }
 

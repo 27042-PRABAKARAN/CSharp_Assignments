@@ -74,8 +74,7 @@ namespace Reflection.Tasks
                 $"Serialize_{type.Name}",
                 null,
                 new[] { typeof(object), typeof(StringBuilder) },
-                typeof(CustomSerializer).Module
-            );
+                typeof(CustomSerializer).Module);
 
             ILGenerator il = dynamicMethod.GetILGenerator();
             PropertyInfo[] properties = type.GetProperties(BindingFlags.Public | BindingFlags.Instance);

@@ -11,7 +11,7 @@ namespace Reflection.Tasks
         /// <param name="obj">The target object instance.</param>
         /// <param name="methodName">The name of the method to call.</param>
         /// <param name="parameters">Optional parameters required by the method.</param>
-        internal static void InvokeMethod(object obj, string methodName, object[]? parameters = null)
+        internal static void InvokeMethod(object obj, string methodName, params object[] parameters)
         {
             if (obj == null || string.IsNullOrWhiteSpace(methodName))
             {
@@ -21,7 +21,9 @@ namespace Reflection.Tasks
 
             Type type = obj.GetType();
 
-            MethodInfo? method = type.GetMethod(methodName, BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.IgnoreCase);
+            MethodInfo? method = type.GetMethod(
+                methodName,
+                BindingFlags.Public | BindingFlags.Instance | BindingFlags.Static | BindingFlags.IgnoreCase);
 
             if (method == null)
             {
@@ -31,7 +33,7 @@ namespace Reflection.Tasks
 
             try
             {
-                object? result = method.Invoke(obj, parameters);
+                object? result = method.Invoke(obj, parameters.Length == 0 ? null : parameters);
 
                 if (method.ReturnType != typeof(void))
                 {
