@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.14.37411.7 d17.14
+VisualStudioVersion = 17.14.37411.7
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GreetingsApp", "GreetingsApp\GreetingsApp.csproj", "{17792DEF-AB6F-4C5F-949B-255F4937A6F8}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -19,6 +19,11 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DisplayApp", "DisplayApp\Di
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UtilityApp", "UtilityApp\UtilityApp.csproj", "{F51B80E3-E45F-44CB-8247-F019AFD0877E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LoggerApp", "LoggerApp\LoggerApp.csproj", "{30DF57F0-8E60-47E6-A6EC-DF248353AD47}"
+	ProjectSection(ProjectDependencies) = postProject
+		{561CE870-7233-4D75-A2B0-E4AFA46D085C} = {561CE870-7233-4D75-A2B0-E4AFA46D085C}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -42,6 +47,10 @@ Global
 		{F51B80E3-E45F-44CB-8247-F019AFD0877E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F51B80E3-E45F-44CB-8247-F019AFD0877E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F51B80E3-E45F-44CB-8247-F019AFD0877E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30DF57F0-8E60-47E6-A6EC-DF248353AD47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30DF57F0-8E60-47E6-A6EC-DF248353AD47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30DF57F0-8E60-47E6-A6EC-DF248353AD47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30DF57F0-8E60-47E6-A6EC-DF248353AD47}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
