@@ -9,9 +9,9 @@
         /// <param name="isAdmin">The administrator status flag.</param>
         public User(string username, int age, bool isAdmin)
         {
-            Username = username;
-            Age = age;
-            IsAdmin = isAdmin;
+            this.Username = username;
+            this.Age = age;
+            this.IsAdmin = isAdmin;
         }
 
         /// <summary>Gets or sets the profile name of the user.</summary>
@@ -29,14 +29,14 @@
         /// <summary>Prints a greeting message to the console.</summary>
         public void SayHello()
         {
-            Console.WriteLine($"Hello, my username is {Username}!");
+            Console.WriteLine($"Hello, my username is {this.Username}!");
         }
 
         /// <summary>Generates a comprehensive summary string of the profile status.</summary>
         /// <returns>A string containing user details.</returns>
         public string GetProfileSummary()
         {
-            return $"User Profile: {Username}, Age: {Age}, Admin Status: {IsAdmin}";
+            return $"User Profile: {this.Username}, Age: {this.Age}, Admin Status: {this.IsAdmin}";
         }
     }
 }
